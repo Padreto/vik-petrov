@@ -1,0 +1,378 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const post = {
+  title: 'Колко струва ремонт на баня в София през 2025?',
+  date: '2025-03-25',
+  readingTime: '8 мин.',
+  author: business.owner,
+  slug: 'kolko-struva-remont-na-bania-v-sofia-2025',
+};
+
+const faqItems = [
+  {
+    q: 'Колко струва пълен ремонт на баня в Sofia?',
+    a: 'При стандартна баня от 4–6 кв.м. в Sofia трябва да разчитате на 4 000–9 000 лв. за цялостен ремонт — включително ВиК, плочки, санитария и довършителни работи. Цената варира спрямо качеството на материалите и сложността на инсталацията.',
+  },
+  {
+    q: 'Какво включва ВиК частта при ремонт на баня?',
+    a: 'ВиК работите включват: подмяна на водопроводни тръби (входящи и отходни), монтаж на смесители, душ система или вана, свързване на мивка и тоалетна, монтаж на сифони и гъвкави връзки. При по-стара сграда може да е необходима и подмяна на щрангове.',
+  },
+  {
+    q: 'Колко трае ремонтът на баня?',
+    a: 'Стандартен ремонт на баня от 4–6 кв.м. отнема 7–14 работни дни. Срокът зависи от: сложността на ВиК преоформянето, времето за съхнене на замазката и лепилото за плочки, и наличността на доставените материали. Добър изпълнител ще Ви даде точен график предварително.',
+  },
+  {
+    q: 'По-евтино ли е да запазя старата ВиК разводка?',
+    a: 'Зависи от нейното състояние. Ако тръбите са стоманени и на повече от 20 години, смяната им по време на ремонта е значително по-евтина, отколкото авариен ремонт след затваряне на стените. Препоръчвам диагностика преди вземане на решение.',
+  },
+  {
+    q: 'Как да проверя дали офертата на водопроводчика е реална?',
+    a: 'Поискайте детайлна оферта с разбивка по позиции: материали, труд, и евентуални допълнителни работи. Сравнете три оферти. Внимавайте за прекалено ниски цени — те обикновено означават компромис с материалите или скрити доплащания.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Person', name: post.author },
+  datePublished: post.date,
+  publisher: { '@type': 'Organization', name: business.name },
+};
+---
+
+<BaseLayout
+  title="Колко струва ремонт на баня в София 2025 | Блог — ВиК Петров"
+  description="Подробна разбивка на цените за ремонт на баня в Sofia за 2025 г. — ВиК, плочки, санитария. Научете какво влияе на цената и как да планирате бюджета."
+  ogType="article"
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }, { name: 'Цена ремонт баня 2025' }]}
+  schema={[faqSchema, articleSchema]}
+>
+  <Breadcrumb items={[{ name: 'Блог', href: '/blog/' }, { name: 'Цена ремонт баня 2025' }]} />
+
+  <!-- Blog hero image -->
+  <div class="w-full aspect-[21/9] overflow-hidden max-h-96">
+    <img
+      src="https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80"
+      alt="Ремонт на баня в София — цени и съвети 2025"
+      width="1200"
+      height="514"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <article class="section bg-white">
+    <div class="container max-w-3xl">
+
+      <!-- Post header -->
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">цени</span>
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">ремонт на баня</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text mb-4">Колко струва ремонт на баня в София през 2025?</h1>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span>Автор: {post.author}</span>
+          <span>•</span>
+          <time datetime={post.date}>{new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>•</span>
+          <span>{post.readingTime} четене</span>
+        </div>
+      </header>
+
+      <!-- Table of contents -->
+      <nav class="bg-bg-light rounded-xl p-6 mb-8" aria-label="Съдържание">
+        <h2 class="font-bold text-text mb-3 text-sm uppercase tracking-wide">Съдържание</h2>
+        <ol class="space-y-2 text-sm">
+          <li><a href="#obshta-cena" class="text-primary hover:underline">1. Обща цена на ремонт на баня</a></li>
+          <li><a href="#vik-razhodite" class="text-primary hover:underline">2. ВиК работи — колко струват</a></li>
+          <li><a href="#sanitaria" class="text-primary hover:underline">3. Санитария и оборудване</a></li>
+          <li><a href="#plochki-i-zavarshitelni" class="text-primary hover:underline">4. Плочки и довършителни работи</a></li>
+          <li><a href="#kakvo-vliae-na-cenata" class="text-primary hover:underline">5. Какво влияе на крайната цена</a></li>
+          <li><a href="#budget-saveti" class="text-primary hover:underline">6. Съвети за пестене на бюджет</a></li>
+          <li><a href="#faq-heading" class="text-primary hover:underline">7. Въпроси и отговори</a></li>
+        </ol>
+      </nav>
+
+      <!-- Article content -->
+
+      <section id="obshta-cena">
+        <h2 class="text-2xl font-bold text-text mb-4">Обща цена на ремонт на баня в Sofia за 2025</h2>
+        <p class="text-text-secondary mb-4">
+          Ремонтът на баня е едно от най-честите питания, което получавам. И отговорът винаги е един и същ: зависи. Зависи от размера, от материалите, от състоянието на старата инсталация и от това дали само ще подновите визията, или ще преоформяте изцяло разводката.
+        </p>
+        <p class="text-text-secondary mb-4">
+          За ориентир — ето приблизителните диапазони за <strong>стандартна баня от 4–6 кв.м. в Sofia</strong>:
+        </p>
+
+        <div class="overflow-x-auto mb-6">
+          <table class="w-full text-sm border-collapse">
+            <thead>
+              <tr class="bg-bg-blue text-text font-semibold">
+                <th class="text-left px-4 py-3 rounded-tl-lg">Тип ремонт</th>
+                <th class="text-left px-4 py-3">Обхват</th>
+                <th class="text-left px-4 py-3 rounded-tr-lg">Ориент. цена</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+              <tr class="text-text-secondary">
+                <td class="px-4 py-3 font-medium">Козметичен</td>
+                <td class="px-4 py-3">Смяна на смесители, боядисване, нова санитария</td>
+                <td class="px-4 py-3 font-semibold text-text">800–2 000 лв.</td>
+              </tr>
+              <tr class="text-text-secondary bg-bg-light">
+                <td class="px-4 py-3 font-medium">Частичен</td>
+                <td class="px-4 py-3">Нови плочки + ВиК + смесители</td>
+                <td class="px-4 py-3 font-semibold text-text">2 500–4 500 лв.</td>
+              </tr>
+              <tr class="text-text-secondary">
+                <td class="px-4 py-3 font-medium">Пълен (стандарт)</td>
+                <td class="px-4 py-3">Всичко от нула, стандартни материали</td>
+                <td class="px-4 py-3 font-semibold text-text">4 500–7 000 лв.</td>
+              </tr>
+              <tr class="text-text-secondary bg-bg-light">
+                <td class="px-4 py-3 font-medium rounded-bl-lg">Пълен (премиум)</td>
+                <td class="px-4 py-3">Висок клас материали, преоформяне</td>
+                <td class="px-4 py-3 font-semibold text-text rounded-br-lg">7 000–15 000+ лв.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="text-text-secondary mb-6">
+          Тези цени са ориентировъчни и включват материали и труд. Реалната оферта зависи от конкретните условия на обекта.
+        </p>
+      </section>
+
+      <section id="vik-razhodite">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">ВиК работи — колко струват</h2>
+        <p class="text-text-secondary mb-4">
+          ВиК частта е сърцето на банята. Дори и да вложите скъпи плочки, лоша водопроводна инсталация ще причини проблеми след месеци или години. Ето защо не препоръчвам икономии точно тук.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Типични ВиК позиции и цени в Sofia</h3>
+        <ul class="space-y-3 mb-6">
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Подмяна на водопроводни тръби (входящи, PPR или PE-Xb)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">300–700 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Подмяна на канализационни тръби (отходни, PVC)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">200–500 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Монтаж на смесител за мивка</span>
+            <span class="font-semibold text-text shrink-0 ml-4">60–120 лв. труд</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Монтаж на душ система или смесител за вана</span>
+            <span class="font-semibold text-text shrink-0 ml-4">80–180 лв. труд</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Монтаж на тоалетна чиния с казанче</span>
+            <span class="font-semibold text-text shrink-0 ml-4">80–150 лв. труд</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Монтаж на вграден казанче (инсталация)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">150–280 лв. труд</span>
+          </li>
+          <li class="flex justify-between items-start pb-3">
+            <span class="text-text-secondary">Подмяна на щранг (при необходимост)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">400–900 лв.</span>
+          </li>
+        </ul>
+
+        <p class="text-text-secondary mb-4">
+          При пълен ремонт на баня ВиК работите обикновено са между <strong>800 и 2 000 лв.</strong> за труд — без материали. Материалите за тръби, фитинги и уплътнения добавят още 300–600 лв.
+        </p>
+        <p class="text-text-secondary mb-6">
+          Вижте подробна информация за <a href="/uslugi/montaj-bania/" class="text-primary hover:underline font-medium">монтаж на баня от ВиК Петров</a> или проверете актуалните ни <a href="/ceni/" class="text-primary hover:underline font-medium">цени за ВиК услуги</a>.
+        </p>
+      </section>
+
+      <section id="sanitaria">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Санитария и оборудване</h2>
+        <p class="text-text-secondary mb-4">
+          Санитарията — мивка, тоалетна, вана или душ кабина — е вторият по-голям разход при ремонт на баня. Цените варират изключително много в зависимост от марката и дизайна.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Ориентировъчни цени за санитария</h3>
+        <ul class="space-y-3 mb-6">
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Мивка (без смесител) — стандартна</span>
+            <span class="font-semibold text-text shrink-0 ml-4">80–350 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Смесител за мивка</span>
+            <span class="font-semibold text-text shrink-0 ml-4">60–400 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Тоалетна чиния с казанче</span>
+            <span class="font-semibold text-text shrink-0 ml-4">150–600 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Вана (акрилна, стандартна)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">300–800 лв.</span>
+          </li>
+          <li class="flex justify-between items-start border-b border-gray-100 pb-3">
+            <span class="text-text-secondary">Душ кабина (стандартна)</span>
+            <span class="font-semibold text-text shrink-0 ml-4">350–1 200 лв.</span>
+          </li>
+          <li class="flex justify-between items-start pb-3">
+            <span class="text-text-secondary">Душ смесител с душ колона</span>
+            <span class="font-semibold text-text shrink-0 ml-4">150–700 лв.</span>
+          </li>
+        </ul>
+
+        <p class="text-text-secondary mb-6">
+          За средна баня с качествена, но не луксозна санитария разчитайте на <strong>900–2 000 лв.</strong> само за оборудването. При избора не гледайте единствено на дизайна — проверете дали марката има сервизна мрежа в Bulgaria и дали са налични резервни части.
+        </p>
+      </section>
+
+      <!-- Mid-post CTA -->
+      <div class="bg-bg-blue border-l-4 border-primary rounded-r-xl p-6 my-8">
+        <h3 class="font-bold text-text mb-2">Нужна ви е помощ сега?</h3>
+        <p class="text-text-secondary text-sm mb-4">Обадете се на ВиК Петров — идваме до 1 час в Sofia.</p>
+        <a href={`tel:${business.phone.tel}`} class="btn-primary text-sm" data-event="call_click" data-source="blog_midpost">
+          {business.phone.display}
+        </a>
+      </div>
+
+      <section id="plochki-i-zavarshitelni">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Плочки и довършителни работи</h2>
+        <p class="text-text-secondary mb-4">
+          Плочките са позицията, при която повечето хора или прекаляват, или пестят там, където не трябва. Ето реалните числа.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Материали</h3>
+        <p class="text-text-secondary mb-4">
+          Цената на плочките варира от <strong>15 лв./кв.м.</strong> за базов клас до <strong>120+ лв./кв.м.</strong> за внос от Испания или Италия. За баня от 5 кв.м. ще са Ви нужни около 18–22 кв.м. плочки (под и стени), като добавяте 10–15% за фуги и счупени.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Труд за полагане</h3>
+        <ul class="space-y-2 mb-6 text-text-secondary">
+          <li class="flex justify-between border-b border-gray-100 pb-2">
+            <span>Полагане на подови плочки</span>
+            <span class="font-semibold text-text">20–35 лв./кв.м.</span>
+          </li>
+          <li class="flex justify-between border-b border-gray-100 pb-2">
+            <span>Полагане на стенни плочки</span>
+            <span class="font-semibold text-text">25–40 лв./кв.м.</span>
+          </li>
+          <li class="flex justify-between border-b border-gray-100 pb-2">
+            <span>Хидроизолация (под душ/вана)</span>
+            <span class="font-semibold text-text">150–350 лв.</span>
+          </li>
+          <li class="flex justify-between pb-2">
+            <span>Замазка за изравняване на под</span>
+            <span class="font-semibold text-text">15–25 лв./кв.м.</span>
+          </li>
+        </ul>
+
+        <p class="text-text-secondary mb-6">
+          Никога не пестете от хидроизолацията под душ зоната. Спестените 100–200 лв. сега могат да Ви струват 3 000–5 000 лв. за ремонт на таван при съседа след две години.
+        </p>
+      </section>
+
+      <section id="kakvo-vliae-na-cenata">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Какво влияе на крайната цена</h2>
+        <p class="text-text-secondary mb-4">
+          Освен материалите и труда, има допълнителни фактори, които могат значително да увеличат бюджета:
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Старата инсталация</h3>
+        <p class="text-text-secondary mb-4">
+          В сградите от преди 1990 г. стоманените тръби са в лошо състояние. Смяната им е задължителна, не опционална. Ако изпълнителят Ви каже, че може да „работи около тях", намерете друг.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Преоформяне на разводката</h3>
+        <p class="text-text-secondary mb-4">
+          Ако искате да преместите тоалетната или вана на друго място — това значително увеличава разходите. Преместването на отходна тръба може да добави 400–800 лв. само за тази позиция.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Демонтаж и извозване</h3>
+        <p class="text-text-secondary mb-4">
+          Демонтажът на старите плочки, санитария и тръби отнема труд и трябва да се извозят строителни отпадъци. Тази позиция рядко влиза в офертите автоматично — попитайте изрично.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">Спирателни кранове и ревизии</h3>
+        <p class="text-text-secondary mb-6">
+          При ремонт задължително подменяйте спирателните кранове към всеки санитарен прибор. Стари кранове, непроверени с години, могат да откажат точно когато не трябва. Цена: 20–50 лв. за кран — незначителна спрямо цената на авария.
+        </p>
+      </section>
+
+      <section id="budget-saveti">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Съвети за пестене на бюджет без компромис с качеството</h2>
+        <p class="text-text-secondary mb-4">
+          Ремонтът на баня не трябва да бъде финансов кошмар. Ето практически начини да намалите разходите, без да жертвате надеждността:
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">1. Запазете позицията на санитарията</h3>
+        <p class="text-text-secondary mb-4">
+          Ако тоалетната, мивката и душът остават на същото място — ВиК работата е значително по-проста и по-евтина. Преоформянето е лукс, не необходимост.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">2. Инвестирайте в тръби, пестете от дизайна на смесителите</h3>
+        <p class="text-text-secondary mb-4">
+          Тръбите са скрити зад стените. Там качеството е от решаващо значение. Смесителите са видими — ако бюджетът е ограничен, изберете среден клас смесители, а не премиум. Ще работят добре с правилния монтаж.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">3. Поръчайте плочките в извън сезон</h3>
+        <p class="text-text-secondary mb-4">
+          Магазините за строителни материали правят разпродажби през зимата. Ако планирате ремонт за пролетта, купете плочките в януари и спестете 20–30%.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">4. Не комбинирайте много изпълнители</h3>
+        <p class="text-text-secondary mb-6">
+          Когато ВиК майсторът и плочкаря не се познават, координацията пада върху Вас. Ако е възможно, намерете изпълнител или екип, който може да обхване цялостния ремонт. Спестявате напрежение и обикновено — пари, защото не плащате „мобилизация" на два пъти.
+        </p>
+
+        <p class="text-text-secondary mb-6">
+          За консултация и оферта за ВиК частта от ремонта Ви вижте нашите <a href="/ceni/" class="text-primary hover:underline font-medium">актуални цени</a> или разгледайте услугата <a href="/uslugi/montaj-bania/" class="text-primary hover:underline font-medium">монтаж на баня</a>. При поискване правим безплатен оглед и детайлна оферта.
+        </p>
+      </section>
+
+      <!-- FAQ section -->
+      <section class="mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-2xl font-bold text-text mb-6">Въпроси и отговори</h2>
+        <div class="divide-y divide-gray-100">
+          {faqItems.map((item, i) => (
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls={`faq-${i}`}>
+                <span>{item.q}</span>
+                <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-${i}`} class="faq-answer" style="display: none;">{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- End CTA -->
+      <div class="mt-12 bg-bg-blue rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold text-text mb-3">Имате ВиК проблем?</h3>
+        <p class="text-text-secondary mb-6">Обадете се на {business.phone.display} — реагираме до 1 час.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href={`tel:${business.phone.tel}`} class="btn-primary" data-event="call_click" data-source="blog_end_cta">{business.phone.display}</a>
+          <a href="/kontakti/#form" class="btn-secondary">Заявете оглед</a>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

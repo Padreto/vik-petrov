@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const post = {
+  title: 'Топ 7 причини за запушен канал и как да ги избегнете',
+  date: '2025-03-10',
+  readingTime: '5 мин.',
+  author: business.owner,
+  slug: 'top-7-prichini-zapushen-kanal',
+};
+
+const faqItems = [
+  {
+    q: 'Колко бързо трябва да реагирам при запушен канал?',
+    a: 'При пълно запушване — веднага. Застоялата вода причинява течове, миризми и повреди по пода и тавана на съседите. При частично запушване имате 24–48 часа, но не повече.',
+  },
+  {
+    q: 'Мога ли сам да отпуша канал с химически препарат?',
+    a: 'Само при лека запушалка от мазнина или коса. Химическите препарати не действат при твърди запушалки (кърпички, строителни материали) и могат да повредят по-стари PVC тръби при продължително въздействие.',
+  },
+  {
+    q: 'Защо каналът ми се запушва повторно след отпушване?',
+    a: 'Причината е в натрупаните наслагвания по стените на тръбата или в структурен проблем — напукана тръба, неправилен наклон, корени. Необходимо е видеоинспекция, за да се установи точната причина.',
+  },
+  {
+    q: 'Какво включва професионалното отпушване с хидроджет?',
+    a: 'Хидрожетът изпраща струя вода под налягане до 200 bar директно в тръбата. Почиства не само запушалката, но и мастените наслагвания по стените. Процедурата отнема 30–60 минути.',
+  },
+  {
+    q: 'Покрива ли застраховката щетите от запушен канал?',
+    a: 'Зависи от полицата. Повечето домашни застраховки покриват щети от изтичане на вода, но не и самото отпушване. Поискайте от водопроводчика документ за извършената работа за застрахователя.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Person', name: post.author },
+  datePublished: post.date,
+  publisher: { '@type': 'Organization', name: business.name },
+};
+---
+
+<BaseLayout
+  title="Топ 7 причини за запушен канал | Блог — ВиК Петров"
+  description="Открийте кои са 7-те най-чести причини за запушен канал в София — мазнини, коса, кърпички и др. Практически съвети за превенция от ВиК Петров."
+  ogType="article"
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }, { name: 'Топ 7 причини за запушен канал' }]}
+  schema={[faqSchema, articleSchema]}
+>
+  <Breadcrumb items={[{ name: 'Блог', href: '/blog/' }, { name: 'Топ 7 причини за запушен канал' }]} />
+
+  <!-- Blog hero image -->
+  <div class="w-full aspect-[21/9] overflow-hidden max-h-96">
+    <img
+      src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=1200&q=80"
+      alt="Запушен канал — топ 7 причини и решения"
+      width="1200"
+      height="514"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <article class="section bg-white">
+    <div class="container max-w-3xl">
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">отпушване</span>
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">превенция</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text mb-4">{post.title}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span>Автор: {post.author}</span>
+          <span>•</span>
+          <time datetime={post.date}>{new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>•</span>
+          <span>{post.readingTime} четене</span>
+        </div>
+      </header>
+
+      <nav class="bg-bg-light rounded-xl p-6 mb-8" aria-label="Съдържание">
+        <h2 class="font-bold text-text mb-3 text-sm uppercase tracking-wide">Съдържание</h2>
+        <ol class="space-y-2 text-sm">
+          <li><a href="#prichina-1" class="text-primary hover:underline">1. Мазнини и остатъци от храна</a></li>
+          <li><a href="#prichina-2" class="text-primary hover:underline">2. Коса и сапунени наслагвания</a></li>
+          <li><a href="#prichina-3" class="text-primary hover:underline">3. Мокри кърпички и хигиенни продукти</a></li>
+          <li><a href="#prichina-4" class="text-primary hover:underline">4. Хранителни отпадъци</a></li>
+          <li><a href="#prichina-5" class="text-primary hover:underline">5. Варовикови наслагвания</a></li>
+          <li><a href="#prichina-6" class="text-primary hover:underline">6. Корени на дървета</a></li>
+          <li><a href="#prichina-7" class="text-primary hover:underline">7. Структурни повреди на тръбите</a></li>
+          <li><a href="#koga-specialist" class="text-primary hover:underline">Кога да се обадите на специалист</a></li>
+        </ol>
+      </nav>
+
+      <p class="text-text-secondary mb-8 text-lg">
+        Запушеният канал е един от най-честите ВиК проблеми в Sofia. Повечето случаи са предотвратими. Ето кои са конкретните причини и какво можете да направите срещу всяка от тях.
+      </p>
+
+      <h2 id="prichina-1" class="text-2xl font-bold text-text mt-10 mb-4">1. Мазнини и остатъци от храна</h2>
+      <p class="text-text-secondary mb-4">
+        Мазнините са причина номер едно за запушени кухненски канали. Когато изливате олио, бульон или мазни сосове в мивката, те изглеждат течни. При контакт с по-студената тръба обаче се втвърдяват и залепват по стените. С времето слоят се натрупва и стеснява прохода до пълно запушване.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> Никога не изливайте готварска мазнина в мивката. Оставете я да изстине в съда и я изхвърлете в боклука. Следвайте с гореща вода и капка миялна препарат след всяко миене на мазни съдове — но знайте, че това само забавя натрупването, не го спира напълно.
+      </p>
+
+      <h2 id="prichina-2" class="text-2xl font-bold text-text mt-10 mb-4">2. Коса и сапунени наслагвания</h2>
+      <p class="text-text-secondary mb-4">
+        Банята е втората основна зона за запушвания. Космите, паднали при миене на глава или бръснене, събират сапун и овлажнители и образуват плътна запушалка в сифона или по-дълбоко в тръбата. Проблемът нараства постепенно — забелязвате го едва когато водата вече не оттича изобщо.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> Поставете мрежест капак върху отвора на душа или ваната. Почиствайте го след всяко ползване. Веднъж месечно извадете сифона под мивката, почистете го и го върнете обратно. Тази процедура отнема пет минути и предотвратява скъпо отпушване.
+      </p>
+
+      <h2 id="prichina-3" class="text-2xl font-bold text-text mt-10 mb-4">3. Мокри кърпички и хигиенни продукти</h2>
+      <p class="text-text-secondary mb-4">
+        Мокрите кърпички са написали „тоалетна" на опаковката, но не се разграждат в тръбите. Те се навиват около завоите на канализацията и задържат всичко, минало след тях. Дамски превръзки, тампони и памперси причиняват същия проблем — и могат да блокират цял клон на канализацията.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> В тоалетната се хвърля само тоалетна хартия и нищо друго. Поставете кош до тоалетната чиния за всички останали хигиенни продукти. Обяснете това правило на децата и гостите.
+      </p>
+
+      <h2 id="prichina-4" class="text-2xl font-bold text-text mt-10 mb-4">4. Хранителни отпадъци</h2>
+      <p class="text-text-secondary mb-4">
+        Дори и с диспозер (кухненска мелачка), определени храни не трябва да влизат в канала: ориз, паста и хляб набъбват с влага; кафените утайки залепват по тръбите; черупките от яйца образуват ситни частици, които се смесват с мазнините и циментират запушалката.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> Изстържете чиниите в боклука преди миене. Поставете мрежест капак в кухненската мивка. Кафените утайки изхвърляйте директно в кошчето или компоста — не в мивката.
+      </p>
+
+      <h2 id="prichina-5" class="text-2xl font-bold text-text mt-10 mb-4">5. Варовикови наслагвания</h2>
+      <p class="text-text-secondary mb-4">
+        Водата в Sofia е твърда — съдържа много калций и магнезий. Тези минерали се утаяват по вътрешните стени на тръбите и образуват твърд варовиков слой. Процесът е бавен, но след 10–15 години диаметърът на тръбата може да намалее значително. Резултатът е хронично бавен отток, а след това пълно запушване.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> Поставете омекотител за вода или антикалциев магнитен уред на входа на водопровода. Веднъж годишно промивайте тръбите с разтвор на лимонена киселина или специализиран препарат срещу варовик. При по-стари сгради — поискайте видеоинспекция на тръбите.
+      </p>
+
+      <div class="bg-bg-blue border-l-4 border-primary rounded-r-xl p-6 my-8">
+        <h3 class="font-bold text-text mb-2">Нужна ви е помощ?</h3>
+        <p class="text-text-secondary text-sm mb-4">Обадете се на ВиК Петров — идваме до 1 час.</p>
+        <a href={`tel:${business.phone.tel}`} class="btn-primary text-sm" data-event="call_click" data-source="blog_midpost">{business.phone.display}</a>
+      </div>
+
+      <h2 id="prichina-6" class="text-2xl font-bold text-text mt-10 mb-4">6. Корени на дървета</h2>
+      <p class="text-text-secondary mb-4">
+        Корените на дърветата растат към влага и хранителни вещества. Канализационните тръби са идеален източник на двете. Дори малка пукнатина в стара керамична или чугунена тръба е достатъчна — коренът прониква вътре и постепенно запълва целия диаметър. Симптомите са неприятна миризма, бавен отток от всички мивки едновременно и характерен клокочещ звук.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> При засаждане на дървета спазвайте разстояние минимум 3 метра от канализационните линии. При стара сграда направете видеоинспекция преди покупка — коренните запушвания изискват механично почистване с фреза или подмяна на засегнатия участък.
+      </p>
+
+      <h2 id="prichina-7" class="text-2xl font-bold text-text mt-10 mb-4">7. Структурни повреди на тръбите</h2>
+      <p class="text-text-secondary mb-4">
+        Старите тръби — особено керамика и чугун — се напукват, слягат или развиват неправилен наклон. При наклон под необходимото твърдите частици не се изнасят от водата и се утаяват. Напуканата тръба пропуска земя и пясък вътре. И двата случая водят до повтарящи се запушвания, които не могат да се решат само с отпушване.
+      </p>
+      <p class="text-text-secondary mb-4">
+        <strong>Как да го предотвратите:</strong> Единственото решение е подмяна на засегнатия участък. Видеокамерата поставя точна диагноза — без нея работите на сляпо. При сгради над 30 години е препоръчително превантивно обследване на канализацията.
+      </p>
+
+      <h2 id="koga-specialist" class="text-2xl font-bold text-text mt-10 mb-4">Кога да се обадите на специалист</h2>
+      <p class="text-text-secondary mb-4">
+        Обадете се на <a href="/uslugi/otpushvane-kanal/" class="text-primary hover:underline">професионален водопроводчик за отпушване</a> при следните признаци:
+      </p>
+      <ul class="list-disc pl-6 mb-6 space-y-2 text-text-secondary">
+        <li>Водата не оттича изобщо или оттича изключително бавно.</li>
+        <li>Чувате клокочене от канала след пускане на водата.</li>
+        <li>Усещате неприятна миризма от сифоните без видима причина.</li>
+        <li>Повече от един сантехнически уред оттича бавно едновременно — признак за проблем в основния колектор.</li>
+        <li>Химическите препарати не помогнаха или помагат само за ден-два.</li>
+        <li>Имате повтарящи се запушвания на едно и също място.</li>
+      </ul>
+      <p class="text-text-secondary mb-4">
+        Опитите за самостоятелно отпушване с агресивни препарати при твърди запушалки или структурни проблеми само влошават ситуацията. Професионалното оборудване — хидроджет и видеокамера — решава проблема веднъж завинаги.
+      </p>
+
+      <section class="mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-2xl font-bold text-text mb-6">Въпроси и отговори</h2>
+        <div class="divide-y divide-gray-100">
+          {faqItems.map((item, i) => (
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls={`faq-${i}`}>
+                <span>{item.q}</span>
+                <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-${i}`} class="faq-answer" style="display: none;">{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div class="mt-12 bg-bg-blue rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold text-text mb-3">Нужен ви е водопроводчик?</h3>
+        <p class="text-text-secondary mb-6">Обадете се на {business.phone.display} — реагираме до 1 час.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href={`tel:${business.phone.tel}`} class="btn-primary" data-event="call_click" data-source="blog_end_cta">{business.phone.display}</a>
+          <a href="/kontakti/#form" class="btn-secondary">Заявете оглед</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

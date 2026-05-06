@@ -1,0 +1,33 @@
+﻿---
+interface Props {
+  items: { name: string; href?: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Навигационна пътека (breadcrumb)" class="bg-bg-light border-b border-gray-100">
+  <div class="container">
+    <ol class="flex flex-wrap items-center gap-1 py-3 text-sm text-text-muted" itemscope itemtype="https://schema.org/BreadcrumbList">
+      <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center">
+        <a href="/" itemprop="item" class="hover:text-primary transition-colors">
+          <span itemprop="name">Начало</span>
+        </a>
+        <meta itemprop="position" content="1" />
+      </li>
+      {items.map((item, index) => (
+        <li class="flex items-center gap-1" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+          <span class="text-text-muted mx-1" aria-hidden="true">/</span>
+          {item.href ? (
+            <a href={item.href} itemprop="item" class="hover:text-primary transition-colors">
+              <span itemprop="name">{item.name}</span>
+            </a>
+          ) : (
+            <span itemprop="name" class="text-text font-medium">{item.name}</span>
+          )}
+          <meta itemprop="position" content={String(index + 2)} />
+        </li>
+      ))}
+    </ol>
+  </div>
+</nav>

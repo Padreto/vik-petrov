@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const post = {
+  title: 'Бойлер не загрява вода — причини и решения',
+  date: '2025-02-05',
+  readingTime: '6 мин.',
+  author: business.owner,
+  slug: 'boyler-ne-zagrqva-voda-prichini-i-reshenia',
+};
+
+const faqItems = [
+  {
+    q: 'Колко дълго трябва да загрява бойлерът водата?',
+    a: 'Стандартен бойлер от 80 литра загрява студена вода до 60°C за около 60–90 минути. Ако отнема повече от два часа, вероятно нагревателният елемент е занесен с варовик или е частично дефектен.',
+  },
+  {
+    q: 'Безопасно ли е да ползвам бойлера, ако водата е хладка, но не студена?',
+    a: 'Временно — да, но не отлагайте проверката. Хладка вода при работещ бойлер означава частичен отказ на нагревателния елемент или неправилно настроен термостат. При температура под 55°C в резервоара съществува риск от размножаване на бактерии Legionella.',
+  },
+  {
+    q: 'Кога да сменя бойлера вместо да го ремонтирам?',
+    a: 'При бойлер над 10 години — обсъдете подмяната с техник. Ако предпазният клапан тече постоянно, резервоарът е ръждясал отвътре (виждате ръждиви следи от горещата вода) или ремонтът надвишава 50% от цената на нов уред — смяната е по-изгодна.',
+  },
+  {
+    q: 'Мога ли сам да сменя нагревателния елемент на бойлера?',
+    a: 'Технически е възможно при определени модели, но не се препоръчва. Грешен монтаж може да доведе до токов удар, теч или анулиране на гаранцията на уреда. Смяната отнема на техник около 30 минути и не струва много.',
+  },
+  {
+    q: 'Защо предпазният клапан на бойлера капе вода?',
+    a: 'Малко капене по време на загряване е нормално — клапанът освобождава налягане при разширяване на водата. Постоянно силно течене означава дефектен клапан или твърде високо налягане в системата. И двете изискват проверка от специалист.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Person', name: post.author },
+  datePublished: post.date,
+  publisher: { '@type': 'Organization', name: business.name },
+};
+---
+
+<BaseLayout
+  title="Бойлер не загрява вода — причини и решения | Блог — ВиК Петров"
+  description="Бойлерът ви не загрява вода? Разберете кои са причините — нагревател, термостат, варовик, ел. проблеми — и кога трябва да викате специалист."
+  ogType="article"
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }, { name: 'Бойлер не загрява вода' }]}
+  schema={[faqSchema, articleSchema]}
+>
+  <Breadcrumb items={[{ name: 'Блог', href: '/blog/' }, { name: 'Бойлер не загрява вода' }]} />
+
+  <!-- Blog hero image -->
+  <div class="w-full aspect-[21/9] overflow-hidden max-h-96">
+    <img
+      src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80"
+      alt="Бойлер — причини защо не загрява вода и решения"
+      width="1200"
+      height="514"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <article class="section bg-white">
+    <div class="container max-w-3xl">
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">бойлери</span>
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">диагностика</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text mb-4">{post.title}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span>Автор: {post.author}</span>
+          <span>•</span>
+          <time datetime={post.date}>{new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>•</span>
+          <span>{post.readingTime} четене</span>
+        </div>
+      </header>
+
+      <nav class="bg-bg-light rounded-xl p-6 mb-8" aria-label="Съдържание">
+        <h2 class="font-bold text-text mb-3 text-sm uppercase tracking-wide">Съдържание</h2>
+        <ol class="space-y-2 text-sm">
+          <li><a href="#nagrevatel" class="text-primary hover:underline">1. Изгорял нагревателен елемент</a></li>
+          <li><a href="#termostat" class="text-primary hover:underline">2. Дефектен или неправилно настроен термостат</a></li>
+          <li><a href="#varovik" class="text-primary hover:underline">3. Варовикови наслагвания</a></li>
+          <li><a href="#tok" class="text-primary hover:underline">4. Електрически проблеми</a></li>
+          <li><a href="#klапан" class="text-primary hover:underline">5. Предпазен клапан и налягане</a></li>
+          <li><a href="#sam-ili-specialist" class="text-primary hover:underline">Какво можете да проверите сами</a></li>
+          <li><a href="#remont-ili-smiana" class="text-primary hover:underline">Ремонт или смяна?</a></li>
+        </ol>
+      </nav>
+
+      <p class="text-text-secondary mb-8 text-lg">
+        Бойлерът не загрява вода — неприятна ситуация, особено сутринта. Преди да викате техник, трябва да знаете каква е вероятната причина. Това ще ви помогне да опишете проблема точно и да прецените дали е нужен спешен ремонт или просто настройка.
+      </p>
+
+      <h2 id="nagrevatel" class="text-2xl font-bold text-text mt-10 mb-4">1. Изгорял нагревателен елемент</h2>
+      <p class="text-text-secondary mb-4">
+        Нагревателният елемент (нагревателят или „тенецът") е най-честата причина за студена вода от бойлера. Той е метална намотка, потопена директно във водата, и се износва с времето. Признаците за изгорял нагревател са еднозначни: бойлерът работи (светлинният индикатор свети), чувате слабо бръмчене, но водата остава студена или едва хладка дори след два часа.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Нагревателят може да изгори напълно или частично. При частичен отказ водата се загрява, но до значително по-ниска температура от зададената. Диагнозата изисква мултицет — техникът измерва съпротивлението на елемента. Ако е извън нормата — смяна. Процедурата отнема около 30 минути.
+      </p>
+      <p class="text-text-secondary mb-4">
+        В Sofia с твърдата вода нагревателите издържат средно 5–8 години. Варовикът ускорява износването значително — нагревателят работи на по-висока температура, за да пробие изолиращия слой варовик, и изгаря по-бързо.
+      </p>
+
+      <h2 id="termostat" class="text-2xl font-bold text-text mt-10 mb-4">2. Дефектен или неправилно настроен термостат</h2>
+      <p class="text-text-secondary mb-4">
+        Термостатът контролира до каква температура се загрява водата и изключва нагревателя при достигане на зададената стойност. При дефектен термостат се получават два противоположни симптома: или бойлерът не загрява изобщо (термостатът е „заседнал" в изключено положение), или загрява прекомерно и предпазният термостат изключва уреда.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Преди да заключите, че термостатът е дефектен, проверете настройката му. На повечето бойлери има скала от около 40°C до 75°C. Препоръчителната настройка е 60°C — достатъчно висока за хигиена, достатъчно ниска за пестене на енергия. Ако скалата е на минимум, завъртете я до 60°C и изчакайте 90 минути.
+      </p>
+      <p class="text-text-secondary mb-4">
+        При действителен дефект на термостата — смяната е евтина и бърза. Моделите са до голяма степен стандартизирани.
+      </p>
+
+      <h2 id="varovik" class="text-2xl font-bold text-text mt-10 mb-4">3. Варовикови наслагвания</h2>
+      <p class="text-text-secondary mb-4">
+        Варовикът е системен проблем за бойлерите в Sofia. Твърдата вода оставя калциев карбонат по вътрешността на резервоара и по нагревателния елемент. Слоят варовик изолира нагревателя от водата — топлината не се предава ефективно и бойлерът консумира повече ток за по-малко горещa вода.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Симптомите са постепенни: в началото водата се загрява по-бавно и разходът на ток расте. По-късно водата вече не достига зададената температура. В края — нагревателят изгаря заради прегряване под варовиковия слой.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Профилактиката е проста: веднъж годишно почиствайте анода и нагревателния елемент. Магнезиевият анод в бойлера забавя отлагането на варовик и корозията — проверявайте го на всеки 2 години и го сменяйте при нужда. Промиването с лимонена киселина премахва меките наслагвания.
+      </p>
+
+      <h2 id="tok" class="text-2xl font-bold text-text mt-10 mb-4">4. Електрически проблеми</h2>
+      <p class="text-text-secondary mb-4">
+        Ако бойлерът изглежда напълно „мъртъв" — без индикатор, без звук — проблемът е в захранването. Проверете следното по ред:
+      </p>
+      <ul class="list-disc pl-6 mb-6 space-y-2 text-text-secondary">
+        <li>Проверете предпазителя (автоматичния прекъсвач) за бойлера в таблото. Ако е изключен — включете го. Ако изключва отново веднага — имате електрически проблем и трябва електротехник.</li>
+        <li>Проверете дали контактът, към който е включен бойлерът, работи — включете нещо друго в него.</li>
+        <li>Проверете дали захранващият кабел е увреден — видими изгаряния, прегризвания, наранявания на изолацията.</li>
+      </ul>
+      <p class="text-text-secondary mb-4">
+        Не разглобявайте електрическата кутия на бойлера сами. Електрическите компоненти работят под напрежение дори когато уредът е „изключен" от собствения си прекъсвач, ако главното захранване е включено.
+      </p>
+
+      <div class="bg-bg-blue border-l-4 border-primary rounded-r-xl p-6 my-8">
+        <h3 class="font-bold text-text mb-2">Нужна ви е помощ?</h3>
+        <p class="text-text-secondary text-sm mb-4">Обадете се на ВиК Петров — идваме до 1 час.</p>
+        <a href={`tel:${business.phone.tel}`} class="btn-primary text-sm" data-event="call_click" data-source="blog_midpost">{business.phone.display}</a>
+      </div>
+
+      <h2 id="клапан" class="text-2xl font-bold text-text mt-10 mb-4">5. Предпазен клапан и налягане</h2>
+      <p class="text-text-secondary mb-4">
+        Предпазният клапан (известен още като „сигурностен клапан") е малко устройство, обикновено монтирано на студената тръба, влизаща в бойлера. Той освобождава вода при прекомерно налягане или температура. Ако клапанът е задръстен или дефектен, налягането в резервоара може да натовари уреда до степен, при която предпазният термостат изключва нагревателя.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Постоянно капещ клапан означава едно от две: или клапанът е дефектен и трябва смяна (евтина процедура), или налягането в домашната инсталация е твърде високо. При налягане над 6 bar се препоръчва монтаж на редуктор на налягането.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Никога не запушвайте или залепвайте предпазния клапан. Той е защитно устройство — неговата работа предотвратява потенциално опасно повишаване на налягането.
+      </p>
+
+      <h2 id="sam-ili-specialist" class="text-2xl font-bold text-text mt-10 mb-4">Какво можете да проверите сами</h2>
+      <p class="text-text-secondary mb-4">
+        Преди да се обадите на техник, направете следните проверки — те са безопасни и не изискват инструменти:
+      </p>
+      <ol class="list-decimal pl-6 mb-6 space-y-3 text-text-secondary">
+        <li><strong>Проверете прекъсвача в таблото</strong> — уверете се, че е в позиция „включен".</li>
+        <li><strong>Проверете настройката на термостата</strong> — трябва да е на 55–60°C.</li>
+        <li><strong>Изчакайте 90 минути</strong> след включване — бойлерът не загрява мигновено.</li>
+        <li><strong>Проверете дали горещата вода тече от смесителите</strong> — ако тече гореща вода от другите кранове, проблемът може да е в конкретен смесител, не в бойлера.</li>
+        <li><strong>Огледайте клапана</strong> — малко капене при загряване е нормално. Силно течене — не.</li>
+      </ol>
+      <p class="text-text-secondary mb-4">
+        Ако след тези проверки проблемът остава, обадете се на специалист. Не разглобявайте вътрешностите на бойлера — нагревателят и термостатът работят под напрежение.
+      </p>
+
+      <h2 id="remont-ili-smiana" class="text-2xl font-bold text-text mt-10 mb-4">Ремонт или смяна?</h2>
+      <p class="text-text-secondary mb-4">
+        Не всеки дефект означава, че трябва нов бойлер. Ето ориентировъчна таблица:
+      </p>
+      <div class="overflow-x-auto mb-6">
+        <table class="w-full text-sm border-collapse">
+          <thead>
+            <tr class="bg-bg-light">
+              <th class="text-left p-3 font-bold text-text border border-gray-200">Проблем</th>
+              <th class="text-left p-3 font-bold text-text border border-gray-200">Препоръка</th>
+            </tr>
+          </thead>
+          <tbody class="text-text-secondary">
+            <tr>
+              <td class="p-3 border border-gray-200">Изгорял нагревателен елемент, бойлер до 8 г.</td>
+              <td class="p-3 border border-gray-200">Ремонт — смяна на елемента</td>
+            </tr>
+            <tr class="bg-bg-light">
+              <td class="p-3 border border-gray-200">Дефектен термостат</td>
+              <td class="p-3 border border-gray-200">Ремонт — смяна на термостата</td>
+            </tr>
+            <tr>
+              <td class="p-3 border border-gray-200">Дефектен клапан</td>
+              <td class="p-3 border border-gray-200">Ремонт — смяна на клапана</td>
+            </tr>
+            <tr class="bg-bg-light">
+              <td class="p-3 border border-gray-200">Ръждясал резервоар (ржавa вода)</td>
+              <td class="p-3 border border-gray-200">Смяна на бойлера</td>
+            </tr>
+            <tr>
+              <td class="p-3 border border-gray-200">Бойлер над 12 години, многократни ремонти</td>
+              <td class="p-3 border border-gray-200">Смяна на бойлера</td>
+            </tr>
+            <tr class="bg-bg-light">
+              <td class="p-3 border border-gray-200">Стойност на ремонта над 50% от нов уред</td>
+              <td class="p-3 border border-gray-200">Смяна на бойлера</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-text-secondary mb-4">
+        При смяна на бойлера в Sofia препоръчваме модели с анодна защита и обем 80–100 литра за стандартно домакинство. Прочетете повече за <a href="/uslugi/montaj-boyler/" class="text-primary hover:underline">монтаж на бойлер от ВиК Петров</a> — предоставяме гаранция на труда и помагаме с избора на модел.
+      </p>
+
+      <section class="mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-2xl font-bold text-text mb-6">Въпроси и отговори</h2>
+        <div class="divide-y divide-gray-100">
+          {faqItems.map((item, i) => (
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls={`faq-${i}`}>
+                <span>{item.q}</span>
+                <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-${i}`} class="faq-answer" style="display: none;">{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div class="mt-12 bg-bg-blue rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold text-text mb-3">Нужен ви е водопроводчик?</h3>
+        <p class="text-text-secondary mb-6">Обадете се на {business.phone.display} — реагираме до 1 час.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href={`tel:${business.phone.tel}`} class="btn-primary" data-event="call_click" data-source="blog_end_cta">{business.phone.display}</a>
+          <a href="/kontakti/#form" class="btn-secondary">Заявете оглед</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,267 @@
+﻿---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import TrustStrip from '../../components/TrustStrip.astro';
+import { business, neighborhoods, services, priceCategories } from '../../data/business';
+
+export function getStaticPaths() {
+  return neighborhoods.map(n => ({
+    params: { slug: n.slug },
+    props: { neighborhood: n },
+  }));
+}
+
+const { neighborhood } = Astro.props;
+
+// Unique content per neighborhood (expanded below hero)
+const neighborhoodContent: Record<string, string> = {
+  'sofia-pancharevo': `Панчарево е живописен квартал в югоизточните покрайнини на София, намиращ се в подножието на Лозенската планина. Районът е известен преди всичко с Панчаревското езеро — популярно място за отдих и спорт. Кварталът се характеризира с предимно частни вили, самостоятелни къщи и ваканционни имоти, много от които са изградени преди десетилетия и се нуждаят от обновяване на ВиК инсталациите.
+
+ВиК услугите в Панчарево са особено търсени заради спецификата на жилищния фонд — много сгради разполагат с индивидуални водоснабдителни инсталации, кладенци и септични ями. При ремонт на вила или сезонен имот в Панчарево е важно да разполагате с надежден водопроводчик, който познава спецификата на района.
+
+Теодор Петров от ВиК Петров обслужва Панчарево от 8 години. Работили сме в десетки имоти в квартала — от смяна на водомери до цялостно ВиК обзавеждане на бани. Познаваме инфраструктурните особености на района и реагираме бързо при аварии.`,
+
+  'sofia-kokaliane': `Кокаляне е тихо и зелено село в полите на Витоша, популярно сред семейства, търсещи природосъобразен начин на живот в близост до столицата. Районът е характерен с еднофамилни къщи и малки вилни имоти, много от които с частна водоснабдителна система.
+
+Специфика за Кокаляне е, че много от домовете имат стари метални ВиК инсталации, нуждаещи се от подмяна. Ниското налягане на водата понякога е проблем, особено при по-отдалечените имоти.
+
+ВиК Петров обслужва Кокаляне и предлага бързи реакции при аварии — пристигаме до 1 час. Занимаваме се с всичко от монтаж на нова баня до аварийно отпушване на канали.`,
+
+  'sofia-lozen': `Лозен е историческо село на около 20 км от центъра на София. Районът е известен с Лозенския монастир и красивата природа около него. Жилищният фонд е предимно от частни домове и вилни имоти.
+
+ВиК инфраструктурата в Лозен е разнообразна — от модерни жилища с нови инсталации до стари домове с остарели водопроводни системи. При ремонт в Лозен е важно да имате опитен водопроводчик, запознат с особеностите на района.
+
+ВиК Петров работи в Лозен редовно. Предлагаме всички видове ВиК услуги — от смяна на смесители до подмяна на цели инсталации.`,
+
+  'sofia-german': `Герман е исторически квартал в югоизточна Sofia, известен с Германската черква — средновековна православна църква. Районът разполага с разнообразен жилищен фонд — жилищни блокове, тухлени сгради и самостоятелни къщи.
+
+Специфика за Герман е, че панелните жилищни блокове имат типични проблеми — стари щрангове, изхабени фитинги и нискокачествена изолация на тръбопроводите. Течовете в панелните блокове са чести и изискват спешна реакция.
+
+ВиК Петров обслужва Герман и предлага аварийни услуги до 1 час. Работили сме в множество апартаменти и жилищни сгради в района.`,
+
+  'sofia-gorublqne': `Горубляне е квартал в югоизточна Sofia, известен с добра транспортна свързаност чрез бул. Цариградско шосе. Районът включва разнообразни жилищни сгради — панелни блокове от 60-те и 70-те години, тухлени сгради и нови жилищни комплекси.
+
+Панелните блокове в Горубляне са сред най-честите ни клиенти — там щранговете са стари и нуждаещи се от подмяна. Новите жилищни комплекси в района пък изискват прецизен монтаж на съвременна санитария.
+
+ВиК Петров работи активно в Горубляне. Предлагаме спешни ВиК услуги, подмяна на щрангове и цялостни ВиК ремонти.`,
+
+  'sofia-bistrica': `Бистрица е спокойно планинско село в подножието на Витоша, обичано от хора, търсещи природосъобразен живот в близост до столицата. Реката Бистрица минава покрай селото, създавайки приятна природна среда.
+
+Жилищният фонд в Бистрица е предимно от частни вили и малки хотели. Много от имотите са с автономни ВиК системи, нуждаещи се от периодична поддръжка и ремонт.
+
+ВиК Петров обслужва Бистрица и предлага пълен спектър от ВиК услуги — от монтаж на бани до аварийни ремонти.`,
+
+  'sofia-boqna': `Бояна е един от най-престижните квартали в южна Sofia. Известна с уникалната Боянска черква, вписана в ЮНЕСКО, кварталът предлага луксозни вили, самостоятелни къщи и съвременни жилищни комплекси.
+
+В Бояна клиентите ни обикновено търсят качествен монтаж на ВиК за нови бани с висококачествена санитария — Grohe, Hansgrohe, Roca. Правилният монтаж е ключов при скъпа санитария.
+
+ВиК Петров работи в Бояна от 8 години. Разбираме нуждата от прецизна работа и уважителен подход при луксозни имоти.`,
+
+  'sofia-dragalevtsi': `Драгалевци е популярен квартал в южна Sofia, известен с лифта до ски зоната на Витоша и Драгалевския монастир. Кварталът е изграден предимно от частни вили, жилищни комплекси и апартаменти.
+
+Специфика за Драгалевци е, че голяма част от жилищния фонд е относително нов (изграден след 2000 г.), но вече с нужда от ВиК поддръжка. Вилните имоти пък понякога имат по-сложни ВиК инсталации.
+
+ВиК Петров обслужва Драгалевци редовно. Работим бързо и прецизно — уважаваме вашия дом.`,
+
+  'sofia-simeonovo': `Симеоново е зелен квартал в южна Sofia, намиращ се по пътя за Витоша. Районът се характеризира с нови жилищни комплекси и апартаменти, изградени след 2000 г., а също и с по-стари жилищни сгради.
+
+Новопостроените комплекси в Симеоново имат нужда от монтаж на ВиК при обзавеждане на апартаменти — монтаж на кухни, бани, свързване на перални. Обслужваме и стари сгради с нужда от ремонт.
+
+ВиК Петров работи активно в Симеоново. Ако имате нужда от водопроводчик, обадете се на 0896 934 144.`,
+
+  'sofia-mladost': `Младост е един от най-гъсто населените квартали в Sofia с десетки хиляди жители. Разделен на Младост 1, 2, 3 и 4, районът включва предимно панелни жилищни блокове от 70-те и 80-те, но и нови жилищни сгради.
+
+Панелните блокове в Младост са сред нашите най-чести обекти — стари щрангове, теклящи фитинги и повредени водомери. Работим редовно в района и познаваме типичните проблеми на жилищния фонд.
+
+Близостта до Бизнес парк Sofia и НДК прави Младост удобен за офиси, хотели и заведения — клиенти, за които бързата реакция е особено важна.`,
+
+  'sofia-drujba': `Дружба е голям жилищен квартал в североизточна Sofia, намиращ се в непосредствена близост до Летище София. Кварталът включва панелни жилищни блокове, тухлени сгради и нови жилищни комплекси.
+
+Специфика за Дружба е смесеният жилищен фонд — от стари панели с остарели щрангове до нови апартаменти, нуждаещи се от монтаж на ВиК при обзавеждане.
+
+ВиК Петров обслужва Дружба с бърза реакция при аварии — до 1 час. Работим в апартаменти, жилищни сгради и офиси.`,
+
+  'sofia-krivina': `Кривина е тихо село в югоизточните покрайнини на Sofia, намиращо се край река Искър. Районът се характеризира с предимно самостоятелни жилища и малки вилни имоти.
+
+ВиК инфраструктурата в Кривина е предимно автономна — много имоти имат собствени водоснабдителни системи. При ремонт на вила или при авария е важно да имате опитен водопроводчик.
+
+ВиК Петров обслужва Кривина и прилежащите села. Обадете се за точно времето за пристигане.`,
+
+  'sofia-kazichene': `Казичене е квартал в южна Sofia, намиращ се по Пловдивско шосе. Районът комбинира жилищна и промишлена зона — самостоятелни къщи, жилищни сгради и промишлени обекти.
+
+Обслужваме жилищния сектор в Казичене — монтаж на ВиК в домове, офиси и малки предприятия. При аварии в жилищни сгради реагираме бързо.
+
+ВиК Петров работи в Казичене. Обадете се на 0896 934 144 за бърза реакция.`,
+
+  'sofia-pasarel': `Пасарел е живописно планинско село в Плана планина, намиращо се на около 30 км от центъра на Sofia. Селото е популярно сред хора, търсещи ваканционни имоти в близост до природата.
+
+Жилищният фонд в Пасарел включва традиционни селски къщи и модерни ваканционни вили. Много от старите имоти имат нужда от пълна реконструкция на ВиК инсталациите.
+
+ВиК Петров обслужва Пасарел и Плана. Работили сме в десетки вили в района — запознати сме с особеностите на местната инфраструктура.`,
+};
+
+const content = neighborhoodContent[neighborhood.slug] || `${business.name} предоставя ВиК услуги в ${neighborhood.name}, ${business.address.city}. С ${business.experience} години опит и бърза реакция до ${business.responseTime}, сме надежден избор за всички ВиК нужди в района.`;
+
+// LocalBusiness schema for this neighborhood
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'Plumber'],
+  name: `${business.name} — ВиК услуги в ${neighborhood.name}`,
+  telephone: business.phone.tel,
+  url: `${business.siteUrl}/rayoni/${neighborhood.slug}/`,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+  },
+  areaServed: {
+    '@type': 'Place',
+    name: `${neighborhood.name}, ${business.address.city}`,
+    addressCountry: 'BG',
+  },
+};
+---
+
+<BaseLayout
+  title={`ВиК услуги в ${neighborhood.name}, София — ${business.name}`}
+  description={`ВиК Петров предоставя ВиК услуги в ${neighborhood.name}, София. Монтаж, ремонт, аварийна помощ до ${business.responseTime}. ${business.experience} години опит. Тел: ${business.phone.display}.`}
+  breadcrumbs={[{ name: 'Райони', url: '/rayoni/' }, { name: neighborhood.name }]}
+  schema={localBusinessSchema}
+>
+  <Breadcrumb items={[{ name: 'Райони', href: '/rayoni/' }, { name: neighborhood.name }]} />
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-blue-950 to-primary py-12 md:py-16">
+    <div class="container">
+      <div class="max-w-3xl">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4" style="color:#ffffff;">
+          ВиК услуги в {neighborhood.name}, София
+        </h1>
+        <p class="text-lg mb-8" style="color:rgba(255,255,255,0.90);">
+          {business.name} обслужва {neighborhood.nameAccusative} с {business.experience} години опит.
+          Идваме до <strong class="text-white font-bold">{business.responseTime}</strong>. Работим всеки ден.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+          <a
+            href={`tel:${business.phone.tel}`}
+            class="cta-call-dark"
+            data-event="call_click"
+            data-source={`neighborhood_${neighborhood.slug}_hero`}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+            </svg>
+            {business.phone.display}
+          </a>
+          <a
+            href="#form"
+            class="cta-outline-dark"
+          >
+            Заявете оглед
+          </a>
+        </div>
+        <TrustStrip dark={true} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Unique neighborhood content -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2">
+          <h2 class="text-2xl font-bold text-text mb-6">
+            ВиК услуги в {neighborhood.name} — за какво ни викат?
+          </h2>
+          <div class="prose prose-gray max-w-none text-text-secondary space-y-4">
+            {content.split('\n\n').map(para => (
+              <p>{para}</p>
+            ))}
+          </div>
+
+          <!-- Local landmarks -->
+          <div class="mt-8 bg-bg-light rounded-xl p-6">
+            <h3 class="font-bold text-text mb-3">Ориентири в {neighborhood.name}</h3>
+            <ul class="flex flex-wrap gap-2">
+              {neighborhood.landmarks.map(l => (
+                <li class="bg-white border border-gray-200 text-text-secondary text-sm px-3 py-1.5 rounded-lg">
+                  {l}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Services list for this neighborhood -->
+          <div class="mt-8">
+            <h2 class="text-2xl font-bold text-text mb-6">Услуги в {neighborhood.name}</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {services.map(s => (
+                <a href={`/uslugi/${s.slug}/`} class="flex items-center justify-between p-4 bg-bg-light rounded-lg hover:bg-bg-blue transition-colors group">
+                  <span class="font-semibold text-text group-hover:text-primary transition-colors text-sm">{s.shortTitle}</span>
+                  <span class={`text-sm font-bold whitespace-nowrap ml-4 ${s.isEmergency ? 'text-emergency' : 'text-primary'}`}>{s.priceLabel}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Price preview -->
+          <div class="mt-8">
+            <h2 class="text-2xl font-bold text-text mb-4">Ориентировъчни цени</h2>
+            <div class="overflow-x-auto bg-white rounded-xl shadow-card">
+              <table class="price-table">
+                <thead>
+                  <tr><th>Услуга</th><th class="text-right">Цена</th></tr>
+                </thead>
+                <tbody>
+                  {priceCategories.slice(0, 3).flatMap(c => c.items.slice(0, 3)).slice(0, 8).map(item => (
+                    <tr>
+                      <td class="text-sm">{item.service}</td>
+                      <td class="font-bold text-right text-sm whitespace-nowrap">{item.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="text-sm text-text-secondary mt-3">
+              Цените са ориентировъчни. Точна оферта след безплатен оглед.
+              <a href="/ceni/" class="text-primary font-semibold hover:underline ml-1">Пълна ценова листа →</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div>
+          <!-- Contact form -->
+          <div id="form" class="sticky top-24">
+            <ContactForm />
+          </div>
+
+          <!-- Map placeholder -->
+          <div class="mt-6 bg-bg-light rounded-xl p-4">
+            <h3 class="font-bold text-text mb-3 text-sm">Карта — {neighborhood.name}</h3>
+            <div class="aspect-video bg-blue-100 rounded-lg overflow-hidden">
+              <iframe
+                loading="lazy"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(neighborhood.mapQuery)}&output=embed&z=13`}
+                class="w-full h-full border-0"
+                title={`Карта на ${neighborhood.name}, София`}
+                aria-label={`Google карта на ${neighborhood.name}`}
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABlock
+    title={`Нужен ви е водопроводчик в ${neighborhood.name}?`}
+    subtitle={`Обадете се — идваме до ${business.responseTime}. Работим всеки ден.`}
+    dark={true}
+    source={`neighborhood_${neighborhood.slug}_cta`}
+  />
+</BaseLayout>

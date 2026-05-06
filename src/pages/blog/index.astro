@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const posts = [
+  {
+    slug: 'kak-da-poznaiete-nujdata-ot-speshen-vodovorachik',
+    title: 'Как да познаете дали имате нужда от спешен водопроводчик?',
+    date: '2025-04-10',
+    readingTime: '6 мин.',
+    excerpt: 'Кои признаци сигнализират за спешен ВиК проблем? Научете кога трябва да се обадите незабавно и какво да правите докато чакате.',
+    tags: ['аварийни услуги', 'съвети'],
+  },
+  {
+    slug: 'kolko-struva-remont-na-bania-v-sofia-2025',
+    title: 'Колко струва ремонт на баня в София през 2025?',
+    date: '2025-03-25',
+    readingTime: '8 мин.',
+    excerpt: 'Подробен разбивка на цените за ремонт на баня в Sofia — ВиК, плочки, санитария. Колко ще ви струва и как да планирате бюджета.',
+    tags: ['цени', 'ремонт на баня'],
+  },
+  {
+    slug: 'top-7-prichini-zapushen-kanal',
+    title: 'Топ 7 причини за запушен канал и как да ги избегнете',
+    date: '2025-03-10',
+    readingTime: '5 мин.',
+    excerpt: 'Запушените канали са един от най-честите ВиК проблеми. Научете кои са причините и как да ги предотвратите.',
+    tags: ['отпушване', 'превенция'],
+  },
+  {
+    slug: 'kak-da-izberate-vodovorachik-v-sofia',
+    title: 'Как да изберете водопроводчик в София: 10 въпроса преди да наемете',
+    date: '2025-02-20',
+    readingTime: '7 мин.',
+    excerpt: 'Кои въпроси да зададете преди да наемете водопроводчик? Практически наръчник за избор на надежден ВиК специалист.',
+    tags: ['съвети', 'избор на майстор'],
+  },
+  {
+    slug: 'boyler-ne-zagrqva-voda-prichini-i-reshenia',
+    title: 'Бойлер не загрява вода — причини и решения',
+    date: '2025-02-05',
+    readingTime: '6 мин.',
+    excerpt: 'Бойлерът ви не загрява вода? Научете кои са най-честите причини и кога е нужен специалист.',
+    tags: ['бойлери', 'диагностика'],
+  },
+];
+---
+
+<BaseLayout
+  title="Блог за ВиК — съвети от ВиК Петров"
+  description="Блог с практически съвети за ВиК инсталации, ремонти и аварии в София. Пишe Теодор Петров — водопроводчик с 8 години опит."
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }]}
+>
+  <Breadcrumb items={[{ name: 'Блог' }]} />
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="max-w-3xl mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Блог</h1>
+        <p class="text-xl text-text-secondary">
+          Практически съвети за ВиК ремонти, поддръжка и аварии от {business.owner} — водопроводчик с {business.experience} години опит.
+        </p>
+      </div>
+
+      <div class="grid gap-8">
+        {posts.map(post => (
+          <article class="card flex flex-col gap-4 group hover:shadow-card-hover">
+            <div class="flex flex-col flex-1">
+              <div class="flex flex-wrap gap-2 mb-3">
+                {post.tags.map(tag => (
+                  <span class="bg-bg-blue text-primary text-xs font-semibold px-2.5 py-1 rounded-full">{tag}</span>
+                ))}
+              </div>
+              <h2 class="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors">
+                <a href={`/blog/${post.slug}/`}>{post.title}</a>
+              </h2>
+              <p class="text-text-secondary text-sm flex-1 mb-4">{post.excerpt}</p>
+              <div class="flex items-center justify-between">
+                <div class="text-xs text-text-muted flex items-center gap-3">
+                  <span>Автор: {business.owner}</span>
+                  <span>•</span>
+                  <time datetime={post.date}>
+                    {new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </time>
+                  <span>•</span>
+                  <span>{post.readingTime} четене</span>
+                </div>
+                <a href={`/blog/${post.slug}/`} class="text-primary font-semibold text-sm hover:underline shrink-0">
+                  Прочетете →
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABlock
+    title="Имате ВиК проблем?"
+    subtitle="Четенето е хубаво, но при авария — обадете се директно."
+    source="blog_index_cta"
+  />
+</BaseLayout>

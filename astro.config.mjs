@@ -1,0 +1,37 @@
+// @ts-check
+import { defineConfig } from 'astro/config';
+import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://vikpetrov.bg',
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  integrations: [
+    sitemap({
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+      serialize(item) {
+        if (item.url === 'https://vikpetrov.bg/') {
+          return { ...item, priority: 1.0, changefreq: 'daily' };
+        }
+        if (item.url.includes('/uslugi/') && item.url !== 'https://vikpetrov.bg/uslugi/') {
+          return { ...item, priority: 0.9, changefreq: 'weekly' };
+        }
+        if (item.url.includes('/rayoni/')) {
+          return { ...item, priority: 0.8, changefreq: 'monthly' };
+        }
+        if (item.url.includes('/blog/')) {
+          return { ...item, priority: 0.7, changefreq: 'monthly' };
+        }
+        return item;
+      },
+    }),
+  ],
+  output: 'static',
+  build: {
+    inlineStylesheets: 'auto',
+  },
+});

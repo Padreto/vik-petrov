@@ -1,0 +1,250 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
+import ViberFloat from '../components/ViberFloat.astro';
+import SchemaOrg from '../components/SchemaOrg.astro';
+import { business } from '../data/business';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  noindex?: boolean;
+  schema?: object | object[];
+  breadcrumbs?: { name: string; url: string }[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  ogImage = '/images/og-default.jpg',
+  ogType = 'website',
+  noindex = false,
+  schema,
+  breadcrumbs,
+} = Astro.props;
+
+const canonicalUrl = canonical ?? new URL(Astro.url.pathname, business.siteUrl).href;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${business.siteUrl}${ogImage}`;
+
+// Organization schema — global
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: business.name,
+  url: business.siteUrl,
+  logo: `${business.siteUrl}/images/logo.png`,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: business.phone.tel,
+    contactType: 'customer service',
+    availableLanguage: 'Bulgarian',
+    areaServed: 'BG',
+  },
+};
+
+// WebSite schema with SearchAction
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: business.name,
+  url: business.siteUrl,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${business.siteUrl}/vaprosi-i-otgovori/?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+// Breadcrumb schema
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Начало', item: business.siteUrl },
+    ...breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 2,
+      name: b.name,
+      item: `${business.siteUrl}${b.url}`,
+    })),
+  ],
+} : null;
+
+const allSchemas = [
+  orgSchema,
+  websiteSchema,
+  ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+  ...(schema ? (Array.isArray(schema) ? schema : [schema]) : []),
+];
+---
+
+<!doctype html>
+<html lang="bg" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <!-- Primary meta -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:site_name" content={business.name} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="bg_BG" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+
+  <!-- Favicon & PWA manifest -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0B5FFF" />
+
+  <!-- Font preconnect — using bunny.net (GDPR-safe) -->
+  <link rel="preconnect" href="https://fonts.bunny.net" />
+
+  <!-- JS-gate: adds .js to <html> before first paint so CSS reveal-hidden states only apply when JS is confirmed -->
+  <script>document.documentElement.classList.add('js')</script>
+
+  <!-- Structured data -->
+  <SchemaOrg schemas={allSchemas} />
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Skip to content for accessibility -->
+  <a href="#main-content" class="skip-link">Към основното съдържание</a>
+
+  <Header />
+
+  <main id="main-content" class="flex-1">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <!-- Fixed conversion elements -->
+  <MobileCallBar />
+  <ViberFloat />
+
+  <!-- Minimal JS for mobile menu and FAQ accordion -->
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    menuBtn?.addEventListener('click', () => {
+      const isOpen = mobileMenu?.classList.contains('hidden') === false;
+      if (isOpen) {
+        mobileMenu?.classList.add('hidden');
+        menuIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      } else {
+        mobileMenu?.classList.remove('hidden');
+        menuIcon?.classList.add('hidden');
+        closeIcon?.classList.remove('hidden');
+        menuBtn.setAttribute('aria-expanded', 'true');
+      }
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling as HTMLElement;
+        const icon = btn.querySelector('.faq-icon');
+        const isOpen = answer?.style.display === 'block';
+
+        // Close all
+        document.querySelectorAll('.faq-answer').forEach(a => {
+          (a as HTMLElement).style.display = 'none';
+        });
+        document.querySelectorAll('.faq-icon').forEach(i => {
+          i.textContent = '+';
+        });
+        document.querySelectorAll('.faq-question').forEach(b => {
+          b.setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen && answer) {
+          answer.style.display = 'block';
+          if (icon) icon.textContent = '−';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Scroll reveal — IntersectionObserver adds .is-visible to .reveal-* elements
+    const revealEls = document.querySelectorAll('.reveal, .reveal-up, .reveal-left, .reveal-right, .reveal-scale');
+    if (revealEls.length > 0) {
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -48px 0px' }
+      );
+      revealEls.forEach(el => revealObserver.observe(el));
+    }
+
+    // Header scroll effect — adds .header-scrolled class after 60px scroll
+    const siteHeader = document.querySelector('header');
+    if (siteHeader) {
+      const onScroll = () => {
+        if (window.scrollY > 60) {
+          siteHeader.classList.add('header-scrolled');
+        } else {
+          siteHeader.classList.remove('header-scrolled');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // Analytics event tracking helper
+    document.querySelectorAll('[data-event]').forEach(el => {
+      el.addEventListener('click', () => {
+        const event = el.getAttribute('data-event');
+        const source = el.getAttribute('data-source') || 'unknown';
+        const ctaName = el.getAttribute('data-cta-name') || '';
+        // Hook for analytics — push to dataLayer when GTM is set up
+        if (typeof window !== 'undefined' && (window as any).dataLayer) {
+          (window as any).dataLayer.push({
+            event: event,
+            source: source,
+            cta_name: ctaName,
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

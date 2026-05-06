@@ -1,0 +1,112 @@
+﻿---
+import { business, services } from '../data/business';
+
+const navLinks = [
+  { href: '/uslugi/', label: 'Услуги' },
+  { href: '/ceni/', label: 'Цени' },
+  { href: '/rayoni/', label: 'Райони' },
+  { href: '/za-nas/', label: 'За нас' },
+  { href: '/blog/', label: 'Блог' },
+  { href: '/kontakti/', label: 'Контакти' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+  <div class="container">
+    <div class="flex items-center justify-between h-16 md:h-18">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 text-primary font-bold text-xl shrink-0" aria-label="ВиК Петров — начало">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="16" fill="#0B5FFF"/>
+          <path d="M16 6C16 6 9 12 9 18a7 7 0 0014 0c0-6-7-12-7-12z" fill="white"/>
+          <circle cx="16" cy="18" r="3" fill="#0B5FFF"/>
+        </svg>
+        <span>ВиК <span class="text-text">Петров</span></span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden lg:flex items-center gap-6" aria-label="Основна навигация">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class={`text-sm font-semibold transition-colors duration-200 hover:text-primary ${
+              currentPath.startsWith(link.href) && link.href !== '/'
+                ? 'text-primary'
+                : 'text-text'
+            }`}
+            aria-current={currentPath === link.href ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Header phone CTA — visible on all viewports -->
+      <div class="flex items-center gap-3">
+        <a
+          href={`tel:${business.phone.tel}`}
+          class="phone-pulse flex items-center gap-2 text-primary font-bold hover:text-primary-dark transition-colors"
+          data-event="call_click"
+          data-source="header"
+          aria-label={`Обадете се на ${business.phone.display}`}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+          </svg>
+          <span class="hidden sm:inline text-base">{business.phone.display}</span>
+        </a>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-btn"
+          class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-text hover:text-primary hover:border-primary transition-colors"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Отвори менюто"
+        >
+          <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="6" x2="20" y2="6"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+          <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="hidden">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile nav dropdown -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-100 bg-white" aria-label="Мобилна навигация">
+    <nav class="container py-4 flex flex-col gap-1">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`flex items-center py-3 px-4 rounded-lg text-base font-semibold transition-colors ${
+            currentPath.startsWith(link.href) && link.href !== '/'
+              ? 'text-primary bg-bg-blue'
+              : 'text-text hover:text-primary hover:bg-bg-light'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="mt-4 pt-4 border-t border-gray-100">
+        <a
+          href={`tel:${business.phone.tel}`}
+          class="btn-primary w-full text-center"
+          data-event="call_click"
+          data-source="mobile_menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+          </svg>
+          Обадете се сега
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>

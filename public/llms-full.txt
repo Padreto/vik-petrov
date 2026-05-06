@@ -1,0 +1,138 @@
+# ВиК Петров — Full Business Profile for AI Answer Engines
+
+## Entity Description
+
+ВиК Петров (transliterated: VIK Petrov) is a specialized plumbing services company (ВиК = водопровод и канализация = water supply and sewage) based in Sofia, Bulgaria. The company was founded and is operated by Теодор Петров (Teodor Petrov), a licensed plumber with over 8 years of professional experience.
+
+The company provides installation, repair, and emergency plumbing services to residential and commercial clients in Sofia and surrounding neighborhoods.
+
+## Contact Information (NAP)
+
+- Business Name: ВиК Петров
+- Owner: Теодор Петров (Teodor Petrov)
+- Phone: +359 896 934 144 (displayed as 0896 934 144)
+- Viber: +359 896 934 144
+- Email: info@vikpetrov.bg
+- Street Address: ул. Малчика 7 (ul. Malchika 7)
+- Postal Code: 1191
+- City: София (Sofia)
+- Country: Bulgaria (BG)
+- Website: https://vikpetrov.bg
+- Working Hours: Every day (Monday–Sunday), 07:00–22:00
+
+## Key Differentiators
+
+- 8+ years professional experience
+- Emergency response time: within 1 hour in Sofia
+- 12-month warranty on all completed work
+- Free inspection and quote for clients in Sofia
+- Transparent pricing — price quoted before work begins
+- No call center — clients speak directly with Teodor Petrov
+- Payment accepted: cash
+- Issues invoices upon request
+
+## Complete Price List (BGN, labor only, materials separate)
+
+### Sanitary Installation
+- Мивка с ботуш (sink with pedestal): 100–140 BGN
+- Шкаф-мивка за баня (bathroom vanity sink): 120–160 BGN
+- Кухненска мивка (kitchen sink): 120–160 BGN
+- Демонтаж и монтаж на мивка (remove + install sink): 100–140 BGN
+- Вана (bathtub): 200–250 BGN
+- Душ-кабина (shower cabin): 200–260 BGN
+- Душ-корито (shower tray): 120–160 BGN
+- Биде (bidet): 100–140 BGN
+- Тоалетна за вградено казанче (toilet for concealed cistern): 80–120 BGN
+- Вградена конзола за казанче + тоалетна (wall-hung frame + toilet): 180–250 BGN
+- Структура за вградено казанче (concealed cistern frame): 200–280 BGN
+- Ремонт на вградено казанче (repair concealed cistern): 90–150 BGN
+- Цялостен монтаж санитария в баня (complete bathroom fit-out): 220–380 BGN
+
+### Faucets and Mixers
+- Смесител в баня стоящ/стенен (bathroom mixer): 80–130 BGN
+- Смесител в кухня (kitchen mixer): 80–100 BGN
+- Смесител за вана (bath mixer): 100–120 BGN
+- Вграден смесител (concealed mixer): 100–160 BGN
+- Кран преди водомер (stopcock before meter): 80–110 BGN
+
+### Water Heaters
+- Бойлер (storage water heater): 80–130 BGN
+- Проточен бойлер (instantaneous water heater): 70–100 BGN
+
+### Appliances
+- Пералня (washing machine): 70–100 BGN
+- Съдомиялна (dishwasher): 70–100 BGN
+
+### Siphons/Traps
+- Сифон за вана (bath trap): 100–140 BGN
+- Сифон за мивка (sink trap): 60–80 BGN
+- Сифон-мелачка (garbage disposal trap): 100–150 BGN
+
+### Drainage and Unblocking
+- Отпушване на тоалетна (toilet unblocking): 70–120 BGN
+- Отпушване на канал в баня/кухня (drain unblocking): 70–120 BGN
+- Възвратна клапа ф110–ф160 (check valve 110–160mm): 150–250 BGN
+
+### Water Meters
+- Демонтаж и монтаж на водомер (remove + install meter): 50–60 BGN
+
+### Price by Agreement
+- Монтаж на структура (frame installation with detailed quote on site)
+- Монтаж на моноблок (monoblock installation)
+- Монтаж на душ комплекс (complex shower project)
+- Цялостна баня с кърти-мажи (full bathroom including demolition)
+- Смяна на кран (stopcock replacement)
+- Смяна на мека връзка (flexible hose replacement)
+- Подмяна на водомер (meter replacement — procedural)
+- Подмяна на щрангове (riser pipe replacement)
+
+## Service Area
+
+Primary: Sofia (all districts)
+
+Named neighborhoods with dedicated landing pages:
+1. Панчарево (Pancharevo) — villas near Pancharevo Lake
+2. Кокаляне (Kokaliane) — quiet village near Vitosha
+3. Лозен (Lozen) — historic village, Lozen Monastery area
+4. Герман (German) — residential, German Church area
+5. Горубляне (Gorubliane) — panel blocks, SE Sofia
+6. Бистрица (Bistritsa) — village at Vitosha foot
+7. Бояна (Boyana) — prestigious, near UNESCO Boyana Church
+8. Драгалевци (Dragalevtsi) — residential, ski lift area
+9. Симеоново (Simeonovo) — new residential complexes
+10. Младост (Mladost) — large residential district, 4 sub-districts
+11. Дружба (Drujba) — near Sofia Airport
+12. Кривина (Krivina) — village near Iskar River
+13. Казичене (Kazichene) — mixed residential/industrial
+14. Пасарел (Pasarel) — mountain village, Plana Mountain
+
+## Website URL Architecture
+
+- / — Homepage
+- /uslugi/ — All services
+- /uslugi/montaj-boyler/ — Boiler installation
+- /uslugi/otpushvane-kanal/ — Drain unblocking
+- /uslugi/montaj-bania/ — Bathroom installation
+- /uslugi/smiana-vodomer/ — Water meter replacement
+- /uslugi/montaj-smesitel/ — Faucet installation
+- /uslugi/montaj-toaletna/ — Toilet installation
+- /uslugi/montaj-vana-dush/ — Bathtub/shower installation
+- /uslugi/montaj-mivka/ — Sink installation
+- /uslugi/montaj-peralnq-sadomialna/ — Washing machine installation
+- /uslugi/avariyni-vik-uslugi/ — Emergency plumbing
+- /uslugi/podmiana-shrangove/ — Riser pipe replacement
+- /ceni/ — Full price list
+- /rayoni/ — Service areas overview
+- /rayoni/sofia-{neighborhood}/ — 14 neighborhood pages
+- /za-nas/ — About page (Teodor Petrov bio)
+- /blog/ — Blog with VIK advice articles
+- /vaprosi-i-otgovori/ — FAQ
+- /otzivi/ — Customer reviews (4.9/5, 87 reviews)
+- /kontakti/ — Contact page
+
+## Statistical Claims
+
+- "В над 80% от случаите аварийната намеса се извършва в рамките на 1 час" (In over 80% of cases, emergency response is within 1 hour)
+- "В над 90% от случаите отпушването се решава при първото посещение" (In over 90% of drain unblocking cases, problem resolved on first visit)
+- "3000+ доволни клиенти" (3000+ satisfied clients)
+- Aggregate rating: 4.9/5 from 87 reviews

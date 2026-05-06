@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const post = {
+  title: 'Как да изберете водопроводчик в София: 10 въпроса преди да наемете',
+  date: '2025-02-20',
+  readingTime: '7 мин.',
+  author: business.owner,
+  slug: 'kak-da-izberate-vodovorachik-v-sofia',
+};
+
+const faqItems = [
+  {
+    q: 'Трябва ли водопроводчикът да има лиценз в България?',
+    a: 'За ВиК работи в жилищни сгради не се изисква специален държавен лиценз, но майсторът трябва да притежава поне трета степен на правоспособност по ВиК или строителна квалификация. Поискайте да видите документите — сериозните майстори ги представят без колебание.',
+  },
+  {
+    q: 'Как да разбера дали предложената цена е справедлива?',
+    a: 'Поискайте писмена оферта с разбивка — труд, материали, транспорт. Сравнете минимум три оферти. Много ниска цена обикновено означава скрити разходи или некачествени материали. Много висока — не е задължително гаранция за качество.',
+  },
+  {
+    q: 'Колко време трябва да чакам за отговор при авария?',
+    a: 'Надеждният водопроводчик в Sofia отговаря на телефона в рамките на 15 минути и пристига до 60 минути при спешен случай. Ако не можете да получите отговор по телефона при авария — потърсете друг.',
+  },
+  {
+    q: 'Какво трябва да съдържа гаранцията за извършена ВиК работа?',
+    a: 'Гаранцията трябва да е писмена и да посочва: период (минимум 12 месеца за труд), какво точно покрива, кой носи отговорност за материалите. Устната гаранция е безполезна при спор.',
+  },
+  {
+    q: 'Могат ли ВиК разходите да се приспаднат от данъци?',
+    a: 'При наемен имот — да, ако имате фактура. При лично жилище — не директно, но фактурата е необходима при застрахователни претенции и при продажба на имота. Винаги искайте фактура.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Person', name: post.author },
+  datePublished: post.date,
+  publisher: { '@type': 'Organization', name: business.name },
+};
+---
+
+<BaseLayout
+  title="Как да изберете водопроводчик в София: 10 въпроса | Блог — ВиК Петров"
+  description="10 конкретни въпроса, които да зададете преди да наемете водопроводчик в София. Опит, гаранция, цени, застраховка — практически наръчник от ВиК Петров."
+  ogType="article"
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }, { name: 'Как да изберете водопроводчик в София' }]}
+  schema={[faqSchema, articleSchema]}
+>
+  <Breadcrumb items={[{ name: 'Блог', href: '/blog/' }, { name: 'Как да изберете водопроводчик в София' }]} />
+
+  <!-- Blog hero image -->
+  <div class="w-full aspect-[21/9] overflow-hidden max-h-96">
+    <img
+      src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1200&q=80"
+      alt="Как да изберете надежден водопроводчик в София"
+      width="1200"
+      height="514"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <article class="section bg-white">
+    <div class="container max-w-3xl">
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">съвети</span>
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">избор на майстор</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text mb-4">{post.title}</h1>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span>Автор: {post.author}</span>
+          <span>•</span>
+          <time datetime={post.date}>{new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>•</span>
+          <span>{post.readingTime} четене</span>
+        </div>
+      </header>
+
+      <nav class="bg-bg-light rounded-xl p-6 mb-8" aria-label="Съдържание">
+        <h2 class="font-bold text-text mb-3 text-sm uppercase tracking-wide">Съдържание</h2>
+        <ol class="space-y-2 text-sm">
+          <li><a href="#vapros-1" class="text-primary hover:underline">1. Колко години опит имате?</a></li>
+          <li><a href="#vapros-2" class="text-primary hover:underline">2. Давате ли писмена гаранция?</a></li>
+          <li><a href="#vapros-3" class="text-primary hover:underline">3. Имате ли квалификация или правоспособност?</a></li>
+          <li><a href="#vapros-4" class="text-primary hover:underline">4. Как се формира цената?</a></li>
+          <li><a href="#vapros-5" class="text-primary hover:underline">5. Можете ли да дадете референции?</a></li>
+          <li><a href="#vapros-6" class="text-primary hover:underline">6. Колко бързо реагирате при авария?</a></li>
+          <li><a href="#vapros-7" class="text-primary hover:underline">7. Имате ли застраховка Гражданска отговорност?</a></li>
+          <li><a href="#vapros-8" class="text-primary hover:underline">8. Можете ли да покажете снимки от предишни обекти?</a></li>
+          <li><a href="#vapros-9" class="text-primary hover:underline">9. Какви са условията за плащане?</a></li>
+          <li><a href="#vapros-10" class="text-primary hover:underline">10. Издавате ли фактура?</a></li>
+        </ol>
+      </nav>
+
+      <p class="text-text-secondary mb-8 text-lg">
+        Изборът на водопроводчик в Sofia не трябва да се прави набързо — особено при ремонт на баня или смяна на инсталации. Грешният избор коства допълнителни пари за поправка на чужди грешки. Тези десет въпроса ще ви помогнат да отсеете сериозните от несериозните.
+      </p>
+
+      <h2 id="vapros-1" class="text-2xl font-bold text-text mt-10 mb-4">1. Колко години опит имате?</h2>
+      <p class="text-text-secondary mb-4">
+        Опитът не е единственият критерий, но е важен. Водопроводчик с под две години практика е рискован избор за сложни проекти като смяна на щрангове или цялостен монтаж на баня. За прости задачи — смяна на смесител или отпушване — по-малкият опит е приемлив, ако другите критерии са изпълнени.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Питайте конкретно: „Колко подобни проекта сте правили?" Майсторът с реален опит ще ви даде конкретни примери и числа. Майсторът без опит ще говори неопределено.
+      </p>
+
+      <h2 id="vapros-2" class="text-2xl font-bold text-text mt-10 mb-4">2. Давате ли писмена гаранция?</h2>
+      <p class="text-text-secondary mb-4">
+        Всяка ВиК работа трябва да идва с писмена гаранция. Минималният приемлив период е 12 месеца за труда. Гаранцията трябва да посочва точно какво покрива — течове от монтирани фитинги, спукани връзки, неправилен монтаж. Устната гаранция не е гаранция.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Внимавайте с формулировки като „гарантирам качеството на работата" без конкретни условия. Питайте: „Ако след 6 месеца потече тръбата, която монтирахте — какво се случва?" Отговорът трябва да е ясен и без колебание.
+      </p>
+
+      <h2 id="vapros-3" class="text-2xl font-bold text-text mt-10 mb-4">3. Имате ли квалификация или правоспособност?</h2>
+      <p class="text-text-secondary mb-4">
+        В България за ВиК работи в жилищни сгради се изисква строителна квалификация. Поискайте да видите диплома, удостоверение за правоспособност или документ от фирма с регистрация в КСБ (Камарата на строителите в България). Сериозните майстори носят тези документи или могат да ги предоставят при поискване.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Липсата на документи не означава непременно некомпетентност, но при щети е ваш риск — нямате правна защита срещу нелицензиран изпълнител.
+      </p>
+
+      <h2 id="vapros-4" class="text-2xl font-bold text-text mt-10 mb-4">4. Как се формира цената?</h2>
+      <p class="text-text-secondary mb-4">
+        Цената трябва да е прозрачна. Поискайте писмена оферта с разбивка: цена за труд, цена за материали, транспорт, евентуален оглед. Избягвайте майстори, които дават само обща сума без разбивка — при несъгласие нямате база за разговор.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Питайте и за извънредни разходи: „Ако се окаже, че проблемът е по-сложен, как се процедира?" Отговорът трябва да включва предварително уведомяване и ваше съгласие преди всяка допълнителна работа.
+      </p>
+
+      <div class="bg-bg-blue border-l-4 border-primary rounded-r-xl p-6 my-8">
+        <h3 class="font-bold text-text mb-2">Нужна ви е помощ?</h3>
+        <p class="text-text-secondary text-sm mb-4">Обадете се на ВиК Петров — идваме до 1 час.</p>
+        <a href={`tel:${business.phone.tel}`} class="btn-primary text-sm" data-event="call_click" data-source="blog_midpost">{business.phone.display}</a>
+      </div>
+
+      <h2 id="vapros-5" class="text-2xl font-bold text-text mt-10 mb-4">5. Можете ли да дадете референции?</h2>
+      <p class="text-text-secondary mb-4">
+        Референциите от реални клиенти са по-надеждни от всяка реклама. Поискайте телефон на предишен клиент с подобен проект и се свържете с него. Питайте конкретно: спазени ли са сроковете, имало ли е проблеми след приключване на работата, препоръчва ли го.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Проверете и онлайн отзивите в Google Maps — те са по-трудни за манипулация от отзивите на собствения сайт. Прочетете <a href="/otzivi/" class="text-primary hover:underline">отзивите за ВиК Петров</a> като пример за прозрачност.
+      </p>
+
+      <h2 id="vapros-6" class="text-2xl font-bold text-text mt-10 mb-4">6. Колко бързо реагирате при авария?</h2>
+      <p class="text-text-secondary mb-4">
+        При спукана тръба или наводнение всяка минута е важна. Питайте директно: „Ако ви се обадя в събота вечер с авария, кога ще пристигнете?" Приемлив отговор: до 60 минути. Неприемлив: „Ще видим" или „Зависи".
+      </p>
+      <p class="text-text-secondary mb-4">
+        Проверете дали майсторът работи и извън работно време. Авариите не се случват само в делничните дни между 9 и 17 часа.
+      </p>
+
+      <h2 id="vapros-7" class="text-2xl font-bold text-text mt-10 mb-4">7. Имате ли застраховка Гражданска отговорност?</h2>
+      <p class="text-text-secondary mb-4">
+        Застраховката Гражданска отговорност покрива щети, причинени на трети лица по вина на изпълнителя. Ако при монтаж потекат тръбите и наводнят съседа отдолу — застраховката плаща. Без нея плащате вие или майсторът от джоба си, което рядко завършва добре.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Поискайте да видите полицата. Не е достатъчно просто да ви кажат „да, имаме застраховка" — полицата показва покритието и лимитите.
+      </p>
+
+      <h2 id="vapros-8" class="text-2xl font-bold text-text mt-10 mb-4">8. Можете ли да покажете снимки от предишни обекти?</h2>
+      <p class="text-text-secondary mb-4">
+        Снимките от реални обекти показват качеството на изпълнение — равни фуги, правилно наредени тръби, чисто заварени връзки. Ако майсторът няма снимки, това е признак, че не работи системно или не се гордее с резултатите си.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Вижте <a href="/za-nas/" class="text-primary hover:underline">страницата „За нас" на ВиК Петров</a> за пример как изглежда прозрачна презентация на извършена работа.
+      </p>
+
+      <h2 id="vapros-9" class="text-2xl font-bold text-text mt-10 mb-4">9. Какви са условията за плащане?</h2>
+      <p class="text-text-secondary mb-4">
+        Стандартната практика при по-малки работи е плащане след приключване. При по-големи проекти — аванс до 30% за закупуване на материали е приемливо. Избягвайте да плащате пълната сума предварително на непознат майстор.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Питайте и за начините на плащане: брой, банков превод, карта. Ако майсторът настоява само на брой и отказва банков превод — имате причина за внимание.
+      </p>
+
+      <h2 id="vapros-10" class="text-2xl font-bold text-text mt-10 mb-4">10. Издавате ли фактура?</h2>
+      <p class="text-text-secondary mb-4">
+        Фактурата е вашата защита. Тя доказва кой е извършил работата, за каква сума и на каква дата. При застрахователна претенция, спор за гаранция или проблем при продажба на имота — фактурата е задължителна.
+      </p>
+      <p class="text-text-secondary mb-4">
+        Майсторът, който отказва да издаде фактура, работи в сивата икономика. Това е ваш риск — нямате документален запис на сделката.
+      </p>
+
+      <div class="bg-bg-light rounded-xl p-6 mt-10 mb-6">
+        <h3 class="font-bold text-text mb-3">Резюме: Контролен списък</h3>
+        <ul class="space-y-2 text-text-secondary text-sm">
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Минимум 3 години опит за сложни проекти</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Писмена гаранция минимум 12 месеца</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Документ за квалификация при поискване</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Писмена оферта с разбивка по пера</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Референции от реални клиенти</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Реакция до 60 минути при авария</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Застраховка Гражданска отговорност</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Снимки от предишни обекти</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Аванс не повече от 30%</li>
+          <li class="flex gap-2"><span class="text-primary font-bold shrink-0">✓</span> Издаване на фактура</li>
+        </ul>
+      </div>
+
+      <section class="mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-2xl font-bold text-text mb-6">Въпроси и отговори</h2>
+        <div class="divide-y divide-gray-100">
+          {faqItems.map((item, i) => (
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls={`faq-${i}`}>
+                <span>{item.q}</span>
+                <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-${i}`} class="faq-answer" style="display: none;">{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div class="mt-12 bg-bg-blue rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold text-text mb-3">Нужен ви е водопроводчик?</h3>
+        <p class="text-text-secondary mb-6">Обадете се на {business.phone.display} — реагираме до 1 час.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href={`tel:${business.phone.tel}`} class="btn-primary" data-event="call_click" data-source="blog_end_cta">{business.phone.display}</a>
+          <a href="/kontakti/#form" class="btn-secondary">Заявете оглед</a>
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business } from '../data/business';
+---
+
+<BaseLayout
+  title="Страницата не е намерена — ВиК Петров"
+  description="Търсената страница не съществува. Върнете се на началото или се обадете на ВиК Петров."
+  noindex={true}
+>
+  <section class="section bg-white min-h-[60vh] flex items-center">
+    <div class="container text-center max-w-xl">
+      <div class="text-8xl font-bold text-primary/20 mb-4">404</div>
+      <h1 class="text-3xl font-bold text-text mb-4">Страницата не е намерена</h1>
+      <p class="text-xl text-text-secondary mb-8">
+        Съжаляваме — тази страница не съществува. Може би е преместена или изтрита.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/" class="btn-primary text-lg px-8 py-4">Към началото</a>
+        <a
+          href={`tel:${business.phone.tel}`}
+          class="btn-secondary text-lg px-8 py-4"
+          data-event="call_click"
+          data-source="404_page"
+        >
+          Обадете се: {business.phone.display}
+        </a>
+      </div>
+      <div class="mt-10">
+        <p class="text-text-secondary text-sm mb-4">Или разгледайте нашите услуги:</p>
+        <div class="flex flex-wrap gap-2 justify-center">
+          {[
+            ['Услуги', '/uslugi/'],
+            ['Цени', '/ceni/'],
+            ['Контакти', '/kontakti/'],
+            ['Блог', '/blog/'],
+          ].map(([label, href]) => (
+            <a href={href} class="bg-bg-light text-text-secondary text-sm px-4 py-2 rounded-lg hover:text-primary hover:bg-bg-blue transition-colors">
+              {label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

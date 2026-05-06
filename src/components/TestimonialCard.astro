@@ -1,0 +1,42 @@
+---
+interface Props {
+  name: string;
+  neighborhood: string;
+  rating?: number;
+  text: string;
+  date?: string;
+}
+
+const { name, neighborhood, rating = 5, text, date } = Astro.props;
+const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+---
+
+<div class="testimonial-card" itemscope itemtype="https://schema.org/Review">
+  <div class="flex items-start gap-3 mb-3">
+    <!-- Avatar placeholder -->
+    <div class="w-10 h-10 rounded-full bg-bg-blue flex items-center justify-center text-primary font-bold text-lg shrink-0" aria-hidden="true">
+      {name[0]}
+    </div>
+    <div>
+      <div class="font-bold text-text text-sm" itemprop="author" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">{name}</span>
+      </div>
+      <div class="text-text-secondary text-xs">{neighborhood}, София</div>
+    </div>
+  </div>
+  <div class="stars mb-2" aria-label={`Оценка: ${rating} от 5 звезди`}>
+    <span itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+      <meta itemprop="ratingValue" content={String(rating)} />
+      <meta itemprop="bestRating" content="5" />
+      {stars}
+    </span>
+  </div>
+  <blockquote class="text-text-secondary text-sm leading-relaxed" itemprop="reviewBody">
+    "{text}"
+  </blockquote>
+  {date && (
+    <time class="text-xs text-text-muted mt-2 block" datetime={date} itemprop="datePublished">
+      {new Date(date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long' })}
+    </time>
+  )}
+</div>

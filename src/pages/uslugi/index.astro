@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business, services } from '../../data/business';
+---
+
+<BaseLayout
+  title="ВиК Услуги в София — Всички услуги на ВиК Петров"
+  description="Пълен списък с ВиК услуги в София от ВиК Петров. Монтаж на баня, бойлер, смесители, отпушване на канали. Аварийна помощ до 1 час. Тел: 0896 934 144."
+  breadcrumbs={[{ name: 'Услуги', url: '/uslugi/' }]}
+>
+  <Breadcrumb items={[{ name: 'Услуги' }]} />
+
+  <section class="section bg-white">
+    <div class="container">
+      <div class="max-w-3xl mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">ВиК услуги в София</h1>
+        <p class="text-xl text-text-secondary">
+          ВиК Петров извършва всички видове водопроводни и канализационни услуги в София.
+          {business.experience} години опит, гаранция {business.warranty}, реакция до {business.responseTime}.
+        </p>
+      </div>
+
+      <!-- Emergency callout -->
+      <div class="bg-red-50 border-2 border-emergency rounded-xl p-6 mb-12 flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div>
+          <h2 class="text-lg font-bold text-emergency mb-1">Аварийна ситуация?</h2>
+          <p class="text-text-secondary text-sm">Теч, пукната тръба, запушен канал — идваме до {business.responseTime}.</p>
+        </div>
+        <a
+          href={`tel:${business.phone.tel}`}
+          class="btn-emergency shrink-0"
+          data-event="call_click"
+          data-source="uslugi_emergency_banner"
+        >
+          Обадете се сега
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {services.map(s => (
+          <ServiceCard
+            slug={s.slug}
+            title={s.shortTitle}
+            description={s.summary.split('.')[0] + '.'}
+            priceLabel={s.priceLabel}
+            icon={s.icon}
+            isEmergency={s.isEmergency}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABlock
+    title="Не намерихте услугата, от която се нуждаете?"
+    subtitle="Обадете се — изпълняваме и нестандартни ВиК задачи. Безплатен оглед."
+    source="uslugi_index_cta"
+  />
+</BaseLayout>

@@ -1,0 +1,260 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CTABlock from '../../components/CTABlock.astro';
+import { business } from '../../data/business';
+
+const post = {
+  title: 'Как да познаете дали имате нужда от спешен водопроводчик?',
+  date: '2025-04-10',
+  readingTime: '6 мин.',
+  author: business.owner,
+  slug: 'kak-da-poznaiete-nujdata-ot-speshen-vodovorachik',
+};
+
+const faqItems = [
+  {
+    q: 'Кога трябва да се обадя за спешен водопроводчик?',
+    a: 'Обадете се незабавно при: наводнение от спукана тръба, пълна липса на вода, миризма на канализация в жилището, вода, която не спира да тече, или мокри петна по тавана и стените. Всеки от тези признаци е сигнал за авария, която се влошава с всяка изминала минута.',
+  },
+  {
+    q: 'Какво да правя докато чакам водопроводчика?',
+    a: 'Първо — затворете главния водоспирателен кран. Той обичайно е под мивката, до водомера или в разпределителното табло. После изключете електрозахранването в засегнатите стаи, ако има вода на пода. Поставете кърпи или кофи, за да ограничите щетите. Не опитвайте да ремонтирате сами — може да влошите аварията.',
+  },
+  {
+    q: 'Колко бързо може да пристигне спешен водопроводчик в София?',
+    a: 'ВиК Петров реагира до 1 час в рамките на Sofia. При обаждане ще получите точен час на пристигане. Работим и в извънработно време, включително събота и неделя.',
+  },
+  {
+    q: 'Запушен канал авария ли е?',
+    a: 'Зависи от тежестта. Ако водата изобщо не оттича и започва да прелива, или ако миризмата е силна и канализацията „кипва", — да, това е авария. Лек запушен сифон може да изчака до следващия ден. При съмнение — по-добре се обадете и опишете ситуацията.',
+  },
+  {
+    q: 'Как да разбера откъде идва водата при теч?',
+    a: 'Проверете видимите тръби под мивките и зад тоалетното казанче. Потърсете мокри следи по стените или тавана — те сочат посоката на течащата вода. Проверете водомера: ако циферблатът се върти при затворени кранове, имате скрит теч. В такъв случай незабавно се обадете на специалист.',
+  },
+  {
+    q: 'Покривате ли аварийни услуги в целия град?',
+    a: 'Да. ВиК Петров обслужва всички квартали на Sofia — Витоша, Младост, Люлин, Надежда, Овча купел, Студентски град, Лозенец, Изток, Център и другите. Обадете се на 0896 934 144 и ще потвърдим незабавно.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  author: { '@type': 'Person', name: post.author },
+  datePublished: post.date,
+  publisher: { '@type': 'Organization', name: business.name },
+};
+---
+
+<BaseLayout
+  title="Как да познаете нуждата от спешен водопроводчик | Блог — ВиК Петров"
+  description="Кои признаци сигнализират за спешен ВиК проблем? Научете кога да се обадите незабавно и какво да правите докато чакате водопроводчика."
+  ogType="article"
+  breadcrumbs={[{ name: 'Блог', url: '/blog/' }, { name: 'Спешен водопроводчик' }]}
+  schema={[faqSchema, articleSchema]}
+>
+  <Breadcrumb items={[{ name: 'Блог', href: '/blog/' }, { name: 'Спешен водопроводчик' }]} />
+
+  <!-- Blog hero image -->
+  <div class="w-full aspect-[21/9] overflow-hidden max-h-96">
+    <img
+      src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=1200&q=80"
+      alt="Спешен водопроводчик — кога да се обадите"
+      width="1200"
+      height="514"
+      loading="eager"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <article class="section bg-white">
+    <div class="container max-w-3xl">
+
+      <!-- Post header -->
+      <header class="mb-8">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">аварийни услуги</span>
+          <span class="bg-bg-blue text-primary text-xs font-semibold px-3 py-1 rounded-full">съвети</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-text mb-4">Как да познаете дали имате нужда от спешен водопроводчик?</h1>
+        <div class="flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span>Автор: {post.author}</span>
+          <span>•</span>
+          <time datetime={post.date}>{new Date(post.date).toLocaleDateString('bg-BG', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+          <span>•</span>
+          <span>{post.readingTime} четене</span>
+        </div>
+      </header>
+
+      <!-- Table of contents -->
+      <nav class="bg-bg-light rounded-xl p-6 mb-8" aria-label="Съдържание">
+        <h2 class="font-bold text-text mb-3 text-sm uppercase tracking-wide">Съдържание</h2>
+        <ol class="space-y-2 text-sm">
+          <li><a href="#znaci-za-avaria" class="text-primary hover:underline">1. Сигнали, че имате авария</a></li>
+          <li><a href="#spukana-truba" class="text-primary hover:underline">2. Спукана или пропускаща тръба</a></li>
+          <li><a href="#zapushen-kanal" class="text-primary hover:underline">3. Запушен канал — кога е спешно</a></li>
+          <li><a href="#lipsa-na-voda" class="text-primary hover:underline">4. Пълна липса на вода</a></li>
+          <li><a href="#dokato-chakvate" class="text-primary hover:underline">5. Какво да правите докато чакате</a></li>
+          <li><a href="#faq-heading" class="text-primary hover:underline">6. Въпроси и отговори</a></li>
+        </ol>
+      </nav>
+
+      <!-- Article content -->
+
+      <section id="znaci-za-avaria">
+        <h2 class="text-2xl font-bold text-text mb-4">Сигнали, че имате ВиК авария</h2>
+        <p class="text-text-secondary mb-4">
+          Не всеки ВиК проблем изисква незабавна реакция. Капещ кран може да изчака до утре. Спукана тръба под налягане — не може. Разликата между двете ситуации може да означава хиляди левове щети по мебели, паркет и конструкция на сградата.
+        </p>
+        <p class="text-text-secondary mb-4">
+          Ето признаците, при които трябва да се обадите на <strong>спешен водопроводчик незабавно</strong>:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-text-secondary mb-6">
+          <li>Вода тече по пода, стените или тавана и не можете да я спрете.</li>
+          <li>Чувате шум от течаща вода, но всички кранове са затворени.</li>
+          <li>Водомерът се върти при затворено водоснабдяване — имате скрит теч.</li>
+          <li>Силна миризма на канализация в банята или кухнята.</li>
+          <li>Водата изобщо не оттича — нито в мивката, нито в душа, нито в тоалетната.</li>
+          <li>Мокри петна по тавана, особено ако живеете в апартамент.</li>
+        </ul>
+        <p class="text-text-secondary mb-6">
+          Ако разпознавате поне един от тези сигнали — не чакайте. Всяка изминала минута увеличава щетите и разходите по ремонта.
+        </p>
+      </section>
+
+      <section id="spukana-truba">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Спукана или пропускаща тръба</h2>
+        <p class="text-text-secondary mb-4">
+          Спуканата тръба е най-честата причина за спешно повикване на водопроводчик. Тя може да се случи по различни причини: износване на материала, замръзване, прекомерно налягане или некачествен монтаж.
+        </p>
+        <h3 class="text-lg font-bold text-text mb-3">Как да разпознаете спукана тръба?</h3>
+        <p class="text-text-secondary mb-4">
+          Явните случаи са лесни — вода се лее на пода. По-трудно е да забележите скрит теч. Тогава признаците са по-фини: влажни петна по стените, олющена боя, мухъл в ъглите на стаите, неочаквано висока сметка за вода.
+        </p>
+        <p class="text-text-secondary mb-4">
+          Проверете водомера в момент, когато всички кранове са затворени. Ако стрелката или числата се движат — имате теч. Намерете главния водоспирателен кран и го затворете веднага. Обадете се на водопроводчик.
+        </p>
+        <h3 class="text-lg font-bold text-text mb-3">Какво НЕ трябва да правите</h3>
+        <p class="text-text-secondary mb-4">
+          Не опитвайте да залепите тръбата с тиксо или уплътнители от магазина. Тези „решения" са временни и маскират проблема, без да го отстраняват. При налягане от водопроводната мрежа (обичайно 3–5 бара) дори малка пукнатина може да се превърне в пробив за секунди.
+        </p>
+        <p class="text-text-secondary mb-6">
+          За <a href="/uslugi/avariyni-vik-uslugi/" class="text-primary hover:underline font-medium">аварийни ВиК услуги в Sofia</a> се обадете на ВиК Петров. Пристигаме до 1 час и носим необходимите резервни части за най-честите видове тръби и фитинги.
+        </p>
+      </section>
+
+      <section id="zapushen-kanal">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Запушен канал — кога е спешно</h2>
+        <p class="text-text-secondary mb-4">
+          Запушването на канализацията не е винаги авария. Ако водата оттича бавно — обикновено има натрупване на мазнини, косми или котлен камък в сифона. Можете да опитате с биологичен препарат или да поръчате почистване при удобно за Вас време.
+        </p>
+        <p class="text-text-secondary mb-4">
+          Авария е, когато:
+        </p>
+        <ul class="list-disc pl-6 space-y-2 text-text-secondary mb-6">
+          <li>Водата изобщо не оттича и започва да прелива от мивката или банята.</li>
+          <li>При отваряне на тоалетното казанче водата се покачва, вместо да пада.</li>
+          <li>Усещате силна неприятна миризма, дошла внезапно — знак за запушване дълбоко в общата канализация.</li>
+          <li>Множество сантехнически прибора в жилището спират да оттичат едновременно — проблемът е в главния канал.</li>
+        </ul>
+        <p class="text-text-secondary mb-6">
+          В тези случаи е нужно <a href="/uslugi/otpushvane-kanal/" class="text-primary hover:underline font-medium">професионално отпушване на канал</a> с механично или хидравлично оборудване. Не чакайте — запушеният главен канал може да доведе до обратно потичане на канализационна вода в банята или кухнята.
+        </p>
+      </section>
+
+      <section id="lipsa-na-voda">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Пълна липса на вода</h2>
+        <p class="text-text-secondary mb-4">
+          Ако внезапно нямате вода от нито един кран, проверете първо дали има планово спиране от „Софийска вода". Погледнете съобщенията онлайн или се обадете на съседите. Ако само Вашият апартамент или къща е без вода — проблемът е вътрешен.
+        </p>
+        <p class="text-text-secondary mb-4">
+          Възможните причини са: затворен или повреден водоспирателен кран, повреден водомер или скрит теч, при който налягането е паднало до нула. Всяка от тези ситуации изисква проверка от водопроводчик.
+        </p>
+        <p class="text-text-secondary mb-6">
+          При липса на вода в цялото жилище не опитвайте сами да отваряте вентили, ако не знаете точно функцията им. Грешното отваряне може да причини внезапно наводняване. Обадете се на специалист, който ще локализира проблема безопасно и бързо.
+        </p>
+      </section>
+
+      <!-- Mid-post CTA -->
+      <div class="bg-bg-blue border-l-4 border-primary rounded-r-xl p-6 my-8">
+        <h3 class="font-bold text-text mb-2">Нужна ви е помощ сега?</h3>
+        <p class="text-text-secondary text-sm mb-4">Обадете се на ВиК Петров — идваме до 1 час в Sofia.</p>
+        <a href={`tel:${business.phone.tel}`} class="btn-primary text-sm" data-event="call_click" data-source="blog_midpost">
+          {business.phone.display}
+        </a>
+      </div>
+
+      <section id="dokato-chakvate">
+        <h2 class="text-2xl font-bold text-text mt-10 mb-4">Какво да правите докато чакате водопроводчика</h2>
+        <p class="text-text-secondary mb-4">
+          Правилните действия в първите минути след установена авария намаляват значително щетите. Следвайте тези стъпки:
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">1. Затворете главния водоспирателен кран</h3>
+        <p class="text-text-secondary mb-4">
+          Това е най-важната стъпка. Спирателният кран обикновено се намира: под мивката в банята или кухнята, до водомера в коридора, в разпределителното табло на апартамента, или в мазето при къщите. Завъртете го по часовниковата стрелка до край. Ако не можете да го намерите — кажете на водопроводчика при обаждането, той ще Ви упъти.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">2. Изключете електричеството в засегнатите помещения</h3>
+        <p class="text-text-secondary mb-4">
+          Ако по пода има стояща вода, задължително изключете захранването от таблото преди да влизате в помещението. Вода и ток е смъртоносна комбинация. Ако не сте сигурни как да го направите, не влизайте в стаята.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">3. Документирайте щетите</h3>
+        <p class="text-text-secondary mb-4">
+          Направете снимки и видео преди да започнете почистване. Това е важно за застрахователни претенции — особено ако наводнението идва от съсед или е резултат от дефектен монтаж.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">4. Ограничете разпространението на водата</h3>
+        <p class="text-text-secondary mb-6">
+          Поставете кърпи, хавлии или кофи за да спрете водата да се разпростре. Отворете врати и прозорци за вентилация — влагата се натрупва бързо и може да причини мухъл дори след отстраняване на теча.
+        </p>
+
+        <h3 class="text-lg font-bold text-text mb-3">5. Уведомете съседите, ако е необходимо</h3>
+        <p class="text-text-secondary mb-6">
+          При наводнение в апартаментна сграда — почукайте при съседите под Вас. Те може да не са забелязали, че водата вече е проникнала при тях. Уведомяването навреме може да предотврати по-сериозен конфликт и допълнителни щети.
+        </p>
+      </section>
+
+      <!-- FAQ section -->
+      <section class="mt-12" aria-labelledby="faq-heading">
+        <h2 id="faq-heading" class="text-2xl font-bold text-text mb-6">Въпроси и отговори</h2>
+        <div class="divide-y divide-gray-100">
+          {faqItems.map((item, i) => (
+            <div class="faq-item">
+              <button class="faq-question" aria-expanded="false" aria-controls={`faq-${i}`}>
+                <span>{item.q}</span>
+                <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+              </button>
+              <div id={`faq-${i}`} class="faq-answer" style="display: none;">{item.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- End CTA -->
+      <div class="mt-12 bg-bg-blue rounded-xl p-8 text-center">
+        <h3 class="text-xl font-bold text-text mb-3">Имате ВиК проблем?</h3>
+        <p class="text-text-secondary mb-6">Обадете се на {business.phone.display} — реагираме до 1 час.</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href={`tel:${business.phone.tel}`} class="btn-primary" data-event="call_click" data-source="blog_end_cta">{business.phone.display}</a>
+          <a href="/kontakti/#form" class="btn-secondary">Заявете оглед</a>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</BaseLayout>

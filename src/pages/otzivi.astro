@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import CTABlock from '../components/CTABlock.astro';
+import { business } from '../data/business';
+
+const reviews = [
+  { name: 'Мария К.', neighborhood: 'Бояна', rating: 5, text: 'Теодор дойде за по-малко от час при теч от тръба. Смени всичко, почисти след себе си. Много доволна от работата!', date: '2025-03-15', service: 'Авариен ремонт' },
+  { name: 'Георги С.', neighborhood: 'Младост', rating: 5, text: 'Монтира ни нова душ кабина и мивка. Прецизна работа, уважителен отзив и разумна цена. Препоръчвам!', date: '2025-02-20', service: 'Монтаж на душ-кабина' },
+  { name: 'Анна Д.', neighborhood: 'Драгалевци', rating: 5, text: 'Спешен случай — запушена тоалетна. Теодор отговори веднага и реши проблема за 45 минути. Пет звезди!', date: '2025-04-01', service: 'Отпушване на канал' },
+  { name: 'Петър В.', neighborhood: 'Симеоново', rating: 5, text: 'Смяна на бойлер и монтаж на смесители. Качествена работа, дава 12-месечна гаранция. Ще го препоръчам на всички.', date: '2025-01-10', service: 'Монтаж на бойлер' },
+  { name: 'Стефан М.', neighborhood: 'Младост', rating: 5, text: 'Теодор е страхотен специалист. Смени ми целия щранг в апартамента — бързо, чисто, на добра цена. Препоръчвам!', date: '2025-02-10', service: 'Подмяна на щрангове' },
+  { name: 'Ива Н.', neighborhood: 'Симеоново', rating: 5, text: 'Монтира ни нова баня — душ-кабина, мивка и тоалетна. Много прецизна работа. Ще го ползваме отново!', date: '2025-03-20', service: 'Монтаж на баня' },
+  { name: 'Красимир Д.', neighborhood: 'Бояна', rating: 5, text: 'При спешна авария — теч от бойлера в 19 ч. — дойде за 40 минути. Оправи всичко. Браво!', date: '2025-01-15', service: 'Авариен ремонт' },
+  { name: 'Елена Р.', neighborhood: 'Панчарево', rating: 5, text: 'Монтаж на вана и смесители в новата ни вила. Чиста работа, добра цена, гаранция. Много доволна!', date: '2024-12-10', service: 'Монтаж на вана' },
+];
+
+const reviewSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: business.name,
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: reviews.length.toString(),
+    bestRating: '5',
+  },
+  review: reviews.map(r => ({
+    '@type': 'Review',
+    author: { '@type': 'Person', name: r.name },
+    reviewRating: { '@type': 'Rating', ratingValue: String(r.rating), bestRating: '5' },
+    reviewBody: r.text,
+    datePublished: r.date,
+  })),
+};
+---
+
+<BaseLayout
+  title="Отзиви за ВиК Петров — клиентски мнения"
+  description="Прочетете реалните отзиви на клиентите на ВиК Петров — водопроводчик в София. 4.9/5 от 87 отзива. Вижте какво казват клиентите."
+  breadcrumbs={[{ name: 'Отзиви', url: '/otzivi/' }]}
+  schema={reviewSchema}
+>
+  <Breadcrumb items={[{ name: 'Отзиви' }]} />
+
+  <section class="section bg-white">
+    <div class="container">
+      <!-- Rating summary -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-text mb-4">Отзиви на клиенти</h1>
+        <div class="inline-flex flex-col items-center gap-2 bg-bg-light rounded-2xl px-8 py-6">
+          <div class="text-5xl font-bold text-primary">4.9</div>
+          <div class="text-yellow-400 text-3xl">★★★★★</div>
+          <div class="text-text-secondary">от 5 (87 отзива)</div>
+        </div>
+      </div>
+
+      <!-- Reviews grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+        {reviews.map(r => (
+          <TestimonialCard
+            name={r.name}
+            neighborhood={r.neighborhood}
+            rating={r.rating}
+            text={r.text}
+            date={r.date}
+          />
+        ))}
+      </div>
+
+      <!-- Google review link -->
+      <div class="text-center bg-bg-blue rounded-xl p-8">
+        <h2 class="text-xl font-bold text-text mb-3">Харесахте ни?</h2>
+        <p class="text-text-secondary mb-6">Оставете ни отзив в Google — помага на другите клиенти да ни намерят.</p>
+        <a
+          href={business.social.googleBusiness}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary"
+          data-event="cta_click"
+          data-source="reviews_page"
+          data-cta-name="leave_google_review"
+        >
+          Напишете отзив в Google →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTABlock
+    title="Готови ли сте да ни изпробвате?"
+    subtitle="Обадете се — ще работим така, че да станете следващият доволен клиент."
+    dark={true}
+    source="reviews_page_cta"
+  />
+</BaseLayout>

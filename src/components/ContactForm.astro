@@ -1,0 +1,156 @@
+﻿---
+import { services } from '../data/business';
+
+interface Props {
+  preselect?: string;
+  dark?: boolean;
+}
+const { preselect = '', dark = false } = Astro.props;
+
+const wrapperStyle = dark
+  ? 'background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.22); box-shadow: 0 18px 45px rgba(0,0,0,0.22); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);'
+  : 'background: rgba(255,255,255,0.92); border: 1px solid rgba(11,95,255,0.18); box-shadow: 0 18px 45px rgba(11,95,255,0.12); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);';
+
+const headingColor = dark ? '#ffffff' : '#071a2d';
+const subColor = dark ? 'rgba(255,255,255,0.80)' : '#3a5068';
+const labelClass = dark ? "form-label form-label-white" : "form-label";
+const footerColor = dark ? 'rgba(255,255,255,0.60)' : '#52677a';
+---
+
+<div id="form" class="rounded-xl p-6 md:p-8" style={wrapperStyle}>
+  <h3 class="text-xl font-bold mb-2" style={`color: ${headingColor};`}>Заявете безплатен оглед</h3>
+  <p class="text-sm mb-6" style={`color: ${subColor};`}>Попълнете формата и ще се свържем с Вас в рамките на 30 минути.</p>
+
+  <form
+    id="contact-form"
+    class="space-y-4"
+    novalidate
+    data-event="form_submit"
+    action="/uspeshno/"
+    method="POST"
+    netlify
+    netlify-honeypot="bot-field"
+  >
+    <p class="hidden" aria-hidden="true">
+      <label>Don't fill this out: <input name="bot-field" /></label>
+    </p>
+    <input type="hidden" name="form-name" value="contact" />
+
+    <!-- Name -->
+    <div>
+      <label for="name" class={labelClass}>Вашето име</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        class="form-input"
+        placeholder="Иван Иванов"
+        autocomplete="name"
+        required
+        aria-required="true"
+      />
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label for="phone" class={labelClass}>Телефон</label>
+      <input
+        type="tel"
+        id="phone"
+        name="phone"
+        class="form-input"
+        placeholder="0896 934 144"
+        autocomplete="tel-national"
+        required
+        aria-required="true"
+        pattern="[0-9\s]{9,12}"
+      />
+    </div>
+
+    <!-- Service -->
+    <div>
+      <label for="service" class={labelClass}>Услуга</label>
+      <select id="service" name="service" class="form-input" aria-label="Изберете услуга">
+        <option value="">-- Изберете услуга --</option>
+        <optgroup label="Монтаж на санитария">
+          <option value="montaj-mivka" selected={preselect === 'montaj-mivka'}>Монтаж на мивка</option>
+          <option value="montaj-vana-dush" selected={preselect === 'montaj-vana-dush'}>Монтаж на вана / душ-кабина</option>
+          <option value="montaj-toaletna" selected={preselect === 'montaj-toaletna'}>Монтаж на тоалетна</option>
+          <option value="montaj-bania" selected={preselect === 'montaj-bania'}>Цялостен монтаж на баня</option>
+        </optgroup>
+        <optgroup label="Смесители и кранове">
+          <option value="montaj-smesitel" selected={preselect === 'montaj-smesitel'}>Монтаж на смесител</option>
+        </optgroup>
+        <optgroup label="Бойлери">
+          <option value="montaj-boyler" selected={preselect === 'montaj-boyler'}>Монтаж на бойлер</option>
+        </optgroup>
+        <optgroup label="Уреди">
+          <option value="montaj-peralnq" selected={preselect === 'montaj-peralnq'}>Монтаж на пералня / съдомиялна</option>
+        </optgroup>
+        <optgroup label="Канализация">
+          <option value="otpushvane-kanal" selected={preselect === 'otpushvane-kanal'}>Отпушване на канал</option>
+        </optgroup>
+        <optgroup label="Водомери">
+          <option value="smiana-vodomer" selected={preselect === 'smiana-vodomer'}>Смяна на водомер</option>
+        </optgroup>
+        <optgroup label="Аварийни">
+          <option value="avariyni" selected={preselect === 'avariyni'}>Авариен случай</option>
+        </optgroup>
+        <option value="drugo">Друго</option>
+      </select>
+    </div>
+
+    <!-- Message -->
+    <div>
+      <label for="message" class={labelClass}>Кратко описание</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="3"
+        class="form-input resize-none"
+        placeholder="Опишете накратко проблема или услугата..."
+        aria-label="Кратко описание на проблема"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="btn-primary w-full text-lg py-4"
+      data-event="cta_click"
+      data-cta-name="form_submit_button"
+    >
+      Заявете оглед — безплатно
+    </button>
+
+    <p class="text-xs text-center" style={`color: ${footerColor};`}>
+      Без ангажимент. Обаждаме се в рамките на 30 мин.
+    </p>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+
+  form?.addEventListener('submit', (e) => {
+    let isValid = true;
+
+    const name = form.querySelector('#name') as HTMLInputElement;
+    if (!name.value.trim()) {
+      name.classList.add('error');
+      isValid = false;
+    } else {
+      name.classList.remove('error');
+    }
+
+    const phone = form.querySelector('#phone') as HTMLInputElement;
+    const phonePattern = /^[0-9\s]{9,12}$/;
+    if (!phonePattern.test(phone.value.trim())) {
+      phone.classList.add('error');
+      isValid = false;
+    } else {
+      phone.classList.remove('error');
+    }
+
+    if (!isValid) e.preventDefault();
+  });
+</script>

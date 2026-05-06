@@ -1,0 +1,54 @@
+---
+import { business } from '../data/business';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  dark?: boolean;
+  source?: string;
+}
+
+const {
+  title = 'Нужна ви е ВиК помощ?',
+  subtitle = 'Обадете се сега — идваме до 1 час в София и прилежащите квартали.',
+  dark = false,
+  source = 'cta_block',
+} = Astro.props;
+---
+
+<section class={`py-12 md:py-16 ${dark ? 'bg-primary' : 'bg-bg-blue'}`}>
+  <div class="container text-center">
+    <h2 class={`text-2xl md:text-3xl font-bold mb-3 ${dark ? 'text-white' : 'text-text'}`}>
+      {title}
+    </h2>
+    <p class={`text-lg mb-8 max-w-xl mx-auto ${dark ? 'text-blue-100' : 'text-text-secondary'}`}>
+      {subtitle}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href={`tel:${business.phone.tel}`}
+        class={dark ? 'cta-call-dark' : 'btn-primary text-lg px-8 py-4'}
+        data-event="call_click"
+        data-source={source}
+        data-cta-name="cta_block_call"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+        </svg>
+        {business.phone.display}
+      </a>
+      <a
+        href="/kontakti/#form"
+        class={dark ? 'cta-outline-dark' : 'btn-secondary text-lg px-8 py-4'}
+        data-event="cta_click"
+        data-source={source}
+        data-cta-name="cta_block_form"
+      >
+        Заявете оглед
+      </a>
+    </div>
+    <p class={`mt-4 text-sm ${dark ? 'text-blue-200' : 'text-text-secondary'}`}>
+      Безплатен оглед • Работим всеки ден • {business.stats.clients} доволни клиенти
+    </p>
+  </div>
+</section>

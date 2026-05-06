@@ -1,0 +1,370 @@
+﻿---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABlock from '../components/CTABlock.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import ContactForm from '../components/ContactForm.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import { business, services } from '../data/business';
+
+interface Props {
+  title: string;
+  h1: string;
+  description: string;
+  slug: string;
+  summary: string;
+  priceLabel: string;
+  priceItems?: { service: string; price: string }[];
+  whatIncluded: string[];
+  whenNeeded: { problem: string; solution: string }[];
+  faq: { q: string; a: string }[];
+  relatedSlugs?: string[];
+  isEmergency?: boolean;
+  processSteps?: { title: string; desc: string }[];
+}
+
+const {
+  title,
+  h1,
+  description,
+  slug,
+  summary,
+  priceLabel,
+  priceItems = [],
+  whatIncluded,
+  whenNeeded,
+  faq,
+  relatedSlugs = [],
+  isEmergency = false,
+  processSteps = [
+    { title: 'Обадете се', desc: 'Обаждате се или пишете в Viber. Уточняваме проблема и насрочваме посещение.' },
+    { title: 'Идваме на оглед', desc: `Пристигаме до ${business.responseTime}. Безплатен оглед за клиенти в София.` },
+    { title: 'Получавате оферта', desc: 'Даваме конкретна цена без скрити такси преди да започнем.' },
+    { title: 'Извършваме работата', desc: `Работим бързо и прецизно. Гаранция ${business.warranty}.` },
+  ],
+} = Astro.props;
+
+// FAQ Schema for this service
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(item => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a,
+    },
+  })),
+};
+
+// Service schema
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: h1,
+  description: summary,
+  provider: {
+    '@type': 'LocalBusiness',
+    name: business.name,
+    telephone: business.phone.tel,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: business.address.street,
+      addressLocality: business.address.city,
+      postalCode: business.address.postalCode,
+      addressCountry: business.address.country,
+    },
+  },
+  areaServed: {
+    '@type': 'City',
+    name: 'София',
+    addressCountry: 'BG',
+  },
+};
+
+const relatedServices = relatedSlugs
+  .map(s => services.find(svc => svc.slug === s))
+  .filter(Boolean);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={[{ name: 'Услуги', url: '/uslugi/' }, { name: h1.split(' —')[0] }]}
+  schema={[faqSchema, serviceSchema]}
+>
+  <Breadcrumb items={[{ name: 'Услуги', href: '/uslugi/' }, { name: h1.split(' —')[0] }]} />
+
+  <!-- SERVICE HERO -->
+  <section class={`py-12 md:py-16 ${isEmergency ? 'bg-gradient-to-br from-red-900 to-red-700' : 'bg-gradient-to-br from-blue-950 to-primary'}`}>
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          {isEmergency && (
+            <div class="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full mb-4">
+              🚨 АВАРИЙНА УСЛУГА — 24/7
+            </div>
+          )}
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+            {h1}
+          </h1>
+          <!-- AEO summary — what LLMs cite -->
+          <p class="text-lg text-white/90 mb-6 max-w-xl">
+            {summary}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a
+              href={`tel:${business.phone.tel}`}
+              class={isEmergency ? 'cta-call-emergency' : 'cta-call-dark'}
+              data-event="call_click"
+              data-source={`service_${slug}_hero`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+              </svg>
+              {business.phone.display}
+            </a>
+            <a
+              href="#form"
+              class="cta-outline-dark"
+              data-event="cta_click"
+              data-source={`service_${slug}_hero`}
+              data-cta-name="hero_form"
+            >
+              Заявете оглед
+            </a>
+          </div>
+          <TrustStrip dark={true} />
+        </div>
+
+        <!-- Price card -->
+        <div class="bg-white rounded-xl p-6 shadow-2xl">
+          <h2 class="text-lg font-bold text-text mb-1">Ориентировъчна цена</h2>
+          <div class={`text-4xl font-bold mb-2 ${isEmergency ? 'text-emergency' : 'text-primary'}`}>
+            {priceLabel}
+          </div>
+          <p class="text-text-secondary text-sm mb-6">
+            Точна оферта след безплатен оглед. Цената включва труд.
+          </p>
+          {priceItems.length > 0 && (
+            <table class="price-table mb-4">
+              <thead>
+                <tr><th>Услуга</th><th class="text-right">Цена</th></tr>
+              </thead>
+              <tbody>
+                {priceItems.slice(0, 5).map(item => (
+                  <tr>
+                    <td>{item.service}</td>
+                    <td class="font-semibold text-right whitespace-nowrap">{item.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          <a
+            href="/ceni/"
+            class="text-primary font-semibold text-sm hover:underline"
+          >
+            Вижте пълната ценова листа →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED -->
+  <section class="section bg-white" aria-labelledby="included-heading">
+    <div class="container">
+      <div class="max-w-3xl">
+        <h2 id="included-heading" class="text-2xl font-bold text-text mb-6">Какво включва услугата</h2>
+        <ul class="space-y-3">
+          {whatIncluded.map(item => (
+            <li class="flex items-start gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true">
+                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+              </svg>
+              <span class="text-text-secondary">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHEN IS IT NEEDED -->
+  <section class="section bg-bg-light" aria-labelledby="when-heading">
+    <div class="container">
+      <h2 id="when-heading" class="text-2xl font-bold text-text mb-8">Кога е нужна тази услуга</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {whenNeeded.map(item => (
+          <div class="bg-white rounded-xl p-6 shadow-card">
+            <div class="flex items-start gap-3 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#E63946" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true">
+                <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              <h3 class="font-semibold text-text text-sm">{item.problem}</h3>
+            </div>
+            <p class="text-text-secondary text-sm">{item.solution}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section bg-white" aria-labelledby="why-heading">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 id="why-heading" class="text-2xl font-bold text-text mb-6">Защо да изберете ВиК Петров</h2>
+          <ul class="space-y-4">
+            {[
+              { icon: '⚡', title: `Реакция до ${business.responseTime}`, desc: 'В над 80% от случаите аварийната намеса се извършва в рамките на 1 час.' },
+              { icon: '✅', title: `Гаранция ${business.warranty}`, desc: 'Даваме писмена гаранция за всяка извършена услуга.' },
+              { icon: '💰', title: 'Прозрачна цена', desc: 'Казваме цената преди да започнем. Без скрити такси.' },
+              { icon: '🔧', title: `${business.experience}+ години опит`, desc: `${business.owner} лично ще извърши работата — без подизпълнители.` },
+              { icon: '🧹', title: 'Работим чисто', desc: 'Почистваме след себе си. Уважаваме вашия дом.' },
+            ].map(item => (
+              <li class="flex gap-3">
+                <span class="text-2xl shrink-0">{item.icon}</span>
+                <div>
+                  <strong class="text-text">{item.title}</strong>
+                  <p class="text-text-secondary text-sm">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-xl overflow-hidden shadow-card relative">
+          <img
+            src="/images/bania-zavyrshena-2.jpg"
+            alt="Реализиран проект от ВиК Петров — завършена баня с мраморни плочки"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+            <a
+              href={`tel:${business.phone.tel}`}
+              class="cta-call-dark w-full justify-center"
+              data-event="call_click"
+              data-source={`service_${slug}_why`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+              </svg>
+              {business.phone.display}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section bg-bg-blue" aria-labelledby="process-heading">
+    <div class="container">
+      <h2 id="process-heading" class="text-2xl font-bold text-text mb-8 text-center">Как работим</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {processSteps.map((step, i) => (
+          <div class="text-center">
+            <div class="w-12 h-12 rounded-full bg-primary text-white font-bold flex items-center justify-center text-xl mx-auto mb-4">
+              {i + 1}
+            </div>
+            <h3 class="text-lg font-bold text-text mb-2">{step.title}</h3>
+            <p class="text-text-secondary text-sm">{step.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section bg-white" aria-labelledby="faq-heading">
+    <div class="container max-w-3xl">
+      <h2 id="faq-heading" class="text-2xl font-bold text-text mb-8">Често задавани въпроси</h2>
+      <div class="divide-y divide-gray-100">
+        {faq.map((item, i) => (
+          <div class="faq-item">
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              aria-controls={`faq-answer-${i}`}
+            >
+              <span>{item.q}</span>
+              <span class="faq-icon text-primary text-xl font-bold shrink-0" aria-hidden="true">+</span>
+            </button>
+            <div
+              id={`faq-answer-${i}`}
+              class="faq-answer"
+              style="display: none;"
+            >
+              {item.a}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section class="section bg-bg-light" id="form">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <div>
+          <h2 class="text-2xl font-bold text-text mb-4">Заявете услуга</h2>
+          <p class="text-text-secondary mb-6">
+            Попълнете формата и ще се свържем с Вас до 30 минути.
+            Безплатен оглед за клиенти в София.
+          </p>
+          <ul class="space-y-3 mb-6">
+            <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Безплатен оглед</li>
+            <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Отговаряме до 30 мин.</li>
+            <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Гаранция {business.warranty}</li>
+            <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Без ангажимент</li>
+          </ul>
+
+          <!-- Links to pricing and contact -->
+          <div class="flex flex-col gap-2 text-sm">
+            <a href="/ceni/" class="text-primary hover:underline font-semibold">Вижте пълната ценова листа →</a>
+            <a href="/kontakti/" class="text-primary hover:underline font-semibold">Страница за контакти →</a>
+          </div>
+        </div>
+        <div class="rounded-2xl overflow-hidden">
+          <ContactForm preselect={slug} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RELATED SERVICES -->
+  {relatedServices.length > 0 && (
+    <section class="section bg-white" aria-labelledby="related-heading">
+      <div class="container">
+        <h2 id="related-heading" class="text-2xl font-bold text-text mb-8">Свързани услуги</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {relatedServices.map(s => s && (
+            <div class="card">
+              <h3 class="text-lg font-bold text-text mb-2">{s.shortTitle}</h3>
+              <p class="text-text-secondary text-sm mb-4">{s.summary.split('.')[0] + '.'}</p>
+              <div class="flex justify-between items-center">
+                <span class="font-bold text-primary">{s.priceLabel}</span>
+                <a href={`/uslugi/${s.slug}/`} class="text-primary text-sm font-semibold hover:underline">
+                  Научете повече →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CTABlock
+    title="Готови ли сте да поръчате?"
+    subtitle={`Обадете се на ${business.phone.display} — идваме до ${business.responseTime} в ${business.address.city}.`}
+    dark={true}
+    source={`service_${slug}_final_cta`}
+  />
+</BaseLayout>

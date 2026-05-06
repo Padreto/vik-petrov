@@ -1,0 +1,58 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  priceLabel: string;
+  icon?: string;
+  isEmergency?: boolean;
+}
+
+const { slug, title, description, priceLabel, icon = 'wrench', isEmergency = false } = Astro.props;
+
+const icons: Record<string, string> = {
+  wrench: `<path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/><circle cx="18.5" cy="5.5" r="1.5"/>`,
+  droplet: `<path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/><path d="M12 12v4" stroke-width="1.5"/><path d="M10 14h4" stroke-width="1.5"/>`,
+  shower: `<path d="M4 4l16 16"/><path d="M12 3a9 9 0 019 9"/><path d="M8 17a5 5 0 015-5"/><line x1="3" y1="21" x2="21" y2="3"/>`,
+  gauge: `<path d="M12 2a10 10 0 110 20A10 10 0 0112 2"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="1" fill="currentColor"/>`,
+  toilet: `<path d="M6 2h12v4H6z"/><path d="M6 6c0 6 12 6 12 0"/><path d="M6 22H4V10h16v12h-2"/><path d="M10 22v-4h4v4"/><circle cx="12" cy="14" r="1" fill="currentColor"/>`,
+  'shield-check': `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>`,
+};
+---
+
+<article class={`card flex flex-col ${isEmergency ? 'border-2 border-emergency !pt-0 overflow-hidden' : ''}`}>
+  {isEmergency && (
+    <div class="bg-emergency text-white text-xs font-bold px-3 py-2 -mx-6 mb-4 text-center tracking-wide uppercase">
+      🚨 Аварийна услуга 24/7
+    </div>
+  )}
+  <div class={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${isEmergency ? 'bg-red-50' : 'bg-bg-blue'}`}>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke={isEmergency ? '#E63946' : '#0B5FFF'}
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+      set:html={icons[icon] || icons.wrench}
+    />
+  </div>
+  <h3 class="text-lg font-bold text-text mb-2">{title}</h3>
+  <p class="text-text-secondary text-sm flex-1 mb-4">{description}</p>
+  <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+    <span class={`font-bold text-base ${isEmergency ? 'text-emergency' : 'text-primary'}`}>
+      {priceLabel}
+    </span>
+    <a
+      href={`/uslugi/${slug}/`}
+      class={`text-sm font-semibold hover:underline transition-colors ${isEmergency ? 'text-emergency' : 'text-primary'}`}
+      aria-label={`Научете повече за ${title}`}
+    >
+      Научете повече →
+    </a>
+  </div>
+</article>

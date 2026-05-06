@@ -1,0 +1,181 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CTABlock from '../components/CTABlock.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { business } from '../data/business';
+
+const testimonials = [
+  { name: 'Стефан М.', neighborhood: 'Младост', rating: 5, text: 'Теодор е страхотен специалист. Смени ми целия щранг в апартамента — бързо, чисто, на добра цена. Препоръчвам!', date: '2025-02-10' },
+  { name: 'Ива Н.', neighborhood: 'Симеоново', rating: 5, text: 'Монтира ни нова баня — душ-кабина, мивка и тоалетна. Много прецизна работа. Ще го ползваме отново!', date: '2025-03-20' },
+  { name: 'Красимир Д.', neighborhood: 'Бояна', rating: 5, text: 'При спешна авария — теч от бойлера в 19 ч. — дойде за 40 минути. Оправи всичко. Браво!', date: '2025-01-15' },
+];
+---
+
+<BaseLayout
+  title="За нас — ВиК Петров, водопроводчик в София"
+  description="ВиК Петров е специализирана фирма за ВиК услуги в София, основана от Теодор Петров с 8 години опит. Научете повече за нас и нашите ценности."
+  breadcrumbs={[{ name: 'За нас', url: '/za-nas/' }]}
+>
+  <Breadcrumb items={[{ name: 'За нас' }]} />
+
+  <!-- Hero -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl font-bold text-text mb-4">
+            За {business.name}
+          </h1>
+          <p class="text-xl text-text-secondary mb-6">
+            <strong class="text-text">{business.name}</strong> е специализирана фирма за ВиК услуги в {business.address.city}, основана от <strong class="text-text">{business.owner}</strong>, с {business.experience} години опит в бранша.
+          </p>
+          <p class="text-text-secondary mb-6">
+            Работим директно с клиентите — без посредници и кол центрове. Когато се обаждате, говорите лично с Теодор. Той ще дойде лично или ще изпрати свой доверен колега.
+          </p>
+          <p class="text-text-secondary mb-8">
+            Вярваме, че честността и прозрачността са основата на дългосрочните отношения с клиентите. Затова винаги казваме цената предварително и даваме писмена гаранция за работата.
+          </p>
+          <a
+            href={`tel:${business.phone.tel}`}
+            class="btn-primary"
+            data-event="call_click"
+            data-source="about_page"
+          >
+            Обадете се: {business.phone.display}
+          </a>
+        </div>
+                <!-- Key stats grid -->
+        <div class="grid grid-cols-2 gap-4 max-w-sm mx-auto lg:mx-0 w-full">
+          <div class="bg-bg-blue rounded-xl p-6 text-center shadow-card">
+            <div class="text-3xl font-bold text-primary mb-1">{business.experience}+</div>
+            <div class="text-text-secondary text-sm">години опит</div>
+          </div>
+          <div class="bg-bg-blue rounded-xl p-6 text-center shadow-card">
+            <div class="text-3xl font-bold text-primary mb-1">{business.stats.clients}</div>
+            <div class="text-text-secondary text-sm">доволни клиенти</div>
+          </div>
+          <div class="bg-bg-blue rounded-xl p-6 text-center shadow-card">
+            <div class="text-3xl font-bold text-primary mb-1">{business.warranty}</div>
+            <div class="text-text-secondary text-sm">гаранция</div>
+          </div>
+          <div class="bg-bg-blue rounded-xl p-6 text-center shadow-card">
+            <div class="text-3xl font-bold text-primary mb-1">До 1 ч.</div>
+            <div class="text-text-secondary text-sm">реакция при авария</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Owner bio — for AEO -->
+  <section class="section bg-bg-light">
+    <div class="container max-w-3xl">
+      <h2 class="text-3xl font-bold text-text mb-6">Теодор Петров - основател и изпълнител</h2>
+      <div class="prose prose-gray max-w-none text-text-secondary space-y-4">
+        <p>
+          Теодор Петров е лицензиран водопроводчик с над {business.experience} години практически опит в областта на ВиК инсталациите. Работил е на обекти от всякакъв мащаб — от смяна на смесител в апартамент до цялостна ВиК реконструкция на жилищни сгради.
+        </p>
+        <p>
+          Специализирал е в монтаж на санитария, бойлерни системи и аварийни ВиК ремонти. Разполага с пълен набор инструменти и оборудване за работа с всички видове тръбни системи — PPR, медни, поцинковани, PE-X.
+        </p>
+        <p>
+          Теодор вярва, че доброто ВиК майсторство се крие в детайлите — правилното уплътнение, правилния наклон на канала, точната проверка за течове след монтажа. "Правя работата така, сякаш е в моя дом" — това е неговото кредо.
+        </p>
+        <p>
+          Освен практическа работа, Теодор пише в блога на сайта за ВиК теми — как да разпознаете проблем, кога да потърсите специалист и как да поддържате ВиК инсталацията в добро състояние.
+        </p>
+      </div>
+
+      <!-- Credentials -->
+      <div class="mt-8 grid sm:grid-cols-3 gap-4">
+        {[
+          { label: 'Опит', value: `${business.experience}+ години` },
+          { label: 'Клиенти', value: business.stats.clients },
+          { label: 'Гаранция', value: business.warranty },
+        ].map(c => (
+          <div class="bg-white rounded-xl p-4 text-center shadow-card">
+            <div class="text-2xl font-bold text-primary">{c.value}</div>
+            <div class="text-text-secondary text-sm mt-1">{c.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section bg-white">
+    <div class="container">
+      <h2 class="text-3xl font-bold text-text mb-10 text-center">Нашите ценности</h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Честност</h3>
+          <p class="text-text-secondary text-sm">Казваме цената преди да започнем. Ако нещо не може да се оправи, ще ви кажем честно.</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Бързина</h3>
+          <p class="text-text-secondary text-sm">При авария идваме до 1 час. Уважаваме вашето време.</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Качество</h3>
+          <p class="text-text-secondary text-sm">Работим прецизно и чисто. Не правим компромиси с качеството.</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Уважение</h3>
+          <p class="text-text-secondary text-sm">Уважаваме вашия дом — почистваме след себе си, не вдигаме шум излишно.</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Прозрачност</h3>
+          <p class="text-text-secondary text-sm">Гаранция в писмен вид, ясна оферта предварително.</p>
+        </div>
+        <div class="text-center">
+          <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <h3 class="text-lg font-bold text-text mb-2">Дълготрайност</h3>
+          <p class="text-text-secondary text-sm">Целта ни е работата да трае. Не правим временни поправки за постоянни проблеми.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section bg-bg-light">
+    <div class="container">
+      <h2 class="text-3xl font-bold text-text mb-8 text-center">Какво казват клиентите</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {testimonials.map(t => (
+          <TestimonialCard
+            name={t.name}
+            neighborhood={t.neighborhood}
+            rating={t.rating}
+            text={t.text}
+            date={t.date}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABlock
+    title="Нека работим заедно"
+    subtitle="Обадете се или заявете оглед. Ще ви дадем честна оферта."
+    dark={true}
+    source="about_page_cta"
+  />
+</BaseLayout>

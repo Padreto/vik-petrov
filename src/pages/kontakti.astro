@@ -1,0 +1,147 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { business } from '../data/business';
+
+// LocalBusiness schema for contact page
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['LocalBusiness', 'Plumber'],
+  name: business.name,
+  telephone: business.phone.tel,
+  email: business.email,
+  url: business.siteUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: business.address.street,
+    addressLocality: business.address.city,
+    postalCode: business.address.postalCode,
+    addressCountry: business.address.country,
+    addressRegion: business.address.region,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: business.coordinates.lat,
+    longitude: business.coordinates.lng,
+  },
+  openingHoursSpecification: business.hours.schema.map(h => {
+    const [day, hours] = h.split(' ');
+    const [opens, closes] = hours.split('-');
+    const dayMap: Record<string, string> = {
+      Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday',
+      Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday',
+    };
+    return {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: `https://schema.org/${dayMap[day]}`,
+      opens,
+      closes,
+    };
+  }),
+};
+---
+
+<BaseLayout
+  title="Контакти — ВиК Петров, водопроводчик в София"
+  description="Свържете се с ВиК Петров — водопроводчик в София. Тел: 0896 934 144. Адрес: ул. Малчика 7, 1191 София. Работим всеки ден 07:00–22:00."
+  breadcrumbs={[{ name: 'Контакти', url: '/kontakti/' }]}
+  schema={localBusinessSchema}
+>
+  <Breadcrumb items={[{ name: 'Контакти' }]} />
+
+  <section class="section">
+    <div class="container">
+      <h1 class="text-4xl font-bold text-text mb-10">Контакти</h1>
+
+      <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Contact info -->
+        <div>
+          <h2 class="text-2xl font-bold text-text mb-6">Свържете се с нас</h2>
+
+          <!-- Phone — primary CTA -->
+          <div class="bg-bg-blue rounded-xl p-6 mb-6">
+            <p class="text-text-secondary text-sm mb-1">Телефон — обадете се директно</p>
+            <a
+              href={`tel:${business.phone.tel}`}
+              class="text-3xl font-bold text-primary hover:text-primary-dark transition-colors block mb-3"
+              data-event="call_click"
+              data-source="contact_page_phone"
+            >
+              {business.phone.display}
+            </a>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <a
+                href={`tel:${business.phone.tel}`}
+                class="btn-primary"
+                data-event="call_click"
+                data-source="contact_page_call_btn"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+                </svg>
+                Обади се
+              </a>
+              <a
+                href={`viber://chat?number=${business.phone.viber}`}
+                class="btn-secondary"
+                data-event="chat_click"
+                data-source="contact_page_viber"
+              >
+                Viber
+              </a>
+            </div>
+          </div>
+
+          <!-- NAP block — exactly the same as footer -->
+          <address class="not-italic space-y-4">
+            <div class="flex gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/><line x1="12" y1="16" x2="12" y2="22" stroke-dasharray="2 2"/>
+              </svg>
+              <div>
+                <div class="font-semibold text-text">Адрес</div>
+                <div class="text-text-secondary">{business.address.street}, {business.address.postalCode} {business.address.city}</div>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8"/><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2"/>
+              </svg>
+              <div>
+                <div class="font-semibold text-text">Имейл</div>
+                <a href={`mailto:${business.email}`} class="text-primary hover:underline">{business.email}</a>
+              </div>
+            </div>
+            <div class="flex gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16.5 14.5"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/>
+              </svg>
+              <div>
+                <div class="font-semibold text-text">Работно време</div>
+                <div class="text-text-secondary">{business.hours.display}</div>
+              </div>
+            </div>
+          </address>
+
+          <!-- Map — lazy-loaded -->
+          <div class="mt-8">
+            <h3 class="font-bold text-text mb-3">Намерете ни на картата</h3>
+            <div class="aspect-video rounded-xl overflow-hidden bg-bg-light">
+              <iframe
+                loading="lazy"
+                src={`https://maps.google.com/maps?q=${encodeURIComponent(business.address.street + ', ' + business.address.city)}&output=embed&z=15`}
+                class="w-full h-full border-0"
+                title="Карта с местоположение на ВиК Петров, София"
+                aria-label="Google карта — ВиК Петров"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact form -->
+        <div id="form"><ContactForm /></div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

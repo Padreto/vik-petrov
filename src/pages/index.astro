@@ -1,0 +1,936 @@
+﻿---
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import TrustStrip from '../components/TrustStrip.astro';
+
+import CTABlock from '../components/CTABlock.astro';
+
+import ServiceCard from '../components/ServiceCard.astro';
+
+import TestimonialCard from '../components/TestimonialCard.astro';
+
+import ContactForm from '../components/ContactForm.astro';
+
+import { business, services, priceCategories } from '../data/business';
+
+
+
+// LocalBusiness + Plumber schema
+
+const localBusinessSchema = {
+
+  '@context': 'https://schema.org',
+
+  '@type': ['LocalBusiness', 'Plumber'],
+
+  name: business.name,
+
+  image: `${business.siteUrl}/images/og-default.jpg`,
+
+  '@id': `${business.siteUrl}/#business`,
+
+  url: business.siteUrl,
+
+  telephone: business.phone.tel,
+
+  email: business.email,
+
+  priceRange: '$$',
+
+  address: {
+
+    '@type': 'PostalAddress',
+
+    streetAddress: business.address.street,
+
+    addressLocality: business.address.city,
+
+    postalCode: business.address.postalCode,
+
+    addressCountry: business.address.country,
+
+    addressRegion: business.address.region,
+
+  },
+
+  geo: {
+
+    '@type': 'GeoCoordinates',
+
+    latitude: business.coordinates.lat,
+
+    longitude: business.coordinates.lng,
+
+  },
+
+  openingHoursSpecification: business.hours.schema.map(h => {
+
+    const [day, hours] = h.split(' ');
+
+    const [opens, closes] = hours.split('-');
+
+    const dayMap: Record<string, string> = {
+
+      Mo: 'Monday', Tu: 'Tuesday', We: 'Wednesday', Th: 'Thursday',
+
+      Fr: 'Friday', Sa: 'Saturday', Su: 'Sunday',
+
+    };
+
+    return {
+
+      '@type': 'OpeningHoursSpecification',
+
+      dayOfWeek: `https://schema.org/${dayMap[day]}`,
+
+      opens,
+
+      closes,
+
+    };
+
+  }),
+
+  areaServed: [
+
+    'София', 'Панчарево', 'Кокаляне', 'Лозен', 'Герман', 'Горубляне',
+
+    'Бистрица', 'Бояна', 'Драгалевци', 'Симеоново', 'Младост', 'Дружба',
+
+    'Кривина', 'Казичене', 'Пасарел',
+
+  ],
+
+  aggregateRating: {
+
+    '@type': 'AggregateRating',
+
+    ratingValue: '4.9',
+
+    reviewCount: '87',
+
+    bestRating: '5',
+
+  },
+
+  founder: {
+
+    '@type': 'Person',
+
+    name: business.owner,
+
+  },
+
+};
+
+
+
+const testimonials = [
+
+  {
+
+    name: 'Мария К.',
+
+    neighborhood: 'Бояна',
+
+    rating: 5,
+
+    text: 'Теодор дойде за по-малко от час при теч от тръба. Смени всичко, почисти след себе си. Много доволна от работата!',
+
+    date: '2025-03-15',
+
+  },
+
+  {
+
+    name: 'Георги С.',
+
+    neighborhood: 'Младост',
+
+    rating: 5,
+
+    text: 'Монтира ни нова душ кабина и мивка. Прецизна работа, уважителен отзив и разумна цена. Препоръчвам!',
+
+    date: '2025-02-20',
+
+  },
+
+  {
+
+    name: 'Анна Д.',
+
+    neighborhood: 'Драгалевци',
+
+    rating: 5,
+
+    text: 'Спешен случай — запушена тоалетна. Теодор отговори веднага и реши проблема за 45 минути. Пет звезди!',
+
+    date: '2025-04-01',
+
+  },
+
+  {
+
+    name: 'Петър В.',
+
+    neighborhood: 'Симеоново',
+
+    rating: 5,
+
+    text: 'Смяна на бойлер и монтаж на смесители. Качествена работа, дава 12-месечна гаранция. Ще го препоръчам на всички.',
+
+    date: '2025-01-10',
+
+  },
+
+];
+
+
+
+const howWeWorkSteps = [
+
+  { num: 1, title: 'Обаждате се', desc: 'Обаждате се или пишете в Viber. Отговаряме в рамките на минути.' },
+
+  { num: 2, title: 'Идваме на оглед', desc: 'Пристигаме до 1 час. Безплатен оглед за клиенти в София.' },
+
+  { num: 3, title: 'Получавате оферта', desc: 'Даваме ясна цена без скрити такси — предварително.' },
+
+  { num: 4, title: 'Извършваме работата', desc: 'Работим бързо и чисто. Гаранция 12 месеца.' },
+
+];
+
+---
+
+
+
+<BaseLayout
+
+  title="ВиК услуги в София — Водопроводчик Теодор Петров"
+
+  description="ВиК Петров — надежден водопроводчик в София. Монтаж на бани, бойлери, смесители. Аварийна помощ до 1 час. 8 години опит. Обадете се сега: 0896 934 144."
+
+  schema={localBusinessSchema}
+
+>
+
+
+
+  <!-- HERO -->
+
+  <section class="relative overflow-hidden hero-section" style="background-color: #050e24; background-image: url(/images/hero-bg.jpg); background-size: cover; background-position: center center;">
+
+    <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+
+      <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full" style="background: rgba(255,255,255,0.04);"></div>
+
+      <div class="absolute right-16 top-16 w-48 h-48 rounded-full" style="background: rgba(255,255,255,0.05);"></div>
+
+      <div class="absolute -left-16 bottom-0 w-80 h-80 rounded-full" style="background: rgba(255,255,255,0.03);"></div>
+
+      <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(5,14,36,0.88) 0%, rgba(5,14,36,0.75) 50%, rgba(5,14,36,0.45) 100%);"></div>
+
+
+    </div>
+
+
+
+    <div class="container relative py-16 md:py-24 lg:py-28">
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div>
+
+          <div class="hero-badge inline-flex items-center gap-2 bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full mb-6 border border-white/20">
+
+            <span class="w-2 h-2 bg-success rounded-full animate-pulse-slow"></span>
+
+            Работим всеки ден • Свободни за разговор
+
+          </div>
+
+
+
+          <h1 class="hero-title text-4xl md:text-5xl lg:text-5xl font-bold leading-tight mb-4" style="color: #ffffff;">
+
+            Надежден<br />
+
+            <span style="color: #0b5fff;">водопроводчик</span><br />
+
+            в София
+
+          </h1>
+
+
+
+          <p class="hero-subtitle text-lg md:text-xl mb-8 max-w-lg" style="color:#ffffff">
+
+            {business.experience} години опит. Монтаж, ремонт и аварийна помощ.
+
+            Идваме до <strong class="text-white">{business.responseTime}</strong> в София и прилежащите квартали.
+
+          </p>
+
+
+
+          <div class="hero-ctas flex flex-col sm:flex-row gap-4 mb-8">
+
+            <a
+
+              href={`tel:${business.phone.tel}`}
+
+              class="cta-call-dark"
+
+              data-event="call_click"
+
+              data-source="hero"
+
+              data-cta-name="hero_call"
+
+            >
+
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+
+                <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
+
+              </svg>
+
+              {business.phone.display}
+
+            </a>
+
+            <a
+
+              href="/kontakti/#form"
+
+              class="cta-outline-dark"
+
+              data-event="cta_click"
+
+              data-source="hero"
+
+              data-cta-name="hero_form"
+
+            >
+
+              Заявете оглед
+
+            </a>
+
+          </div>
+
+
+
+          <div class="hero-trust">
+
+
+
+            <TrustStrip dark={true} />
+
+
+
+          </div>
+
+        </div>
+
+
+
+        <div class="hero-form lg:max-w-md lg:ml-auto w-full">
+
+          <ContactForm dark={true} />
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- STATS STRIP -->
+
+  <section class="section-stats-strip py-8">
+
+    <div class="container">
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+
+        <div>
+
+          <div class="text-3xl font-bold text-primary">{business.experience}+</div>
+
+          <div class="text-text-secondary text-sm mt-1">години опит</div>
+
+        </div>
+
+        <div>
+
+          <div class="text-3xl font-bold text-primary">{business.stats.clients}</div>
+
+          <div class="text-text-secondary text-sm mt-1">доволни клиенти</div>
+
+        </div>
+
+        <div>
+
+          <div class="text-3xl font-bold text-primary">1 ч.</div>
+
+          <div class="text-text-secondary text-sm mt-1">реакция при авария</div>
+
+        </div>
+
+        <div>
+
+          <div class="text-3xl font-bold text-primary">12 мес.</div>
+
+          <div class="text-text-secondary text-sm mt-1">гаранция</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SERVICES GRID -->
+
+  <section class="section bg-bg-light" aria-labelledby="services-heading">
+
+    <div class="container">
+
+      <div class="reveal-up text-center mb-12">
+
+        <h2 id="services-heading" class="reveal-up text-3xl font-bold text-text mb-4">Нашите услуги</h2>
+
+        <p class="text-text-secondary text-lg max-w-2xl mx-auto">
+
+          Извършваме всички видове ВиК ремонти и монтажи в Sofia — от смяна на смесител до цялостно обзавеждане на баня.
+
+        </p>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+        {[...services].sort((a, b) => (b.isEmergency ? 1 : 0) - (a.isEmergency ? 1 : 0)).map(s => (
+
+          <ServiceCard
+
+            slug={s.slug}
+
+            title={s.shortTitle}
+
+            description={s.summary.split('.')[0] + '.'}
+
+            priceLabel={s.priceLabel}
+
+            icon={s.icon}
+
+            isEmergency={s.isEmergency}
+
+          />
+
+        ))}
+
+      </div>
+
+      <div class="text-center mt-10">
+
+        <a href="/uslugi/" class="btn-secondary text-lg px-8 py-3" data-event="cta_click" data-source="homepage_services" data-cta-name="all_services">
+
+          Всички услуги →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- ABOUT / TRUST -->
+
+  <section class="section bg-white" aria-labelledby="about-heading">
+
+    <div class="container">
+
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- Photo placeholder -->
+
+        <div class="relative">
+
+          <div class="aspect-[4/3] bg-bg-blue rounded-xl overflow-hidden flex items-center justify-center">
+
+            <img
+
+              src="/images/teodor-petrov-vodovodchik.jpg"
+
+              alt="Теодор Петров — водопроводчик ВиК Петров, монтаж на ВиК инсталации в София"
+
+              width="600"
+
+              height="450"
+
+              loading="lazy"
+
+              class="w-full h-full object-cover"
+
+            />
+
+          </div>
+
+          <div class="absolute -bottom-4 -right-4 bg-white rounded-xl shadow-card p-4 text-center">
+
+            <div class="text-2xl font-bold text-primary">{business.experience}+</div>
+
+            <div class="text-xs text-text-secondary">години опит</div>
+
+          </div>
+
+        </div>
+
+
+
+        <div>
+
+          <h2 id="about-heading" class="reveal-up text-3xl font-bold text-text mb-4">
+
+            Защо клиентите ни се доверяват?
+
+          </h2>
+
+          <p class="text-text-secondary text-lg mb-6">
+
+            <strong class="text-text">ВиК Петров</strong> е специализирана фирма за ВиК услуги в София, основана от {business.owner}, с {business.experience} години опит. Работим директно — без посредници и скрити такси.
+
+          </p>
+
+
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 mt-0.5 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                </svg>
+              </span>
+              <div>
+                <strong class="text-text font-semibold">До {business.responseTime} при авария</strong>
+                <p class="text-text-secondary text-sm">В над 80% от случаите пристигаме в рамките на 1 час.</p>
+              </div>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 mt-0.5 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <path d="M9 12l2 2 4-4"/>
+                </svg>
+              </span>
+              <div>
+                <strong class="text-text font-semibold">Гаранция {business.warranty}</strong>
+                <p class="text-text-secondary text-sm">Всяка извършена услуга е с писмена гаранция.</p>
+              </div>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 mt-0.5 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="12" y1="1" x2="12" y2="23"/>
+                  <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                </svg>
+              </span>
+              <div>
+                <strong class="text-text font-semibold">Прозрачни цени</strong>
+                <p class="text-text-secondary text-sm">Казваме цената преди да започнем работа. Без изненади.</p>
+              </div>
+            </li>
+            <li class="flex gap-3 items-start">
+              <span class="shrink-0 mt-0.5 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                </svg>
+              </span>
+              <div>
+                <strong class="text-text font-semibold">Безплатен оглед</strong>
+                <p class="text-text-secondary text-sm">Безплатен преглед и оферта за клиенти в София.</p>
+              </div>
+            </li>
+          </ul>
+
+
+
+          <a href="/za-nas/" class="btn-secondary" data-event="cta_click" data-source="homepage_about" data-cta-name="about_page">
+
+            Научете повече за нас
+
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- HOW WE WORK -->
+
+  <section class="section bg-bg-blue" aria-labelledby="process-heading">
+
+    <div class="container">
+
+      <div class="reveal-up text-center mb-12">
+
+        <h2 id="process-heading" class="reveal-up text-3xl font-bold text-text mb-4">Как работим</h2>
+
+        <p class="text-text-secondary">Простите стъпки от обаждането до свършената работа.</p>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        {howWeWorkSteps.map(step => (
+          <div class="stagger-item reveal-up text-center">
+
+            <div class="w-12 h-12 rounded-full bg-primary text-white font-bold flex items-center justify-center text-xl mx-auto mb-4">
+
+              {step.num}
+
+            </div>
+
+            <h3 class="text-lg font-bold text-text mb-2">{step.title}</h3>
+
+            <p class="text-text-secondary text-sm">{step.desc}</p>
+
+          </div>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- GALLERY -->
+
+  <section class="section bg-white" aria-labelledby="gallery-heading">
+
+    <div class="container">
+
+      <div class="text-center mb-10">
+
+        <h2 id="gallery-heading" class="reveal-up text-3xl font-bold text-text mb-4">Реални обекти</h2>
+
+        <p class="text-text-secondary">Снимки от изпълнени ВиК проекти в София и региона.</p>
+
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+
+        <div class="col-span-2 md:col-span-1 rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-44-694.jpg"
+            alt="Монтаж на канализационни тръби в сутерен — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-44-771.jpg"
+            alt="Разпределителен колектор с изолация в сутерен — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-45-000.jpg"
+            alt="Подмяна на стари ВиК тръби при ремонт — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-45-191.jpg"
+            alt="Демонтаж и преправка на баня — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-45-284.jpg"
+            alt="Нова ВиК инсталация в ново строителство — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/viber_image_2026-05-03_22-33-45-455.jpg"
+            alt="Полагане на тръби в ново строителство — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/gallery-new-1.jpg"
+            alt="ВиК ремонт — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+        <div class="rounded-xl overflow-hidden aspect-[4/3]">
+          <img
+            src="/images/gallery-new-2.jpg"
+            alt="ВиК монтаж — ВиК Петров"
+            width="600" height="450"
+            loading="lazy"
+            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+          />
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- TESTIMONIALS -->
+
+  <section class="section bg-white" aria-labelledby="testimonials-heading">
+
+    <div class="container">
+
+      <div class="reveal-up text-center mb-12">
+
+        <h2 id="testimonials-heading" class="reveal-up text-3xl font-bold text-text mb-4">
+
+          Какво казват нашите клиенти
+
+        </h2>
+
+        <div class="flex items-center justify-center gap-2 text-text-secondary">
+
+          <span class="text-yellow-400 text-xl">★★★★★</span>
+
+          <span class="font-semibold">4.9 от 5</span>
+
+          <span>• 87 отзива</span>
+
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {testimonials.map(t => (
+
+          <TestimonialCard
+
+            name={t.name}
+
+            neighborhood={t.neighborhood}
+
+            rating={t.rating}
+
+            text={t.text}
+
+            date={t.date}
+
+          />
+
+        ))}
+
+      </div>
+
+      <div class="text-center mt-10">
+
+        <a href="/otzivi/" class="btn-secondary" data-event="cta_click" data-source="homepage_testimonials" data-cta-name="all_reviews">
+
+          Всички отзиви →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- PRICING PREVIEW -->
+
+  <section class="section bg-bg-light" aria-labelledby="pricing-heading">
+
+    <div class="container">
+
+      <div class="reveal-up text-center mb-12">
+
+        <h2 id="pricing-heading" class="reveal-up text-3xl font-bold text-text mb-4">Ориентировъчни цени</h2>
+
+        <p class="text-text-secondary max-w-2xl mx-auto">
+
+          Работим с фиксирани цени за труд. Плащате само труд — материалите са отделно, ако са нужни.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+
+        {priceCategories.slice(0, 3).map(cat => (
+          <div class="stagger-item reveal-up bg-white rounded-xl shadow-card overflow-hidden">
+
+            <div class="bg-bg-blue px-6 py-4 border-b border-blue-100">
+
+              <h3 class="font-bold text-primary text-base">{cat.name}</h3>
+
+            </div>
+
+            <div class="p-4">
+
+              {cat.items.slice(0, 4).map(item => (
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-50 last:border-0 text-sm">
+
+                  <span class="text-text-secondary pr-4">{item.service}</span>
+
+                  <span class="font-bold text-text whitespace-nowrap">{item.price}</span>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        ))}
+
+      </div>
+
+
+
+      <div class="text-center">
+
+        <p class="text-text-secondary text-sm mb-6">
+
+          Цените са ориентировъчни. Точна оферта — след безплатен оглед на място.
+
+        </p>
+
+        <a href="/ceni/" class="btn-primary text-lg px-8 py-3" data-event="cta_click" data-source="homepage_pricing" data-cta-name="full_price_list">
+
+          Пълна ценова листа →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- SERVICE AREAS -->
+
+  <section class="section bg-white" aria-labelledby="areas-heading">
+
+    <div class="container">
+
+      <div class="text-center mb-10">
+
+        <h2 id="areas-heading" class="reveal-up text-3xl font-bold text-text mb-4">Обслужвани райони</h2>
+
+        <p class="text-text-secondary">
+
+          Работим в цяла София и прилежащите квартали. Бърза реакция в рамките на 1 час.
+
+        </p>
+
+      </div>
+
+      <div class="flex flex-wrap gap-3 justify-center mb-8">
+
+        {['Панчарево', 'Кокаляне', 'Лозен', 'Герман', 'Горубляне', 'Бистрица', 'Бояна', 'Драгалевци', 'Симеоново', 'Младост', 'Дружба', 'Кривина', 'Казичене', 'Пасарел'].map(n => (
+
+          <span class="bg-bg-blue text-primary text-sm font-semibold px-4 py-2 rounded-full">
+
+            {n}
+
+          </span>
+
+        ))}
+
+      </div>
+
+      <div class="text-center">
+
+        <a href="/rayoni/" class="btn-secondary" data-event="cta_click" data-source="homepage_areas" data-cta-name="all_areas">
+
+          Вижте всички райони →
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- FINAL CTA -->
+
+  <CTABlock
+
+    title="Нужен ви е водопроводчик в София?"
+
+    subtitle={`Обадете се сега — идваме до ${business.responseTime}. Работим всеки ден, включително събота и неделя.`}
+
+    dark={true}
+
+    source="homepage_final_cta"
+
+  />
+
+
+
+</BaseLayout>
+

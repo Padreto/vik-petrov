@@ -1,0 +1,32 @@
+---
+import { business } from '../data/business';
+
+interface Props {
+  dark?: boolean;
+}
+const { dark = false } = Astro.props;
+---
+
+<div class={`flex flex-wrap justify-center gap-4 md:gap-8 text-sm font-semibold ${dark ? 'text-blue-100' : 'text-text-secondary'}`}>
+  <span class="flex items-center gap-1.5">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400 shrink-0" aria-hidden="true">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+    <span>{business.experience}+ години опит</span>
+  </span>
+  <span class={`${dark ? 'text-white/40' : 'text-gray-300'} hidden sm:inline`} aria-hidden="true">|</span>
+  <span class="flex items-center gap-1.5">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true">
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+    </svg>
+    <span>До {business.responseTime} реакция</span>
+  </span>
+  <span class={`${dark ? 'text-white/40' : 'text-gray-300'} hidden sm:inline`} aria-hidden="true">|</span>
+  <span class="flex items-center gap-1.5">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="shrink-0" aria-hidden="true">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12l2 2 4-4"/>
+    </svg>
+    <span>Гаранция {business.warranty}</span>
+  </span>
+</div>

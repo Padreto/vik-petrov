@@ -1,4 +1,4 @@
-﻿---
+﻿﻿﻿---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import CTABlock from '../components/CTABlock.astro';
@@ -38,7 +38,7 @@ const {
   isEmergency = false,
   processSteps = [
     { title: 'Обадете се', desc: 'Обаждате се или пишете в Viber. Уточняваме проблема и насрочваме посещение.' },
-    { title: 'Идваме на оглед', desc: `Пристигаме до ${business.responseTime}. Безплатен оглед за клиенти в София.` },
+    { title: 'Идваме на оглед', desc: `Пристигаме до ${business.responseTime}.` },
     { title: 'Получавате оферта', desc: 'Даваме конкретна цена без скрити такси преди да започнем.' },
     { title: 'Извършваме работата', desc: `Работим бързо и прецизно. Гаранция ${business.warranty}.` },
   ],
@@ -316,10 +316,8 @@ const relatedServices = relatedSlugs
           <h2 class="text-2xl font-bold text-text mb-4">Заявете услуга</h2>
           <p class="text-text-secondary mb-6">
             Попълнете формата и ще се свържем с Вас до 30 минути.
-            Безплатен оглед за клиенти в София.
           </p>
           <ul class="space-y-3 mb-6">
-            <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Безплатен оглед</li>
             <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Отговаряме до 30 мин.</li>
             <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Гаранция {business.warranty}</li>
             <li class="trust-badge"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Без ангажимент</li>
@@ -364,7 +362,6 @@ const relatedServices = relatedSlugs
   <CTABlock
     title="Готови ли сте да поръчате?"
     subtitle={`Обадете се на ${business.phone.display} — идваме до ${business.responseTime} в ${business.address.city}.`}
-    dark={true}
     source={`service_${slug}_final_cta`}
   />
 </BaseLayout>

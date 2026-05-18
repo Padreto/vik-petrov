@@ -2,7 +2,6 @@
 import { business, services } from '../data/business';
 
 const navLinks = [
-  { href: '/uslugi/', label: 'Услуги' },
   { href: '/ceni/', label: 'Цени' },
   { href: '/rayoni/', label: 'Райони' },
   { href: '/za-nas/', label: 'За нас' },
@@ -11,6 +10,7 @@ const navLinks = [
 ];
 
 const currentPath = Astro.url.pathname;
+const isServicesActive = currentPath.startsWith('/uslugi/');
 ---
 
 <header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -29,6 +29,42 @@ const currentPath = Astro.url.pathname;
 
       <!-- Desktop nav -->
       <nav class="hidden lg:flex items-center gap-6" aria-label="Основна навигация">
+
+        <!-- Услуги dropdown -->
+        <div class="relative" id="services-dropdown-wrapper">
+          <a
+            href="/uslugi/"
+            id="services-dropdown-btn"
+            class={`flex items-center gap-1 text-sm font-semibold transition-colors duration-200 hover:text-primary ${isServicesActive ? 'text-primary' : 'text-text'}`}
+            aria-haspopup="true"
+          >
+            Услуги
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="services-chevron" style="transition: transform 0.2s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </a>
+
+          <div
+            id="services-dropdown-menu"
+            class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 z-50 hidden"
+            role="menu"
+          >
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
+            <a href="/uslugi/" class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-text-secondary uppercase tracking-wider hover:text-primary" role="menuitem">
+              Всички услуги →
+            </a>
+            <div class="border-t border-gray-100 my-1"></div>
+            {services.map(s => (
+              <a
+                href={`/uslugi/${s.slug}/`}
+                class={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-bg-blue hover:text-primary ${currentPath === `/uslugi/${s.slug}/` ? 'text-primary bg-bg-blue' : 'text-text'}`}
+                role="menuitem"
+              >
+                {s.shortTitle}
+              </a>
+            ))}
+            </div>
+          </div>
+        </div>
+
         {navLinks.map(link => (
           <a
             href={link.href}
@@ -44,11 +80,11 @@ const currentPath = Astro.url.pathname;
         ))}
       </nav>
 
-      <!-- Header phone CTA — visible on all viewports -->
+      <!-- Header phone CTA — desktop only (mobile has call button in menu) -->
       <div class="flex items-center gap-3">
         <a
           href={`tel:${business.phone.tel}`}
-          class="phone-pulse flex items-center gap-2 text-primary font-bold hover:text-primary-dark transition-colors"
+          class="phone-pulse hidden lg:flex items-center gap-2 text-primary font-bold hover:text-primary-dark transition-colors"
           data-event="call_click"
           data-source="header"
           aria-label={`Обадете се на ${business.phone.display}`}
@@ -56,7 +92,7 @@ const currentPath = Astro.url.pathname;
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/><path d="M15 5a4 4 0 014 4"/><path d="M15 2a7 7 0 017 7"/>
           </svg>
-          <span class="hidden sm:inline text-base">{business.phone.display}</span>
+          <span class="text-base">{business.phone.display}</span>
         </a>
 
         <!-- Mobile menu button -->
@@ -82,6 +118,29 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile nav dropdown -->
   <div id="mobile-menu" class="hidden lg:hidden border-t border-gray-100 bg-white" aria-label="Мобилна навигация">
     <nav class="container py-4 flex flex-col gap-1">
+
+      <!-- Услуги accordion in mobile -->
+      <div>
+        <button
+          id="mobile-services-btn"
+          class={`flex items-center justify-between w-full py-3 px-4 rounded-lg text-base font-semibold transition-colors ${isServicesActive ? 'text-primary bg-bg-blue' : 'text-text hover:text-primary hover:bg-bg-light'}`}
+        >
+          Услуги
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" id="mobile-services-chevron" style="transition: transform 0.2s;" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div id="mobile-services-menu" class="flex-col gap-0.5 ml-4 mt-1" style="display:none">
+          <a href="/uslugi/" class="py-2 px-4 rounded-lg text-sm font-bold text-primary hover:bg-bg-blue">Всички услуги</a>
+          {services.map(s => (
+            <a
+              href={`/uslugi/${s.slug}/`}
+              class={`py-2 px-4 rounded-lg text-sm font-medium transition-colors ${currentPath === `/uslugi/${s.slug}/` ? 'text-primary bg-bg-blue' : 'text-text-secondary hover:text-primary hover:bg-bg-light'}`}
+            >
+              {s.shortTitle}
+            </a>
+          ))}
+        </div>
+      </div>
+
       {navLinks.map(link => (
         <a
           href={link.href}
@@ -110,3 +169,95 @@ const currentPath = Astro.url.pathname;
     </nav>
   </div>
 </header>
+
+<script>
+  function initHeader() {
+    // Hide header on scroll down, show on scroll up (mobile only)
+    const header = document.querySelector('header') as HTMLElement;
+    if (header) {
+      let lastScrollY = window.scrollY;
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (ticking) return;
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          if (window.innerWidth < 1024) {
+            if (currentScrollY > lastScrollY && currentScrollY > 80) {
+              header.style.transform = 'translateY(-100%)';
+              header.style.transition = 'transform 0.3s ease';
+            } else {
+              header.style.transform = 'translateY(0)';
+              header.style.transition = 'transform 0.3s ease';
+            }
+          } else {
+            header.style.transform = '';
+          }
+          lastScrollY = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      });
+    }
+
+    // Desktop dropdown — hover to open, link still navigates on click
+    const dropdownBtn = document.getElementById('services-dropdown-btn') as HTMLAnchorElement | null;
+    const dropdownMenu = document.getElementById('services-dropdown-menu') as HTMLElement | null;
+    const dropdownChevron = document.getElementById('services-chevron') as HTMLElement | null;
+    const dropdownWrapper = document.getElementById('services-dropdown-wrapper');
+
+    function openDropdown() {
+      dropdownMenu?.classList.remove('hidden');
+      dropdownChevron && (dropdownChevron.style.transform = 'rotate(180deg)');
+    }
+    function closeDropdown() {
+      dropdownMenu?.classList.add('hidden');
+      dropdownChevron && (dropdownChevron.style.transform = 'rotate(0deg)');
+    }
+
+    if (dropdownWrapper && dropdownMenu) {
+      dropdownWrapper.addEventListener('mouseenter', openDropdown);
+      dropdownWrapper.addEventListener('mouseleave', closeDropdown);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeDropdown();
+      });
+    }
+
+    // Mobile hamburger
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn') as HTMLButtonElement | null;
+    const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+    const menuIcon = document.getElementById('menu-icon') as HTMLElement | null;
+    const closeIcon = document.getElementById('close-icon') as HTMLElement | null;
+
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('hidden') === false;
+        mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+        menuIcon?.classList.toggle('hidden', isOpen);
+        closeIcon?.classList.toggle('hidden', !isOpen);
+      });
+    }
+
+    // Mobile services accordion
+    const mobileServicesBtn = document.getElementById('mobile-services-btn') as HTMLButtonElement | null;
+    const mobileServicesMenu = document.getElementById('mobile-services-menu') as HTMLElement | null;
+    const mobileChevron = document.getElementById('mobile-services-chevron') as HTMLElement | null;
+
+    if (mobileServicesBtn && mobileServicesMenu) {
+      mobileServicesBtn.addEventListener('click', () => {
+        const isOpen = mobileServicesMenu.style.display === 'flex';
+        if (isOpen) {
+          mobileServicesMenu.style.display = 'none';
+          if (mobileChevron) mobileChevron.style.transform = 'rotate(0deg)';
+        } else {
+          mobileServicesMenu.style.display = 'flex';
+          if (mobileChevron) mobileChevron.style.transform = 'rotate(180deg)';
+        }
+      });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', initHeader);
+  // Also run immediately in case DOMContentLoaded already fired
+  if (document.readyState !== 'loading') initHeader();
+</script>

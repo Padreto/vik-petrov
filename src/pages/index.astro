@@ -1,4 +1,4 @@
-﻿---
+﻿﻿---
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -192,7 +192,7 @@ const howWeWorkSteps = [
 
   { num: 1, title: 'Обаждате се', desc: 'Обаждате се или пишете в Viber. Отговаряме в рамките на минути.' },
 
-  { num: 2, title: 'Идваме на оглед', desc: 'Пристигаме до 1 час. Безплатен оглед за клиенти в София.' },
+  { num: 2, title: 'Идваме на оглед', desc: 'Пристигаме до 1 час.' },
 
   { num: 3, title: 'Получавате оферта', desc: 'Даваме ясна цена без скрити такси — предварително.' },
 
@@ -228,7 +228,7 @@ const howWeWorkSteps = [
 
       <div class="absolute -left-16 bottom-0 w-80 h-80 rounded-full" style="background: rgba(255,255,255,0.03);"></div>
 
-      <div class="absolute inset-0" style="background: linear-gradient(90deg, rgba(5,14,36,0.88) 0%, rgba(5,14,36,0.75) 50%, rgba(5,14,36,0.45) 100%);"></div>
+      <div class="hero-overlay absolute inset-0"></div>
 
 
     </div>
@@ -551,17 +551,6 @@ const howWeWorkSteps = [
                 <p class="text-text-secondary text-sm">Казваме цената преди да започнем работа. Без изненади.</p>
               </div>
             </li>
-            <li class="flex gap-3 items-start">
-              <span class="shrink-0 mt-0.5 text-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-                </svg>
-              </span>
-              <div>
-                <strong class="text-text font-semibold">Безплатен оглед</strong>
-                <p class="text-text-secondary text-sm">Безплатен преглед и оферта за клиенти в София.</p>
-              </div>
-            </li>
           </ul>
 
 
@@ -850,7 +839,7 @@ const howWeWorkSteps = [
 
         <p class="text-text-secondary text-sm mb-6">
 
-          Цените са ориентировъчни. Точна оферта — след безплатен оглед на място.
+          Цените са ориентировъчни.
 
         </p>
 

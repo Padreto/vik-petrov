@@ -551,9 +551,18 @@ header.header-scrolled {
   color: #ffffff !important;
 }
 
+/* ── Hero overlay — desktop default ─────────────────────── */
+.hero-overlay {
+  background: linear-gradient(90deg, rgba(5,14,36,0.88) 0%, rgba(5,14,36,0.75) 50%, rgba(5,14,36,0.45) 100%);
+}
+
 /* ── Hero section mobile background focus ────────────────── */
 @media (max-width: 767px) {
   .hero-section {
-    background-position: 65% center !important;
+    background-position: 70% center !important;
+  }
+  /* Lighter overlay on mobile so image shows through more */
+  .hero-overlay {
+    background: linear-gradient(180deg, rgba(5,14,36,0.72) 0%, rgba(5,14,36,0.60) 60%, rgba(5,14,36,0.78) 100%);
   }
 }

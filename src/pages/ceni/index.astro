@@ -1,4 +1,4 @@
-﻿---
+﻿﻿﻿---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import CTABlock from '../../components/CTABlock.astro';
@@ -56,7 +56,6 @@ const icons: Record<string, string> = {
         {[
           'Само труд — без скрити такси',
           'Без такса за повикване',
-          'Безплатен оглед в София',
           'Плащане след работата',
         ].map(t => (
           <span class="flex items-center gap-2">
@@ -75,7 +74,7 @@ const icons: Record<string, string> = {
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5 text-primary" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         <p class="text-sm text-text-secondary">
           <strong class="text-text">Важно:</strong> Цените са ориентировъчни и могат да варират според конкретния обект, материалите и сложността.
-          Точна оферта получавате след безплатен оглед на място в рамките на София.
+
         </p>
       </div>
     </div>
@@ -174,7 +173,7 @@ const icons: Record<string, string> = {
 
   <CTABlock
     title="Искате точна оферта?"
-    subtitle="Безплатен оглед на място в рамките на София. Обадете се и насрочете удобно за вас."
+    subtitle="Обадете се и насрочете удобно за вас."
     source="ceni_page_cta"
   />
 </BaseLayout>

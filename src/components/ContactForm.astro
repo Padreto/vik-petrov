@@ -18,8 +18,14 @@ const footerColor = dark ? 'rgba(255,255,255,0.60)' : '#52677a';
 ---
 
 <div id="form" class="rounded-xl p-6 md:p-8" style={wrapperStyle}>
-  <h3 class="text-xl font-bold mb-2" style={`color: ${headingColor};`}>Заявете безплатен оглед</h3>
-  <p class="text-sm mb-6" style={`color: ${subColor};`}>Попълнете формата и ще се свържем с Вас в рамките на 30 минути.</p>
+  <h3 class="text-xl font-bold mb-2" style={`color: ${headingColor};`}>Заявете посещение на място</h3>
+  <p class="text-sm mb-3" style={`color: ${subColor};`}>Попълнете формата и ще се свържем с Вас в рамките на 30 минути.</p>
+  <div class="flex items-start gap-2 mb-5 rounded-lg px-3 py-2" style="background: rgba(11,95,255,0.10); border: 1px solid rgba(11,95,255,0.20);">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0b5fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-top:2px;flex-shrink:0;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <p class="text-xs leading-relaxed" style={`color: ${dark ? 'rgba(255,255,255,0.85)' : '#1a3a5c'};`}>
+      <strong>Посещение: 20 евро.</strong> Сумата се приспада при започване на работа.
+    </p>
+  </div>
 
   <form
     id="contact-form"
@@ -96,6 +102,9 @@ const footerColor = dark ? 'rgba(255,255,255,0.60)' : '#52677a';
         <optgroup label="Аварийни">
           <option value="avariyni" selected={preselect === 'avariyni'}>Авариен случай</option>
         </optgroup>
+        <optgroup label="Противопожарни системи">
+          <option value="protivopozharni-sistemi" selected={preselect === 'protivopozharni-sistemi'}>Противопожарни системи (спринклери / сухотръбие)</option>
+        </optgroup>
         <option value="drugo">Друго</option>
       </select>
     </div>
@@ -119,11 +128,11 @@ const footerColor = dark ? 'rgba(255,255,255,0.60)' : '#52677a';
       data-event="cta_click"
       data-cta-name="form_submit_button"
     >
-      Заявете оглед — безплатно
+      Заявете посещение
     </button>
 
     <p class="text-xs text-center" style={`color: ${footerColor};`}>
-      Без ангажимент. Обаждаме се в рамките на 30 мин.
+      Обаждаме се в рамките на 30 мин.
     </p>
   </form>
 </div>

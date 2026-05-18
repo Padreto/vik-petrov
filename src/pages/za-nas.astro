@@ -1,4 +1,4 @@
-﻿---
+﻿﻿﻿﻿﻿---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import CTABlock from '../components/CTABlock.astro';
@@ -103,8 +103,16 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- Values -->
+
+  <!-- Team -->
   <section class="section bg-white">
+    <div class="container max-w-3xl">
+      <h2 class="text-3xl font-bold text-text mb-4 text-center">Нашият екип</h2>
+      <p class="text-text-secondary text-center max-w-2xl mx-auto">При по-сложни аварии и мащабни ремонти разполагаме с екип от специалисти, които се отзовават бързо и работят координирано. Това ни позволява да обработваме едновременно множество задачи и да реагираме при спешни ситуации без забавяне.</p>
+    </div>
+  </section>
+  <!-- Values -->
+  <section class="section bg-bg-light">
     <div class="container">
       <h2 class="text-3xl font-bold text-text mb-10 text-center">Нашите ценности</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -175,7 +183,6 @@ const testimonials = [
   <CTABlock
     title="Нека работим заедно"
     subtitle="Обадете се или заявете оглед. Ще ви дадем честна оферта."
-    dark={true}
     source="about_page_cta"
   />
 </BaseLayout>

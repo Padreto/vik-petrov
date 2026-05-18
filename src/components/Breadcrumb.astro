@@ -1,29 +1,53 @@
-﻿---
+---
 interface Props {
   items: { name: string; href?: string }[];
+  dark?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, dark = false } = Astro.props;
 ---
 
-<nav aria-label="Навигационна пътека (breadcrumb)" class="bg-bg-light border-b border-gray-100">
+<nav
+  aria-label="Навигационна пътека (breadcrumb)"
+  class={dark ? 'border-b border-white/10' : 'bg-bg-light border-b border-gray-100'}
+>
   <div class="container">
-    <ol class="flex flex-wrap items-center gap-1 py-3 text-sm text-text-muted" itemscope itemtype="https://schema.org/BreadcrumbList">
+    <ol
+      class="flex flex-wrap items-center gap-1 py-3 text-sm"
+      style={dark ? 'color:rgba(255,255,255,0.85);' : undefined}
+      class:list={[!dark && 'text-text-muted']}
+      itemscope
+      itemtype="https://schema.org/BreadcrumbList"
+    >
       <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center">
-        <a href="/" itemprop="item" class="hover:text-primary transition-colors">
+        <a
+          href="/"
+          itemprop="item"
+          class={dark ? 'hover:text-white transition-colors' : 'hover:text-primary transition-colors'}
+          style={dark ? 'color:rgba(255,255,255,0.85);' : undefined}
+        >
           <span itemprop="name">Начало</span>
         </a>
         <meta itemprop="position" content="1" />
       </li>
       {items.map((item, index) => (
         <li class="flex items-center gap-1" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-          <span class="text-text-muted mx-1" aria-hidden="true">/</span>
+          <span class="mx-1" aria-hidden="true" style={dark ? 'color:rgba(255,255,255,0.45);' : 'color:#9ca3af;'}>/</span>
           {item.href ? (
-            <a href={item.href} itemprop="item" class="hover:text-primary transition-colors">
+            <a
+              href={item.href}
+              itemprop="item"
+              class={dark ? 'hover:text-white transition-colors' : 'hover:text-primary transition-colors'}
+              style={dark ? 'color:rgba(255,255,255,0.85);' : undefined}
+            >
               <span itemprop="name">{item.name}</span>
             </a>
           ) : (
-            <span itemprop="name" class="text-text font-medium">{item.name}</span>
+            <span
+              itemprop="name"
+              class={dark ? 'font-medium' : 'text-text font-medium'}
+              style={dark ? 'color:rgba(255,255,255,0.85);' : undefined}
+            >{item.name}</span>
           )}
           <meta itemprop="position" content={String(index + 2)} />
         </li>

@@ -22,7 +22,7 @@ const {
   title,
   description,
   canonical,
-  ogImage = '/images/og-default.jpg',
+  ogImage = '/images/og-default.webp',
   ogType = 'website',
   noindex = false,
   schema,
@@ -245,6 +245,76 @@ const allSchemas = [
         }
       });
     });
+
+    // ── Water ripple on scroll ────────────────────────────────
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let lastScroll = window.scrollY;
+      let ticking = false;
+      let rippleCooldown = false;
+
+      function spawnRipple() {
+        if (rippleCooldown) return;
+        rippleCooldown = true;
+        setTimeout(() => { rippleCooldown = false; }, 600);
+
+        const el = document.createElement('div');
+        el.className = 'water-ripple';
+        const x = 15 + Math.random() * 70; // % from left
+        const y = 15 + Math.random() * 70; // % from top, within viewport
+        el.style.left = x + 'vw';
+        el.style.top = (window.scrollY + (y / 100) * window.innerHeight) + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1500);
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const delta = Math.abs(window.scrollY - lastScroll);
+            if (delta > 80) {
+              spawnRipple();
+              lastScroll = window.scrollY;
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+
+    // ── Cursor water drop trail (desktop only) ────────────────
+    (function() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (window.matchMedia('(hover: none)').matches) return; // skip touch devices
+      if (window.innerWidth < 1024) return;
+
+      let lastX = 0, lastY = 0, dropCooldown = false;
+
+      document.addEventListener('mousemove', (e) => {
+        if (dropCooldown) return;
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 28) return; // only spawn when mouse moves enough
+
+        dropCooldown = true;
+        setTimeout(() => { dropCooldown = false; }, 120);
+
+        lastX = e.clientX;
+        lastY = e.clientY;
+
+        const drop = document.createElement('div');
+        drop.className = 'cursor-drop';
+        drop.style.left = e.clientX + 'px';
+        drop.style.top = (e.clientY + window.scrollY) + 'px';
+        // slight random horizontal drift
+        const drift = (Math.random() - 0.5) * 10;
+        drop.style.marginLeft = drift + 'px';
+        document.body.appendChild(drop);
+        setTimeout(() => drop.remove(), 900);
+      });
+    })();
   </script>
 </body>
 </html>

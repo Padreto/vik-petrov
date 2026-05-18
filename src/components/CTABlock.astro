@@ -1,33 +1,43 @@
-﻿---
+---
 import { business } from '../data/business';
 
 interface Props {
   title?: string;
   subtitle?: string;
   dark?: boolean;
+  bgColor?: string;
   source?: string;
+  ctaLabel?: string;
 }
 
 const {
   title = 'Нужна ви е ВиК помощ?',
   subtitle = 'Обадете се сега — идваме до 1 час в София и прилежащите квартали.',
   dark = false,
+  bgColor,
   source = 'cta_block',
+  ctaLabel = 'Заявете оглед',
 } = Astro.props;
+
+const useLightOverride = !!bgColor && !dark;
+const useDarkOverride = !!bgColor && dark;
 ---
 
-<section class={`py-12 md:py-16 ${dark ? 'bg-primary' : 'bg-bg-blue'}`}>
+<section
+  class={`py-12 md:py-16 ${bgColor ? '' : dark ? 'bg-primary' : 'bg-bg-blue'}`}
+  style={bgColor ? `background-color:${bgColor};` : undefined}
+>
   <div class="container text-center">
-    <h2 class={`text-2xl md:text-3xl font-bold mb-3 ${dark ? 'text-white' : 'text-text'}`}>
+    <h2 class={`text-2xl md:text-3xl font-bold mb-3 ${dark && !bgColor ? 'text-white' : 'text-text'}`}>
       {title}
     </h2>
-    <p class={`text-lg mb-8 max-w-xl mx-auto ${dark ? 'text-blue-100' : 'text-text-secondary'}`}>
+    <p class={`text-lg mb-8 max-w-xl mx-auto ${dark && !bgColor ? 'text-blue-100' : 'text-text-secondary'}`}>
       {subtitle}
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center">
       <a
         href={`tel:${business.phone.tel}`}
-        class={dark ? 'cta-call-dark' : 'btn-primary text-lg px-8 py-4'}
+        class={dark && !bgColor ? 'cta-call-dark' : 'btn-primary text-lg px-8 py-4'}
         data-event="call_click"
         data-source={source}
         data-cta-name="cta_block_call"
@@ -39,16 +49,16 @@ const {
       </a>
       <a
         href="/kontakti/#form"
-        class={dark ? 'cta-outline-dark' : 'btn-secondary text-lg px-8 py-4'}
+        class={dark && !bgColor ? 'cta-outline-dark' : 'btn-secondary text-lg px-8 py-4'}
         data-event="cta_click"
         data-source={source}
         data-cta-name="cta_block_form"
       >
-        Заявете оглед
+        {ctaLabel}
       </a>
     </div>
-    <p class={`mt-4 text-sm ${dark ? 'text-blue-200' : 'text-text-secondary'}`}>
-      Работим всеки ден • {business.stats.clients} доволни клиенти
+    <p class={`mt-4 text-sm ${dark && !bgColor ? 'text-blue-200' : 'text-text-secondary'}`}>
+      Работим всеки ден • Реакция до {business.responseTime} • {business.stats.clients} доволни клиенти
     </p>
   </div>
 </section>

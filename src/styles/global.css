@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
 @theme {
   --color-primary: #0B5FFF;
@@ -553,7 +553,7 @@ header.header-scrolled {
 
 /* ── Hero overlay — desktop default ─────────────────────── */
 .hero-overlay {
-  background: linear-gradient(90deg, rgba(5,14,36,0.88) 0%, rgba(5,14,36,0.75) 50%, rgba(5,14,36,0.45) 100%);
+  background: linear-gradient(90deg, rgba(5,14,36,0.72) 0%, rgba(5,14,36,0.55) 50%, rgba(5,14,36,0.30) 100%);
 }
 
 /* ── Hero section mobile background focus ────────────────── */
@@ -563,6 +563,70 @@ header.header-scrolled {
   }
   /* Lighter overlay on mobile so image shows through more */
   .hero-overlay {
-    background: linear-gradient(180deg, rgba(5,14,36,0.72) 0%, rgba(5,14,36,0.60) 60%, rgba(5,14,36,0.78) 100%);
+    background: linear-gradient(180deg, rgba(5,14,36,0.60) 0%, rgba(5,14,36,0.48) 60%, rgba(5,14,36,0.68) 100%);
   }
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   WATER EFFECTS
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Wave dividers ───────────────────────────────────── */
+.wave-divider {
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  margin-bottom: -2px; /* kill subpixel gap */
+}
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: 56px;
+  animation: waveFlow 8s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+@keyframes waveFlow {
+  0%   { transform: scaleX(1)   translateY(0); }
+  50%  { transform: scaleX(1.04) translateY(-3px); }
+  100% { transform: scaleX(0.97) translateY(2px); }
+}
+
+/* ── Water ripple (scroll-triggered) ────────────────── */
+.water-ripple {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 50%;
+  border: 2px solid rgba(11, 95, 255, 0.25);
+  transform: translate(-50%, -50%) scale(0);
+  animation: rippleExpand 1.4s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+  z-index: 9999;
+}
+@keyframes rippleExpand {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 0.7; width: 20px; height: 20px; }
+  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0;   width: 120px; height: 120px; }
+}
+
+/* ── Cursor trail drops ──────────────────────────────── */
+.cursor-drop {
+  position: fixed;
+  pointer-events: none;
+  width: 8px;
+  height: 11px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(ellipse at 35% 35%, rgba(99,179,255,0.9), rgba(11,95,255,0.6));
+  transform: translate(-50%, -50%) scale(1);
+  animation: dropFall 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  z-index: 9998;
+}
+@keyframes dropFall {
+  0%   { transform: translate(-50%, -50%) scale(1);    opacity: 0.85; }
+  60%  { transform: translate(-50%, calc(-50% + 12px)) scale(0.7); opacity: 0.5; }
+  100% { transform: translate(-50%, calc(-50% + 22px)) scale(0.2); opacity: 0; }
+}
+
+/* Disable water effects on reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .wave-divider svg { animation: none; }
+  .water-ripple, .cursor-drop { display: none !important; }
 }

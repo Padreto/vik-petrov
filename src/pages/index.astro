@@ -1,4 +1,4 @@
-﻿﻿---
+---
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -26,7 +26,7 @@ const localBusinessSchema = {
 
   name: business.name,
 
-  image: `${business.siteUrl}/images/og-default.jpg`,
+  image: `${business.siteUrl}/images/og-default.webp`,
 
   '@id': `${business.siteUrl}/#business`,
 
@@ -218,7 +218,7 @@ const howWeWorkSteps = [
 
   <!-- HERO -->
 
-  <section class="relative overflow-hidden hero-section" style="background-color: #050e24; background-image: url(/images/hero-bg.jpg); background-size: cover; background-position: center center;">
+  <section class="relative overflow-hidden hero-section" style="background-color: #3a2a1a; background-image: url(/images/hero-bg.webp); background-size: cover; background-position: center center;">
 
     <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
 
@@ -471,7 +471,7 @@ const howWeWorkSteps = [
 
             <img
 
-              src="/images/teodor-petrov-vodovodchik.jpg"
+              src="/images/teodor-petrov-vodovodchik.webp"
 
               alt="Теодор Петров — водопроводчик ВиК Петров, монтаж на ВиК инсталации в София"
 
@@ -570,6 +570,11 @@ const howWeWorkSteps = [
   </section>
 
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#dff0ff"/>
+  </svg>
+</div>
 
   <!-- HOW WE WORK -->
 
@@ -611,6 +616,11 @@ const howWeWorkSteps = [
   </section>
 
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,0 480,56 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#ffffff"/>
+  </svg>
+</div>
 
   <!-- GALLERY -->
 
@@ -619,100 +629,253 @@ const howWeWorkSteps = [
     <div class="container">
 
       <div class="text-center mb-10">
-
         <h2 id="gallery-heading" class="reveal-up text-3xl font-bold text-text mb-4">Реални обекти</h2>
-
         <p class="text-text-secondary">Снимки от изпълнени ВиК проекти в София и региона.</p>
-
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-
-        <div class="col-span-2 md:col-span-1 rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-44-694.jpg"
-            alt="Монтаж на канализационни тръби в сутерен — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-44-771.jpg"
-            alt="Разпределителен колектор с изолация в сутерен — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-45-000.jpg"
-            alt="Подмяна на стари ВиК тръби при ремонт — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-45-191.jpg"
-            alt="Демонтаж и преправка на баня — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-45-284.jpg"
-            alt="Нова ВиК инсталация в ново строителство — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/viber_image_2026-05-03_22-33-45-455.jpg"
-            alt="Полагане на тръби в ново строителство — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/gallery-new-1.jpg"
-            alt="ВиК ремонт — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
-        <div class="rounded-xl overflow-hidden aspect-[4/3]">
-          <img
-            src="/images/gallery-new-2.jpg"
-            alt="ВиК монтаж — ВиК Петров"
-            width="600" height="450"
-            loading="lazy"
-            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-          />
-        </div>
-
+      <!-- Category tabs -->
+      <div class="flex justify-center gap-3 mb-8" id="gallery-tabs" role="tablist" aria-label="Категории галерия">
+        <button
+          role="tab"
+          aria-selected="true"
+          aria-controls="gallery-panel-pipes"
+          id="gallery-tab-pipes"
+          class="gallery-tab gallery-tab--active px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200"
+          data-panel="gallery-panel-pipes"
+        >
+          Прокарване на тръби
+        </button>
+        <button
+          role="tab"
+          aria-selected="false"
+          aria-controls="gallery-panel-montaji"
+          id="gallery-tab-montaji"
+          class="gallery-tab px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200"
+          data-panel="gallery-panel-montaji"
+        >
+          Монтажи
+        </button>
       </div>
+
+      <!-- Gallery grid (rendered by JS with pagination) -->
+      <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4 min-h-[200px]"></div>
+
+      <!-- Pagination -->
+      <div id="gallery-pagination" class="flex justify-center items-center gap-3 mt-8"></div>
 
     </div>
 
   </section>
+
+  <!-- Lightbox overlay -->
+  <div id="gallery-lightbox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;" aria-modal="true" role="dialog" aria-label="Преглед на снимка">
+    <button id="lb-close" style="position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:2.75rem;height:2.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.5rem;" aria-label="Затвори">✕</button>
+    <button id="lb-prev" style="position:absolute;left:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:2.75rem;height:2.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;" aria-label="Предишна снимка">←</button>
+    <img id="lb-img" src="" alt="" style="max-width:90vw;max-height:88vh;object-fit:contain;border-radius:0.5rem;display:block;" />
+    <button id="lb-next" style="position:absolute;right:1rem;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);border:none;border-radius:50%;width:2.75rem;height:2.75rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;" aria-label="Следваща снимка">→</button>
+  </div>
+
+  <style>
+    .gallery-tab {
+      background: #f1f5f9;
+      color: #3a5068;
+    }
+    .gallery-tab:hover {
+      background: #e2eaf5;
+    }
+    .gallery-tab--active {
+      background: #0B5FFF;
+      color: #ffffff;
+    }
+    .gallery-page-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: 2px solid #0B5FFF;
+      color: #0B5FFF;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .gallery-page-btn:hover {
+      background: #0B5FFF;
+      color: #fff;
+    }
+    .gallery-page-btn--active {
+      background: #0B5FFF;
+      color: #fff;
+    }
+    .gallery-page-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+    .gallery-thumb {
+      cursor: zoom-in;
+    }
+  </style>
+
+  <script>
+    const GALLERY_IMAGES: Record<string, Array<{src: string; alt: string}>> = {
+      pipes: [
+        { src: '/images/viber_image_2026-05-03_22-33-44-694.webp', alt: 'Монтаж на канализационни тръби в сутерен' },
+        { src: '/images/viber_image_2026-05-03_22-33-44-771.webp', alt: 'Разпределителен колектор с изолация в сутерен' },
+        { src: '/images/viber_image_2026-05-03_22-33-45-000.webp', alt: 'Подмяна на стари ВиК тръби при ремонт' },
+        { src: '/images/viber_image_2026-05-03_22-33-45-191.webp', alt: 'Демонтаж и преправка на баня' },
+        { src: '/images/viber_image_2026-05-03_22-33-45-284.webp', alt: 'Нова ВиК инсталация в ново строителство' },
+        { src: '/images/viber_image_2026-05-03_22-33-45-455.webp', alt: 'Полагане на тръби в ново строителство' },
+        { src: '/images/gallery-new-1.webp', alt: 'ВиК ремонт' },
+        { src: '/images/gallery-new-2.webp', alt: 'ВиК монтаж' },
+        { src: '/images/pipes/vik10012.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10013.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10014.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10015.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10016.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10017.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10018.webp', alt: 'Прокарване на ВиК тръби' },
+        { src: '/images/pipes/vik10019.webp', alt: 'Прокарване на ВиК тръби' },
+      ],
+      montaji: [
+        { src: '/images/montaji/img2200.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img2201.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22002.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22003.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22004.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22005.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22006.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22007.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22008.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img22009.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220010.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220011.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220012.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220013.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220014.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220015.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220016.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/img220017.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/viber_image_2026-05-03_22-33-44-960.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/568397538_122102445849073619_8870585105516917014_n.webp', alt: 'Монтаж ВиК' },
+        { src: '/images/montaji/605054141_122114260053073619_1844332993398382033_n.webp', alt: 'Монтаж ВиК' },
+      ],
+    };
+
+    const PER_PAGE_DESKTOP = 9;
+    const PER_PAGE_MOBILE = 4;
+    let activeCategory = 'pipes';
+    let activePage = 1;
+
+    function getPerPage(): number {
+      return window.innerWidth < 768 ? PER_PAGE_MOBILE : PER_PAGE_DESKTOP;
+    }
+
+    const grid = document.getElementById('gallery-grid') as HTMLElement;
+    const paginationEl = document.getElementById('gallery-pagination') as HTMLElement;
+
+    // Lightbox
+    let lbImages: Array<{src: string; alt: string}> = [];
+    let lbIndex = 0;
+    const lightbox = document.getElementById('gallery-lightbox') as HTMLElement;
+    const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+    const lbClose = document.getElementById('lb-close') as HTMLButtonElement;
+    const lbPrev = document.getElementById('lb-prev') as HTMLButtonElement;
+    const lbNext = document.getElementById('lb-next') as HTMLButtonElement;
+
+    function openLightbox(images: Array<{src: string; alt: string}>, index: number) {
+      lbImages = images;
+      lbIndex = index;
+      lbImg.src = lbImages[lbIndex].src;
+      lbImg.alt = lbImages[lbIndex].alt;
+      lightbox.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function lbNavigate(dir: number) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      lbImg.src = lbImages[lbIndex].src;
+      lbImg.alt = lbImages[lbIndex].alt;
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', () => lbNavigate(-1));
+    lbNext.addEventListener('click', () => lbNavigate(1));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display !== 'flex') return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNavigate(-1);
+      if (e.key === 'ArrowRight') lbNavigate(1);
+    });
+
+    function makeBtn(label: string, page: number, isActive: boolean, disabled: boolean): HTMLButtonElement {
+      const btn = document.createElement('button');
+      btn.className = 'gallery-page-btn' + (isActive ? ' gallery-page-btn--active' : '');
+      btn.textContent = label;
+      btn.disabled = disabled;
+      if (!disabled) {
+        btn.addEventListener('click', () => {
+          activePage = page;
+          renderGallery();
+          grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+      return btn;
+    }
+
+    function renderGallery() {
+      const perPage = getPerPage();
+      const images = GALLERY_IMAGES[activeCategory];
+      const totalPages = Math.ceil(images.length / perPage);
+      const slice = images.slice((activePage - 1) * perPage, activePage * perPage);
+
+      while (grid.firstChild) grid.removeChild(grid.firstChild);
+      slice.forEach((item, sliceIdx) => {
+        const globalIdx = (activePage - 1) * perPage + sliceIdx;
+        const wrap = document.createElement('div');
+        wrap.className = 'gallery-thumb rounded-xl overflow-hidden aspect-[4/3]';
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.alt;
+        img.width = 600;
+        img.height = 450;
+        img.loading = 'lazy';
+        img.className = 'w-full h-full object-cover hover:scale-105 transition-transform duration-500';
+        wrap.appendChild(img);
+        wrap.addEventListener('click', () => openLightbox(images, globalIdx));
+        grid.appendChild(wrap);
+      });
+
+      while (paginationEl.firstChild) paginationEl.removeChild(paginationEl.firstChild);
+      if (totalPages <= 1) return;
+
+      paginationEl.appendChild(makeBtn('← Предишна', activePage - 1, false, activePage === 1));
+      for (let p = 1; p <= totalPages; p++) {
+        paginationEl.appendChild(makeBtn(String(p), p, p === activePage, false));
+      }
+      paginationEl.appendChild(makeBtn('Следваща →', activePage + 1, false, activePage === totalPages));
+    }
+
+    document.querySelectorAll<HTMLButtonElement>('#gallery-tabs .gallery-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('#gallery-tabs .gallery-tab').forEach(t => {
+          t.classList.remove('gallery-tab--active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('gallery-tab--active');
+        tab.setAttribute('aria-selected', 'true');
+        activeCategory = tab.dataset.panel === 'gallery-panel-montaji' ? 'montaji' : 'pipes';
+        activePage = 1;
+        renderGallery();
+      });
+    });
+
+    renderGallery();
+  </script>
 
 
 
@@ -904,6 +1067,11 @@ const howWeWorkSteps = [
   </section>
 
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#dff0ff"/>
+  </svg>
+</div>
 
   <!-- FINAL CTA -->
 
@@ -913,7 +1081,7 @@ const howWeWorkSteps = [
 
     subtitle={`Обадете се сега — идваме до ${business.responseTime}. Работим всеки ден, включително събота и неделя.`}
 
-    dark={true}
+    bgColor="#dff0ff"
 
     source="homepage_final_cta"
 

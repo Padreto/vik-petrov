@@ -1,4 +1,4 @@
-﻿﻿﻿---
+---
 import BaseLayout from './BaseLayout.astro';
 import Breadcrumb from '../components/Breadcrumb.astro';
 import CTABlock from '../components/CTABlock.astro';
@@ -94,29 +94,32 @@ const relatedServices = relatedSlugs
   breadcrumbs={[{ name: 'Услуги', url: '/uslugi/' }, { name: h1.split(' —')[0] }]}
   schema={[faqSchema, serviceSchema]}
 >
-  <Breadcrumb items={[{ name: 'Услуги', href: '/uslugi/' }, { name: h1.split(' —')[0] }]} />
+  <Breadcrumb items={[{ name: 'Услуги', href: '/uslugi/' }, { name: h1.split(' —')[0] }]} dark={false} />
 
   <!-- SERVICE HERO -->
-  <section class={`py-12 md:py-16 ${isEmergency ? 'bg-gradient-to-br from-red-900 to-red-700' : 'bg-gradient-to-br from-blue-950 to-primary'}`}>
-    <div class="container">
+  <section
+    class={`relative py-14 md:py-20 overflow-hidden ${isEmergency ? 'bg-bg-light' : 'bg-bg-blue'}`}
+  >
+
+    <div class="container relative" style="z-index:1;">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           {isEmergency && (
-            <div class="inline-flex items-center gap-2 bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full mb-4">
+            <div class="inline-flex items-center gap-2 text-sm font-bold px-4 py-2 rounded-full mb-4" style="background:rgba(230,57,70,0.12);color:#E63946;border:1px solid rgba(230,57,70,0.35);">
               🚨 АВАРИЙНА УСЛУГА — 24/7
             </div>
           )}
-          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 text-text">
             {h1}
           </h1>
           <!-- AEO summary — what LLMs cite -->
-          <p class="text-lg text-white/90 mb-6 max-w-xl">
+          <p class="text-lg mb-6 max-w-xl text-text-secondary">
             {summary}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 mb-8">
             <a
               href={`tel:${business.phone.tel}`}
-              class={isEmergency ? 'cta-call-emergency' : 'cta-call-dark'}
+              class='btn-primary'
               data-event="call_click"
               data-source={`service_${slug}_hero`}
             >
@@ -127,7 +130,7 @@ const relatedServices = relatedSlugs
             </a>
             <a
               href="#form"
-              class="cta-outline-dark"
+              class="btn-secondary"
               data-event="cta_click"
               data-source={`service_${slug}_hero`}
               data-cta-name="hero_form"
@@ -135,7 +138,7 @@ const relatedServices = relatedSlugs
               Заявете оглед
             </a>
           </div>
-          <TrustStrip dark={true} />
+          <TrustStrip dark={false} />
         </div>
 
         <!-- Price card -->
@@ -155,8 +158,8 @@ const relatedServices = relatedSlugs
               <tbody>
                 {priceItems.slice(0, 5).map(item => (
                   <tr>
-                    <td>{item.service}</td>
-                    <td class="font-semibold text-right whitespace-nowrap">{item.price}</td>
+                    <td class="py-2 pr-6">{item.service}</td>
+                    <td class="font-semibold text-right whitespace-nowrap py-2">{item.price}</td>
                   </tr>
                 ))}
               </tbody>
@@ -192,6 +195,11 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,0 480,56 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#eef6ff"/>
+  </svg>
+</div>
   <!-- WHEN IS IT NEEDED -->
   <section class="section bg-bg-light" aria-labelledby="when-heading">
     <div class="container">
@@ -212,34 +220,69 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#ffffff"/>
+  </svg>
+</div>
   <!-- WHY CHOOSE US -->
   <section class="section bg-white" aria-labelledby="why-heading">
     <div class="container">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h2 id="why-heading" class="text-2xl font-bold text-text mb-6">Защо да изберете ВиК Петров</h2>
-          <ul class="space-y-4">
-            {[
-              { icon: '⚡', title: `Реакция до ${business.responseTime}`, desc: 'В над 80% от случаите аварийната намеса се извършва в рамките на 1 час.' },
-              { icon: '✅', title: `Гаранция ${business.warranty}`, desc: 'Даваме писмена гаранция за всяка извършена услуга.' },
-              { icon: '💰', title: 'Прозрачна цена', desc: 'Казваме цената преди да започнем. Без скрити такси.' },
-              { icon: '🔧', title: `${business.experience}+ години опит`, desc: `${business.owner} лично ще извърши работата — без подизпълнители.` },
-              { icon: '🧹', title: 'Работим чисто', desc: 'Почистваме след себе си. Уважаваме вашия дом.' },
-            ].map(item => (
-              <li class="flex gap-3">
-                <span class="text-2xl shrink-0">{item.icon}</span>
-                <div>
-                  <strong class="text-text">{item.title}</strong>
-                  <p class="text-text-secondary text-sm">{item.desc}</p>
-                </div>
-              </li>
-            ))}
+          <ul class="space-y-5">
+            <li class="flex items-start gap-4">
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(11,95,255,0.10);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </span>
+              <div>
+                <strong class="text-text">Реакция до {business.responseTime}</strong>
+                <p class="text-text-secondary text-sm">В над 80% от случаите аварийната намеса се извършва в рамките на 1 час.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(11,95,255,0.10);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </span>
+              <div>
+                <strong class="text-text">Гаранция {business.warranty}</strong>
+                <p class="text-text-secondary text-sm">Даваме писмена гаранция за всяка извършена услуга.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(11,95,255,0.10);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </span>
+              <div>
+                <strong class="text-text">Прозрачна цена</strong>
+                <p class="text-text-secondary text-sm">Казваме цената преди да започнем. Без скрити такси.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(11,95,255,0.10);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+              </span>
+              <div>
+                <strong class="text-text">{business.experience}+ години опит</strong>
+                <p class="text-text-secondary text-sm">{business.owner} лично ще извърши работата — без подизпълнители.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-4">
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(11,95,255,0.10);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B5FFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </span>
+              <div>
+                <strong class="text-text">Работим чисто</strong>
+                <p class="text-text-secondary text-sm">Почистваме след себе си. Уважаваме вашия дом.</p>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="rounded-xl overflow-hidden shadow-card relative">
           <img
-            src="/images/bania-zavyrshena-2.jpg"
-            alt="Реализиран проект от ВиК Петров — завършена баня с мраморни плочки"
+            src="/images/dreamstime_xxl_113995223.webp"
+            alt="Опитен водопроводчик от ВиК Петров при работа"
             width="600" height="450"
             loading="lazy"
             class="w-full h-full object-cover"
@@ -262,6 +305,11 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#dff0ff"/>
+  </svg>
+</div>
   <!-- PROCESS -->
   <section class="section bg-bg-blue" aria-labelledby="process-heading">
     <div class="container">
@@ -280,6 +328,11 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,0 480,56 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#ffffff"/>
+  </svg>
+</div>
   <!-- FAQ -->
   <section class="section bg-white" aria-labelledby="faq-heading">
     <div class="container max-w-3xl">
@@ -308,6 +361,11 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,0 480,56 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#eef6ff"/>
+  </svg>
+</div>
   <!-- CONTACT FORM -->
   <section class="section bg-bg-light" id="form">
     <div class="container">
@@ -336,6 +394,11 @@ const relatedServices = relatedSlugs
     </div>
   </section>
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#ffffff"/>
+  </svg>
+</div>
   <!-- RELATED SERVICES -->
   {relatedServices.length > 0 && (
     <section class="section bg-white" aria-labelledby="related-heading">
@@ -359,9 +422,15 @@ const relatedServices = relatedSlugs
     </section>
   )}
 
+<div class="wave-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C240,56 480,0 720,28 C960,0 1200,56 1440,28 L1440,56 L0,56 Z" fill="#dff0ff"/>
+  </svg>
+</div>
   <CTABlock
-    title="Готови ли сте да поръчате?"
-    subtitle={`Обадете се на ${business.phone.display} — идваме до ${business.responseTime} в ${business.address.city}.`}
+    title="Имате ВиК проблем? Обадете се — ще ви насочим към правилното решение."
+    subtitle="Теч, запушване, монтаж или ремонт — кажете ни какъв е проблемът и ще ви съдействаме бързо."
+    ctaLabel="Опишете проблема"
     source={`service_${slug}_final_cta`}
   />
 </BaseLayout>

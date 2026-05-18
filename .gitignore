@@ -1,5 +1,5 @@
 # build output
-dist/
+# dist/ — intentionally tracked for Hostinger Git deploy
 # generated types
 .astro/
 

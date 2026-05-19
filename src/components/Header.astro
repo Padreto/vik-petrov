@@ -257,7 +257,5 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
     }
   }
 
-  document.addEventListener('DOMContentLoaded', initHeader);
-  // Also run immediately in case DOMContentLoaded already fired
-  if (document.readyState !== 'loading') initHeader();
+  initHeader();
 </script>

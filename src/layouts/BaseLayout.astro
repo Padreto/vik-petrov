@@ -16,6 +16,7 @@ interface Props {
   noindex?: boolean;
   schema?: object | object[];
   breadcrumbs?: { name: string; url: string }[];
+  preloadImage?: string;
 }
 
 const {
@@ -27,6 +28,7 @@ const {
   noindex = false,
   schema,
   breadcrumbs,
+  preloadImage,
 } = Astro.props;
 
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, business.siteUrl).href;
@@ -126,6 +128,13 @@ const allSchemas = [
 
   <!-- Font preconnect — using bunny.net (GDPR-safe) -->
   <link rel="preconnect" href="https://fonts.bunny.net" />
+  <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
+  <!-- Load font stylesheet non-render-blocking -->
+  <link rel="preload" href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.bunny.net/css?family=manrope:400,500,600,700,800&display=swap" /></noscript>
+
+  <!-- LCP image preload (page-specific) -->
+  {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 
   <!-- JS-gate: adds .js to <html> before first paint so CSS reveal-hidden states only apply when JS is confirmed -->
   <script>document.documentElement.classList.add('js')</script>
@@ -243,7 +252,7 @@ const allSchemas = [
         const x = 15 + Math.random() * 70; // % from left
         const y = 15 + Math.random() * 70; // % from top, within viewport
         el.style.left = x + 'vw';
-        el.style.top = (window.scrollY + (y / 100) * window.innerHeight) + 'px';
+        el.style.top = ((y / 100) * window.innerHeight) + 'px';
         document.body.appendChild(el);
         setTimeout(() => el.remove(), 1500);
       }

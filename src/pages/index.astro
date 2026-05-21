@@ -208,7 +208,7 @@ const howWeWorkSteps = [
 
   title="ВиК услуги в София — Водопроводчик Теодор Петров"
 
-  description="ВиК Петров — надежден водопроводчик в София. Монтаж на бани, бойлери, смесители. Аварийна помощ до 1 час. 8 години опит. Обадете се сега: 0896 934 144."
+  description="ВиК Петров — водопроводчик в София. При вас до 1 час. 12 години опит, 4000+ обекта, гаранция 12 месеца. Без скрити такси. Обадете се: 0896 934 144."
 
   schema={localBusinessSchema}
 
@@ -241,33 +241,33 @@ const howWeWorkSteps = [
 
         <div>
 
-          <div class="hero-badge inline-flex items-center gap-2 bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full mb-6 border border-white/20">
+          <div class="hero-badge inline-flex items-center gap-2 bg-white/20 text-white text-sm font-bold px-4 py-2 rounded-full mb-6 border border-white/20" style="text-shadow: 0 1px 6px rgba(0,0,0,0.45);">
 
             <span class="w-2 h-2 bg-success rounded-full animate-pulse-slow"></span>
 
-            Работим всеки ден • Свободни за разговор
+            Свободен сега — обадете се
 
           </div>
 
 
 
-          <h1 class="hero-title text-4xl md:text-5xl lg:text-5xl font-bold leading-tight mb-4" style="color: #ffffff;">
+          <h1 class="hero-title text-4xl md:text-5xl lg:text-5xl font-bold leading-tight mb-4" style="color: #ffffff; text-shadow: 0 2px 12px rgba(0,0,0,0.55), 0 1px 3px rgba(0,0,0,0.40);">
 
-            Надежден<br />
+            Водопроводчик<br />
 
-            <span style="color: #0b5fff;">водопроводчик</span><br />
+            <span style="color: #D4721A;">в София</span> —<br />
 
-            в София
+            при вас до 1 час
 
           </h1>
 
 
 
-          <p class="hero-subtitle text-lg md:text-xl mb-8 max-w-lg" style="color:#ffffff">
+          <p class="hero-subtitle text-lg md:text-xl mb-8 max-w-lg" style="color:#ffffff; text-shadow: 0 1px 8px rgba(0,0,0,0.50);">
 
-            {business.experience} години опит. Монтаж, ремонт и аварийна помощ.
+            Теодор Петров — {business.experience} години опит, {business.stats.clients} доволни клиенти, гаранция {business.warranty}.
 
-            Идваме до <strong class="text-white">{business.responseTime}</strong> в София и прилежащите квартали.
+            Казваме цената <strong style="color:#fff; text-shadow: inherit;">преди да започнем</strong>. Без скрити такси.
 
           </p>
 
@@ -301,19 +301,23 @@ const howWeWorkSteps = [
 
             <a
 
-              href="/kontakti/#form"
+              href={`viber://chat?number=${business.phone.viber}`}
 
               class="cta-outline-dark"
 
-              data-event="cta_click"
+              data-event="viber_click"
 
               data-source="hero"
 
-              data-cta-name="hero_form"
+              data-cta-name="hero_viber"
 
             >
 
-              Заявете оглед
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M11.4 0C5.5.1.1 4.4 0 10.2c-.1 3.5 1.3 6.8 3.8 9.1L2.5 24l5-1.4c1.5.8 3.2 1.2 4.9 1.2 6.5 0 11.7-5.1 11.7-11.4S17.9 0 11.4 0zm0 21c-1.5 0-3-.4-4.3-1.1l-.3-.2-3 .8.9-2.8-.2-.3C2.3 16 1.2 13.1 1.3 10.2 1.4 5.1 5.9 1.2 11.4 1.1 17 1.1 21.5 5.5 21.5 11c0 5.5-4.5 10-10.1 10zm5.5-7.5c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.2-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.5-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.1-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.7-1.7-.9-2.4-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1 2.8 1.2 3c.2.2 2.1 3.2 5.1 4.4.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.3 0-.2-.2-.3-.5-.4z"/>
+              </svg>
+
+              Пишете в Viber
 
             </a>
 

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\stefan.borisov\\\\Desktop\\\\web\\\\tedo-vik\" -Recurse -Filter \"*.astro\")",
+      "Bash(Select-Object FullName)"
+    ]
+  }
+}

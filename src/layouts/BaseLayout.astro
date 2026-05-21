@@ -122,7 +122,7 @@ const allSchemas = [
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  <meta name="theme-color" content="#0B5FFF" />
+  <meta name="theme-color" content="#D4721A" />
 
   <!-- Font preconnect — using bunny.net (GDPR-safe) -->
   <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -151,27 +151,28 @@ const allSchemas = [
 
   <!-- FAQ accordion and other page JS -->
   <script>
-    // FAQ accordion
+    // FAQ accordion — CSS max-height animation, icon rotates via aria-expanded
+    (document.querySelectorAll('.faq-answer') as NodeListOf<HTMLElement>)
+      .forEach(a => { a.style.display = ''; }); // remove server-rendered display:none
+
     document.querySelectorAll('.faq-question').forEach(btn => {
       btn.addEventListener('click', () => {
-        const answer = btn.nextElementSibling as HTMLElement;
-        const icon = btn.querySelector('.faq-icon');
-        const isOpen = answer?.style.display === 'block';
+        const answerId = btn.getAttribute('aria-controls');
+        const answer = (answerId
+          ? document.getElementById(answerId)
+          : btn.nextElementSibling) as HTMLElement | null;
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
         // Close all
         document.querySelectorAll('.faq-answer').forEach(a => {
-          (a as HTMLElement).style.display = 'none';
-        });
-        document.querySelectorAll('.faq-icon').forEach(i => {
-          i.textContent = '+';
+          (a as HTMLElement).classList.remove('faq-open');
         });
         document.querySelectorAll('.faq-question').forEach(b => {
           b.setAttribute('aria-expanded', 'false');
         });
 
         if (!isOpen && answer) {
-          answer.style.display = 'block';
-          if (icon) icon.textContent = '−';
+          answer.classList.add('faq-open');
           btn.setAttribute('aria-expanded', 'true');
         }
       });

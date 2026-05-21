@@ -13,16 +13,16 @@ const currentPath = Astro.url.pathname;
 const isServicesActive = currentPath.startsWith('/uslugi/');
 ---
 
-<header class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+<header class="sticky top-0 z-50 bg-bg border-b border-border-soft">
   <div class="container">
     <div class="flex items-center justify-between h-16 md:h-18">
 
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 text-primary font-bold text-xl shrink-0" aria-label="ВиК Петров — начало">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="16" cy="16" r="16" fill="#0B5FFF"/>
+          <circle cx="16" cy="16" r="16" fill="#D4721A"/>
           <path d="M16 6C16 6 9 12 9 18a7 7 0 0014 0c0-6-7-12-7-12z" fill="white"/>
-          <circle cx="16" cy="18" r="3" fill="#0B5FFF"/>
+          <circle cx="16" cy="18" r="3" fill="#B85E12"/>
         </svg>
         <span>ВиК <span class="text-text">Петров</span></span>
       </a>
@@ -47,11 +47,11 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
             class="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-72 z-50 hidden"
             role="menu"
           >
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 py-2">
+            <div class="bg-bg-light rounded-xl shadow-elevated border border-border-soft py-2">
             <a href="/uslugi/" class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-text-secondary uppercase tracking-wider hover:text-primary" role="menuitem">
               Всички услуги →
             </a>
-            <div class="border-t border-gray-100 my-1"></div>
+            <div class="border-t border-border-soft my-1"></div>
             {services.map(s => (
               <a
                 href={`/uslugi/${s.slug}/`}
@@ -98,7 +98,7 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
         <!-- Mobile menu button -->
         <button
           id="mobile-menu-btn"
-          class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-text hover:text-primary hover:border-primary transition-colors"
+          class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-border-soft text-text hover:text-primary hover:border-primary transition-colors"
           aria-expanded="false"
           aria-controls="mobile-menu"
           aria-label="Отвори менюто"
@@ -118,22 +118,22 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
   <!-- Mobile nav — fullscreen overlay -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden fixed inset-0 top-0 z-40 bg-white flex-col"
+    class="hidden lg:hidden fixed inset-0 top-0 z-40 bg-bg flex-col"
     aria-label="Мобилна навигация"
   >
     <!-- Top bar inside overlay (logo + close button) -->
-    <div class="flex items-center justify-between h-16 px-4 border-b border-gray-100 shrink-0">
+    <div class="flex items-center justify-between h-16 px-4 border-b border-border-soft shrink-0">
       <a href="/" class="flex items-center gap-2 text-primary font-bold text-xl" aria-label="ВиК Петров — начало">
         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="16" cy="16" r="16" fill="#0B5FFF"/>
+          <circle cx="16" cy="16" r="16" fill="#D4721A"/>
           <path d="M16 6C16 6 9 12 9 18a7 7 0 0014 0c0-6-7-12-7-12z" fill="white"/>
-          <circle cx="16" cy="18" r="3" fill="#0B5FFF"/>
+          <circle cx="16" cy="18" r="3" fill="#B85E12"/>
         </svg>
         <span>ВиК <span class="text-text">Петров</span></span>
       </a>
       <button
         id="mobile-menu-close"
-        class="flex items-center justify-center w-10 h-10 rounded-lg border border-gray-200 text-text hover:text-primary hover:border-primary transition-colors"
+        class="flex items-center justify-center w-10 h-10 rounded-lg border border-border-soft text-text hover:text-primary hover:border-primary transition-colors"
         aria-label="Затвори менюто"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -179,7 +179,7 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
         </div>
       </div>
 
-      <div class="h-px bg-gray-100 mx-4"></div>
+      <div class="h-px mx-4" style="background: rgba(212,114,26,0.18);"></div>
 
       {navLinks.map(link => (
         <a

@@ -10,22 +10,21 @@ export const business = {
     tel: '+359896934144',
     viber: '359896934144', // viber://chat?number=359896934144
   },
-  email: 'info@vikpetrov.bg', // TODO: confirm real email
+  email: 'vik-petrov@abv.bg',
   address: {
-    street: 'ул. Малчика 7',
-    postalCode: '1191',
+    street: '',
+    postalCode: '',
     city: 'София',
     country: 'BG',
     region: 'Sofia-grad',
   },
-  // TODO: verify exact coordinates on launch
   coordinates: {
-    lat: 42.7250,
-    lng: 23.3050,
+    lat: 42.7048,
+    lng: 23.3952,
   },
   domain: 'vik-petrov.com',
   siteUrl: 'https://vik-petrov.com',
-  experience: 8,
+  experience: 12,
   responseTime: '1 час',
   warranty: '12 месеца',
   payment: 'В брой',

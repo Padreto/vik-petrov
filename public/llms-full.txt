@@ -31,50 +31,50 @@ The company provides installation, repair, and emergency plumbing services to re
 - Payment accepted: cash
 - Issues invoices upon request
 
-## Complete Price List (BGN, labor only, materials separate)
+## Complete Price List (EUR, labor only, materials separate)
 
 ### Sanitary Installation
-- Мивка с ботуш (sink with pedestal): 100–140 BGN
-- Шкаф-мивка за баня (bathroom vanity sink): 120–160 BGN
-- Кухненска мивка (kitchen sink): 120–160 BGN
-- Демонтаж и монтаж на мивка (remove + install sink): 100–140 BGN
-- Вана (bathtub): 200–250 BGN
-- Душ-кабина (shower cabin): 200–260 BGN
-- Душ-корито (shower tray): 120–160 BGN
-- Биде (bidet): 100–140 BGN
-- Тоалетна за вградено казанче (toilet for concealed cistern): 80–120 BGN
-- Вградена конзола за казанче + тоалетна (wall-hung frame + toilet): 180–250 BGN
-- Структура за вградено казанче (concealed cistern frame): 200–280 BGN
-- Ремонт на вградено казанче (repair concealed cistern): 90–150 BGN
-- Цялостен монтаж санитария в баня (complete bathroom fit-out): 220–380 BGN
+- Мивка с ботуш (sink with pedestal): 60–85 EUR
+- Шкаф-мивка за баня (bathroom vanity sink): 75–100 EUR
+- Кухненска мивка (kitchen sink): 75–100 EUR
+- Демонтаж и монтаж на мивка (remove + install sink): 60–85 EUR
+- Вана (bathtub): 125–155 EUR
+- Душ-кабина (shower cabin): 125–160 EUR
+- Душ-корито (shower tray): 75–100 EUR
+- Биде (bidet): 60–85 EUR
+- Тоалетна за вградено казанче (toilet for concealed cistern): 50–75 EUR
+- Вградена конзола за казанче + тоалетна (wall-hung frame + toilet): 110–155 EUR
+- Структура за вградено казанче (concealed cistern frame): 125–175 EUR
+- Ремонт на вградено казанче (repair concealed cistern): 55–90 EUR
+- Цялостен монтаж санитария в баня (complete bathroom fit-out): 135–235 EUR
 
 ### Faucets and Mixers
-- Смесител в баня стоящ/стенен (bathroom mixer): 80–130 BGN
-- Смесител в кухня (kitchen mixer): 80–100 BGN
-- Смесител за вана (bath mixer): 100–120 BGN
-- Вграден смесител (concealed mixer): 100–160 BGN
-- Кран преди водомер (stopcock before meter): 80–110 BGN
+- Смесител в баня стоящ/стенен (bathroom mixer): 50–80 EUR
+- Смесител в кухня (kitchen mixer): 50–60 EUR
+- Смесител за вана (bath mixer): 60–75 EUR
+- Вграден смесител (concealed mixer): 60–100 EUR
+- Кран преди водомер (stopcock before meter): 50–70 EUR
 
 ### Water Heaters
-- Бойлер (storage water heater): 80–130 BGN
-- Проточен бойлер (instantaneous water heater): 70–100 BGN
+- Бойлер (storage water heater): 50–80 EUR
+- Проточен бойлер (instantaneous water heater): 45–60 EUR
 
 ### Appliances
-- Пералня (washing machine): 70–100 BGN
-- Съдомиялна (dishwasher): 70–100 BGN
+- Пералня (washing machine): 45–60 EUR
+- Съдомиялна (dishwasher): 45–60 EUR
 
 ### Siphons/Traps
-- Сифон за вана (bath trap): 100–140 BGN
-- Сифон за мивка (sink trap): 60–80 BGN
-- Сифон-мелачка (garbage disposal trap): 100–150 BGN
+- Сифон за вана (bath trap): 60–85 EUR
+- Сифон за мивка (sink trap): 35–50 EUR
+- Сифон-мелачка (garbage disposal trap): 60–90 EUR
 
 ### Drainage and Unblocking
-- Отпушване на тоалетна (toilet unblocking): 70–120 BGN
-- Отпушване на канал в баня/кухня (drain unblocking): 70–120 BGN
-- Възвратна клапа ф110–ф160 (check valve 110–160mm): 150–250 BGN
+- Отпушване на тоалетна (toilet unblocking): 45–75 EUR
+- Отпушване на канал в баня/кухня (drain unblocking): 45–75 EUR
+- Възвратна клапа ф110–ф160 (check valve 110–160mm): 90–155 EUR
 
 ### Water Meters
-- Демонтаж и монтаж на водомер (remove + install meter): 50–60 BGN
+- Демонтаж и монтаж на водомер (remove + install meter): 30–40 EUR
 
 ### Price by Agreement
 - Монтаж на структура (frame installation with detailed quote on site)
@@ -134,5 +134,5 @@ Named neighborhoods with dedicated landing pages:
 
 - "В над 80% от случаите аварийната намеса се извършва в рамките на 1 час" (In over 80% of cases, emergency response is within 1 hour)
 - "В над 90% от случаите отпушването се решава при първото посещение" (In over 90% of drain unblocking cases, problem resolved on first visit)
-- "3000+ доволни клиенти" (3000+ satisfied clients)
+- "150+ доволни клиенти" (150+ satisfied clients)
 - Aggregate rating: 4.9/5 from 87 reviews

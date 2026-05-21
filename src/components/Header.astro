@@ -118,7 +118,8 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
   <!-- Mobile nav — fullscreen overlay -->
   <div
     id="mobile-menu"
-    class="hidden lg:hidden fixed inset-0 top-0 z-40 bg-bg flex-col"
+    class="lg:hidden fixed inset-0 top-0 z-[999] bg-bg flex-col"
+    style="display:none"
     aria-label="Мобилна навигация"
   >
     <!-- Top bar inside overlay (logo + close button) -->
@@ -258,21 +259,24 @@ const isServicesActive = currentPath.startsWith('/uslugi/');
 
     function openMobileMenu() {
       if (!mobileMenu) return;
-      mobileMenu.classList.remove('hidden');
-      mobileMenu.classList.add('flex');
+      mobileMenu.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       mobileMenuBtn?.setAttribute('aria-expanded', 'true');
     }
     function closeMobileMenu() {
       if (!mobileMenu) return;
-      mobileMenu.classList.add('hidden');
-      mobileMenu.classList.remove('flex');
+      mobileMenu.style.display = 'none';
       document.body.style.overflow = '';
       mobileMenuBtn?.setAttribute('aria-expanded', 'false');
     }
 
     mobileMenuBtn?.addEventListener('click', openMobileMenu);
     mobileMenuClose?.addEventListener('click', closeMobileMenu);
+
+    // Close menu when any nav link is clicked
+    mobileMenu?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
 
     // Mobile services accordion — +/- icons
     const mobileServicesBtn = document.getElementById('mobile-services-btn') as HTMLButtonElement | null;

@@ -2,7 +2,7 @@
 
 ## Entity Description
 
-ВиК Петров (transliterated: VIK Petrov) is a specialized plumbing services company (ВиК = водопровод и канализация = water supply and sewage) based in Sofia, Bulgaria. The company was founded and is operated by Теодор Петров (Teodor Petrov), a licensed plumber with over 8 years of professional experience.
+ВиК Петров (transliterated: VIK Petrov) is a specialized plumbing services company (ВиК = водопровод и канализация = water supply and sewage) based in Sofia, Bulgaria. The company was founded and is operated by Теодор Петров (Teodor Petrov), a licensed plumber with over 12 years of professional experience.
 
 The company provides installation, repair, and emergency plumbing services to residential and commercial clients in Sofia and surrounding neighborhoods.
 
@@ -12,17 +12,17 @@ The company provides installation, repair, and emergency plumbing services to re
 - Owner: Теодор Петров (Teodor Petrov)
 - Phone: +359 896 934 144 (displayed as 0896 934 144)
 - Viber: +359 896 934 144
-- Email: info@vikpetrov.bg
-- Street Address: ул. Малчика 7 (ul. Malchika 7)
+- Email: vik-petrov@abv.bg
+- Street Address: ул. Малчика 6 (ul. Malchika 6)
 - Postal Code: 1191
 - City: София (Sofia)
 - Country: Bulgaria (BG)
-- Website: https://vikpetrov.bg
+- Website: https://vik-petrov.com
 - Working Hours: Every day (Monday–Sunday), 07:00–22:00
 
 ## Key Differentiators
 
-- 8+ years professional experience
+- 12+ years professional experience
 - Emergency response time: within 1 hour in Sofia
 - 12-month warranty on all completed work
 - Free inspection and quote for clients in Sofia

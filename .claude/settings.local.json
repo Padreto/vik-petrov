@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\stefan.borisov\\\\Desktop\\\\web\\\\tedo-vik\" -Recurse -Filter \"*.astro\")",
-      "Bash(Select-Object FullName)"
+      "Bash(Select-Object FullName)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(node -e \"const sharp = require\\('sharp'\\); sharp\\('snimki za postove/og-image2.png'\\).webp\\({ quality: 90 }\\).toFile\\('public/images/og-default.webp'\\).then\\(\\(\\) => console.log\\('done'\\)\\).catch\\(e => console.error\\(e\\)\\)\")",
+      "Bash(Copy-Item \"public/images/og-default.webp\" \"public/images/og-default-v2.webp\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\stefan.borisov\\\\Desktop\\\\web\\\\tedo-vik\" -Force)",
+      "Bash(Select-Object Name, PSIsContainer)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\stefan.borisov\\\\Desktop\\\\web\\\\tedo-vik\" -Recurse -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(grep -E \"\\\\.\\(jpg|jpeg|png|webp\\)$\")",
+      "Bash(xargs grep \"noindex\")",
+      "Bash(npm audit *)"
     ]
   }
 }

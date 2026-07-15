@@ -571,6 +571,8 @@ header.header-scrolled {
 @media (max-width: 767px) {
   .hero-section {
     background-position: 70% center !important;
+    /* Serve a smaller hero on phones — cover-crop is pixel-identical, ~160KB lighter (LCP) */
+    background-image: url(/images/hero-bg-mobile.webp) !important;
   }
   /* Lighter overlay on mobile so image shows through more */
   .hero-overlay {
